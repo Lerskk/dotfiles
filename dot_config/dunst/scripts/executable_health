@@ -1,0 +1,6 @@
+#!/bin/sh
+while true
+do
+	notify-send -i ~/.config/dunst/images/heart.png "Health" "Drink water"
+	sleep 900
+done

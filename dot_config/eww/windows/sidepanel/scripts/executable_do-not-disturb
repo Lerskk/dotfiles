@@ -1,0 +1,6 @@
+#!/bin/sh
+if $(dunstctl is-paused); then
+  $(dunstctl set-paused false)
+else
+  dunstctl set-paused true
+fi

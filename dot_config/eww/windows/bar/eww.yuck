@@ -1,0 +1,58 @@
+(deflisten workspaces :initial "[]" "bash ./scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ./scripts/get-active-workspace")
+
+(defwidget workspaces []
+  (eventbox
+    :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
+    (box 
+      :halign "start"
+      :class "workspaces-widget"
+      :tooltip "we're a workspacssss"
+      (for workspace in workspaces
+        (eventbox 
+          :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "bar-widget ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id == current_workspace ? "●" : "○"}")))))))
+
+(defpoll time :interval "3s" "~/.config/eww/scripts/get-date")
+
+(defwidget clock []
+  (label
+    :class "workspaces-widget"
+    :text time))
+
+(defpoll volume_percent :interval "50ms" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk -F':' '{print $2 * 100}'")
+
+(defpoll doNotDisturb :interval "200ms" "dunstctl is-paused")
+
+(defwidget info []
+  (box
+    :class "workspaces-widget"
+    :halign "end"
+    :space-evenly false
+    :spacing 5
+      (label
+        :text "CPU ${round(EWW_CPU.avg, 2)}")
+      (label 
+        :text "Volume ${volume_percent}%")
+      (label
+        :text "${doNotDisturb}")))
+
+
+(defwidget bar []
+  (centerbox
+    :orientation "h"
+    (workspaces)
+    (clock)
+    (info)))
+
+(defwindow bar
+  :monitor 0
+  :geometry (geometry
+    :y "12px"
+    :width "${2560 - 20*2}px"
+    :height "32px"
+    :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (bar))

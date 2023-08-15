@@ -1,0 +1,17 @@
+[alias]
+	ac = "!git add -A && git commit -m"
+	dac = "!dotfiles add -A && git commit -m"
+  fpc = "!npm run format && git add -p && git commit -m"
+  fac = "!npm run format && git add -A && git commit -m"
+  backup = "!git add -A && git commit -m 'backup' && git push"
+	raba = "rebase --committer-date-is-author-date"
+  graph = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[init]
+	defaultBranch = main
+[user]
+	email = faustoleo02@gmail.com
+	name = Lerskk
+[push]
+  autoSetupRemote = true
+[remote "origin"]
+  prune = true

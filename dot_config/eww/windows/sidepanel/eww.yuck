@@ -1,0 +1,15 @@
+(defwidget workspaces_widget [workspaces]
+  (box
+    :halign "start"
+    :class "bar-widget workspaces-widget"
+    (for workspace in workspaces
+      (eventbox
+        :onclick "~/.config/hypr/scripts/focus-workspace.py ${workspace.id}"
+        (label
+          :class "workspace-entry ${workspace.special_classes}"
+          :text "${workspace.id}"
+        )
+      )
+    )
+  )
+)
