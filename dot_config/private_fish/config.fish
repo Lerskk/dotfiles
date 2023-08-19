@@ -97,6 +97,7 @@ if status is-interactive
   end
 
   ### VI MODE ###
+  set -g fish_cursor_default block; set -g fish_cursor_insert line
   function fish_user_key_bindings
     fish_vi_key_bindings
     # fish_default_key_bindings

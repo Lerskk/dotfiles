@@ -85,6 +85,7 @@ packer.startup(function(use)
 
   -- pairs
   use 'mrjones2014/nvim-ts-rainbow'
+  use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
   -- use 'Wansmer/treesj'
 
