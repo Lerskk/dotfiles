@@ -68,5 +68,3 @@ vim.api.nvim_set_keymap('n', '<leader>lc', '<cmd>VimtexClean<CR>', { noremap = t
 vim.api.nvim_set_keymap('n', '<leader>gl', ':VimtexView<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>lt', ':VimtexToggle<CR>', { noremap = true, silent = true })
 
--- telescope
-keymap('n', '<leader>f', '<cmd>Telescope find_files<cr>')
