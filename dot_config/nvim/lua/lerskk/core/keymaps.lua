@@ -10,8 +10,8 @@ keymap('n', '<leader>w', vim.cmd.w)
 keymap('n', '<leader>x', vim.cmd.x)
 
 -- move code around
-keymap('v', 'J', ':m ">+1<CR>gv=gv')
-keymap('v', 'K', ':m ">-2<CR>gv=gv')
+keymap('v', 'J', ":m '>+1<CR>gv=gv")
+keymap('v', 'K', ":m '<-2<CR>gv=gv")
 
 keymap('n', 'J', 'mzJ`z')
 keymap('n', '<C-d>', '<C-d>zz')

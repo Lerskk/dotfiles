@@ -10,13 +10,19 @@ lsp.ensure_installed {
   'tailwindcss',
 }
 
+local trouble = require('trouble')
+
 lsp.on_attach(function(_, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
 
   local opts = { buffer = bufnr }
 
-  vim.keymap.set("n", "<leader>br", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, opts)
+  vim.keymap.set("n", "gd", function() trouble.open('lsp_definitions') end, opts)
+  vim.keymap.set("n", "gr", function() trouble.open('lsp_references') end, opts)
+  vim.keymap.set("n", "gi", function() trouble.open('lsp_implementation') end, opts)
+  vim.keymap.set("n", "gt", function() trouble.open('lsp_type_definitions') end, opts)
+  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
+  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 
@@ -33,6 +39,7 @@ lsp.format_on_save {
 lsp.setup()
 
 local cmp = require('cmp')
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local lspkind = require('lspkind')
 
@@ -56,6 +63,11 @@ cmp.setup {
     completeopt = 'menu,menuone,noinsert'
   },
 }
+
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 cmp.setup.cmdline({ '/', '?' }, {
   sources = {

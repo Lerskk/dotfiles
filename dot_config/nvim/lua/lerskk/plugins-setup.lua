@@ -46,7 +46,9 @@ return packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   }
+
 
   -- autocompletion
   use {
@@ -64,20 +66,37 @@ return packer.startup(function(use)
       { 'hrsh7th/cmp-cmdline' },
       { 'hrsh7th/cmp-buffer' },
       { 'onsails/lspkind-nvim' },
+      {
+        'folke/trouble.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' }
+      },
       { 'L3MON4D3/LuaSnip' }, -- Required
     }
   }
+
 
   -- surrounds
   use {
     'kylechui/nvim-surround',
     config = function() require('nvim-surround').setup {} end
   }
+  use { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end }
   use 'windwp/nvim-ts-autotag'
+
 
   -- version control
   use 'mbbill/undotree'
 
+  -- comments
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup {
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      }
+    end,
+    after = 'nvim-ts-context-commentstring',
+  }
 
   if packer_bootstrap then
     require('packer').sync()
