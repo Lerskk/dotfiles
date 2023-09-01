@@ -1,3 +1,0 @@
-#define TAPPING_TERM 160
-#define PERMISSIVE_HOLD
-#define LAYER_STATE_8BIT
