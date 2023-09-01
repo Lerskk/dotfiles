@@ -15,8 +15,8 @@ lsp.on_attach(function(_, bufnr)
 
   local opts = { buffer = bufnr }
 
-  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+  vim.keymap.set("n", "<leader>br", vim.lsp.buf.rename, opts)
+  vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 

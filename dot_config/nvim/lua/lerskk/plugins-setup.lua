@@ -40,6 +40,7 @@ return packer.startup(function(use)
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     }
   }
+  use 'theprimeagen/harpoon'
 
   -- syntax highlight
   use {
@@ -74,6 +75,8 @@ return packer.startup(function(use)
   }
   use 'windwp/nvim-ts-autotag'
 
+  -- version control
+  use 'mbbill/undotree'
 
 
   if packer_bootstrap then
