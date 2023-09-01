@@ -1,18 +1,14 @@
 local keymap = vim.keymap.set
+opt = { silent = true }
 
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 keymap('n', 'x', '"_x')
 
 -- increment/decrement
 keymap('n', '+', '<C-a>')
 keymap('n', '-', '<C-x>')
-
--- delete/change a word backwards
-keymap('n', 'dw', 'vb"_d')
-keymap('n', 'cw', 'vb"_c')
-keymap('n', 'yw', 'vbye')
 
 -- select all
 keymap('n', '<C-a>', 'gg<S-v>G')
@@ -27,13 +23,6 @@ keymap('n', '<S-Tab>', ':tabprevious<CR>', { silent = true })
 keymap('n', 'ss', ':split<Return><C-w>w')
 keymap('n', 'sv', ':vsplit<Return><C-w>w')
 
--- move window
-
-keymap('n', '<Space><Space>', '<C-w>w')
-keymap('', 'sh', '<C-w>h')
-keymap('', 'sk', '<C-w>k')
-keymap('', 'sj', '<C-w>j')
-keymap('', 'sl', '<C-w>l')
 
 -- resize window
 keymap('n', '<C-w><left>', '<C-w><')
@@ -45,8 +34,6 @@ keymap('n', '<C-w><down>', '<C-w>-')
 keymap('n', '<leader>cd', '<cmd>cd %:h<CR>')
 keymap('n', '<leader>..', '<cmd>cd ..<CR>')
 
-
-opt = { silent = true }
 -- lsp
 keymap('n', 'K', vim.lsp.buf.hover, opt)
 keymap('n', 'gd', vim.lsp.buf.definition, opt)

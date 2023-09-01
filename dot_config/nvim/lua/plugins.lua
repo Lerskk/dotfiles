@@ -4,12 +4,12 @@ if (not status) then return end
 local fn = vim.fn
 
 -- Automatically install packer
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath('data') .. 'site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP = fn.system({
     "git",
     "clone",
-    "--depth",
+    "--depthg",
     "1",
     "https://github.com/wbthomason/packer.nvim",
     install_path,
@@ -39,6 +39,7 @@ packer.startup(function(use)
   use 'nvim-telescope/telescope.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
 
+  -- peeks lines of the buffer
   use 'nacro90/numb.nvim'
 
   -- highlight
@@ -56,12 +57,13 @@ packer.startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
-  -- use 'hrsh7th/cmp-cmdline'
-  use 'neovim/nvim-lspconfig'
-  use 'gelguy/wilder.nvim'
 
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
+  use 'neovim/nvim-lspconfig'
+  use 'gelguy/wilder.nvim'
+  use 'folke/trouble.nvim'
+
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
 
   -- snippets
@@ -81,7 +83,14 @@ packer.startup(function(use)
   use 'utilyre/barbecue.nvim'
   use 'SmiteshP/nvim-navic'
 
-  -- use 'lukas-reineke/indent-blankline.nvim'
+  use 'lukas-reineke/indent-blankline.nvim'
+  use 'rktjmp/highlight-current-n.nvim'
+  use 'petertriho/nvim-scrollbar'
+  use 'winston0410/cmd-parser.nvim'
+  use 'winston0410/range-highlight.nvim'
+
+  -- more objects
+  use 'chrisgrieser/nvim-various-textobjs'
 
   -- pairs
   use 'mrjones2014/nvim-ts-rainbow'
@@ -90,7 +99,11 @@ packer.startup(function(use)
   -- use 'Wansmer/treesj'
 
   -- swap arguments
-  use 'Wansmer/sibling-swap.nvim'
+  -- use 'Wansmer/sibling-swap.nvim'
+
+  -- good practices
+  use 'MunifTanjim/nui.nvim'
+  use 'm4xshen/hardtime.nvim'
 
   -- save
   use 'Pocco81/auto-save.nvim'
@@ -107,9 +120,6 @@ packer.startup(function(use)
 
   -- tmux
   use 'christoomey/vim-tmux-navigator'
-
-  -- yuck
-  use 'elkowar/yuck.vim'
 
   -- common dependencies
   use 'nvim-lua/plenary.nvim'

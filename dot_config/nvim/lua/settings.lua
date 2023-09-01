@@ -32,9 +32,6 @@ opt.scrolloff = 4
 -- save undo history
 opt.undofile = true
 
--- enable mouse support
-opt.mouse = a
-
 -- word spelling
 opt.spell = true
 
