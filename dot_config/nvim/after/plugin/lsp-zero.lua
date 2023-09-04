@@ -54,7 +54,7 @@ cmp.setup {
   mapping = lsp.defaults.cmp_mappings({
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(cmp_select), { 'i', 'c' }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(cmp_select), { 'i', 'c' }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm(), { 'i', 'c' }),
+    ['<C-t>'] = cmp.mapping(cmp.mapping.confirm(), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c' }),
   }),

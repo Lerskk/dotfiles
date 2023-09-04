@@ -48,6 +48,18 @@ return packer.startup(function(use)
     run = ':TSUpdate',
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   }
+  use "lukas-reineke/indent-blankline.nvim"
+  use({
+    "utilyre/barbecue.nvim",
+    tag = "*",
+    requires = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    config = function()
+      require("barbecue").setup()
+    end,
+  })
 
 
   -- autocompletion
@@ -85,6 +97,7 @@ return packer.startup(function(use)
 
 
   -- version control
+  use 'lewis6991/gitsigns.nvim'
   use 'mbbill/undotree'
 
   -- comments
