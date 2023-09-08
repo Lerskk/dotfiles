@@ -25,7 +25,6 @@ if status is-interactive
   abbr la "exa -a"  # all files and dirs
   abbr ll "exa -lg"  # long format
   abbr lt "exa -aT" # tree listing
-  abbr dt "chezmoi"
 
   # cat -> bat
   abbr cat "bat"
@@ -73,6 +72,15 @@ if status is-interactive
   abbr gp "git push"
   abbr gpf "git push -f"
   abbr gpl "git pull"
+
+  # dotfiles
+  abbr d "chezmoi" 
+  abbr ds "chezmoi status" 
+  abbr da "chezmoi add"
+  abbr dr "chezmoi re-add"
+  abbr dc "chezmoi cd"
+  abbr dap "chezmoi apply -v"
+
 
     ### FUNCTIONS ###
     
