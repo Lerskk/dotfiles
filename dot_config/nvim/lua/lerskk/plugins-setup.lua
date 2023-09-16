@@ -48,7 +48,14 @@ return packer.startup(function(use)
     run = ':TSUpdate',
     requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
   }
-  use "lukas-reineke/indent-blankline.nvim"
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    confign = function()
+      require('indent_blankline').setup {
+        show_current_context = true,
+      }
+    end,
+  }
   use({
     "utilyre/barbecue.nvim",
     tag = "*",
@@ -110,6 +117,14 @@ return packer.startup(function(use)
     end,
     after = 'nvim-ts-context-commentstring',
   }
+
+  -- obsidian
+  use({
+    "epwalsh/obsidian.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
+  })
 
   if packer_bootstrap then
     require('packer').sync()

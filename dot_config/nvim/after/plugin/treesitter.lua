@@ -14,6 +14,7 @@ require 'nvim-treesitter.configs'.setup {
     'json',
     "javascript",
     "markdown",
+    'markdown_inline',
     'prisma',
     "python",
     'racket',
@@ -48,8 +49,6 @@ require 'nvim-treesitter.configs'.setup {
 
   highlight = {
     enable = true,
-
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = { 'markdown' },
   },
-
 }
