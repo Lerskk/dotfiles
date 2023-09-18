@@ -53,9 +53,14 @@ local primaryBlack = hsl(0, 0, 9)
 local secondaryBlack = primaryBlack.li(9)
 local normalText = hsl(0, 0, 89)
 
-local green = hsl(86, 39, 55)
-local yellow = hsl(37, 50, 55)
-local red = hsl(5, 50, 55)
+local green = hsl(86, 59, 65)
+local yellow = hsl(39, 100, 71)
+local red = hsl(350, 100, 67)
+
+local violet = hsl(276, 68, 75)
+local blue = hsl(225, 65, 65)
+local lightBlue = hsl(197, 100, 77)
+local orange = hsl(20, 65, 60)
 
 local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
@@ -93,12 +98,12 @@ local theme = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     NonText { fg = secondaryBlack }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    -- NormalFloat    { }, -- Normal text in floating windows.
+    -- NormalFloat {},                  -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
-    -- Pmenu          { }, -- Popup menu: Normal item.
-    -- PmenuSel       { }, -- Popup menu: Selected item.
+    Pmenu {},                -- Popup menu: Normal item.
+    PmenuSel { CursorLine }, -- Popup menu: Selected item.
     -- PmenuKind      { }, -- Popup menu: Normal item "kind"
     -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
     -- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
@@ -137,39 +142,39 @@ local theme = lush(function(injected_functions)
     -- Uncomment and edit if you want more specific syntax highlighting.
 
 
-    Constant { fg = normalText }, -- (*) Any constant
-    -- String         { }, --   A string constant: "this is a string"
-    -- Character      { }, --   A character constant: 'c', '\n'
-    -- Number         { }, --   A number constant: 234, 0xff
-    -- Boolean        { }, --   A boolean constant: TRUE, false
-    -- Float          { }, --   A floating point constant: 2.3e10
+    Constant { fg = normalText.da(20) }, -- (*) Any constant
+    String { fg = green },               --   A string constant: "this is a string"
+    Character { fg = String.fg },        --   A character constant: 'c', '\n'
+    Number { fg = orange },              --   A number constant: 234, 0xff
+    Boolean { fg = orange },             --   A boolean constant: TRUE, false
+    Float { fg = Number.fg },            --   A floating point constant: 2.3e10
 
-    -- Identifier {},      -- (*) Any variable name
-    -- Function       { }, --   Function name (also: methods for classes)
+    Identifier { fg = Constant.fg },     -- (*) Any variable name
+    Function { fg = blue },              --   Function name (also: methods for classes)
 
-    Statement { fg = yellow }, -- (*) Any statement
+    Statement { fg = violet },           -- (*) Any statement
     -- Conditional    { }, --   if, then, else, endif, switch, etc.
     -- Repeat         { }, --   for, do, while, etc.
     -- Label          { }, --   case, default, etc.
-    -- Operator       { }, --   "sizeof", "+", "*", etc.
+    Operator { fg = lightBlue }, --   "sizeof", "+", "*", etc.
     -- Keyword        { }, --   any other keyword
     -- Exception      { }, --   try, catch, throw
 
-    -- PreProc        { }, -- (*) Generic Preprocessor
+    PreProc { fg = violet }, -- (*) Generic Preprocessor
     -- Include        { }, --   Preprocessor #include
     -- Define         { }, --   Preprocessor #define
     -- Macro          { }, --   Same as Define
     -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-    -- Type           { }, -- (*) int, long, char, etc.
+    Type { fg = yellow }, -- (*) int, long, char, etc.
     -- StorageClass   { }, --   static, register, volatile, etc.
     -- Structure      { }, --   struct, union, enum, etc.
     -- Typedef        { }, --   A typedef
 
-    -- Special        { }, -- (*) Any special symbol
-    -- SpecialChar    { }, --   Special character in a constant
-    -- Tag            { }, --   You can use CTRL-] on this
-    -- Delimiter      { }, --   Character that needs attention
+    Special { fg = red },             -- (*) Any special symbol
+    SpecialChar { fg = Constant.fg }, --   Special character in a constant
+    Tag { fg = red },                 --   You can use CTRL-] on this
+    Delimiter { fg = lightBlue },     --   Character that needs attention
     -- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
     -- Debug          { }, --   Debugging statements
 
@@ -193,8 +198,8 @@ local theme = lush(function(injected_functions)
 
     -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --
-    -- DiagnosticError            { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    -- DiagnosticWarn             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticError { fg = red },   -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticWarn { fg = yellow }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticInfo             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticHint             { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
@@ -241,11 +246,11 @@ local theme = lush(function(injected_functions)
     -- sym"@text.title"        { }, -- Title
     -- sym"@text.uri"          { }, -- Underlined
     -- sym"@text.underline"    { }, -- Underlined
-    -- sym"@text.todo"         { }, -- Todo
+    sym "@text.todo" { fg = normalText },   -- Todo
     -- sym"@comment"           { }, -- Comment
     sym "@punctuation" { fg = normalText }, -- Delimiter
     -- sym"@constant"          { }, -- Constant
-    -- sym"@constant.builtin"  { }, -- Special
+    -- sym "@constant.builtin" { fg = normalText }, -- Special
     -- sym"@constant.macro"    { }, -- Define
     -- sym"@define"            { }, -- Define
     -- sym"@macro"             { }, -- Macro
@@ -258,14 +263,14 @@ local theme = lush(function(injected_functions)
     -- sym"@boolean"           { }, -- Boolean
     -- sym"@float"             { }, -- Float
     -- sym"@function"          { }, -- Function
-    -- sym"@function.builtin"  { }, -- Special
+    sym "@function.builtin" { fg = orange }, -- Special
     -- sym"@function.macro"    { }, -- Macro
     -- sym"@parameter"         { }, -- Identifier
     -- sym"@method"            { }, -- Function
     -- sym"@field"             { }, -- Identifier
     -- sym"@property"          { }, -- Identifier
     -- sym"@constructor"       { }, -- Special
-    -- sym"@conditional"       { }, -- Conditional
+    sym "@conditional" { fg = normalText }, -- Conditional
     -- sym"@repeat"            { }, -- Repeat
     -- sym"@label"             { }, -- Label
     -- sym"@operator"          { }, -- Operator
@@ -280,7 +285,8 @@ local theme = lush(function(injected_functions)
     -- sym"@include"           { }, -- Include
     -- sym"@preproc"           { }, -- PreProc
     -- sym"@debug"             { }, -- Debug
-    -- sym"@tag"               { }, -- Tag
+    sym "@tag" { fg = red }, -- Tag
+    sym "@tag.attribute" { fg = yellow }
 
 
 

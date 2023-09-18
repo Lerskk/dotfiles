@@ -120,6 +120,23 @@ font:
     #   - (Windows) Consolas
     family: FiraCode Nerd Font
 
+colors:
+  # Default colors
+  primary:
+    background: '0x171717'
+    foreground: '0xe3e3e3'
+
+  # Normal colors
+  normal:
+    black:   '0x171717'
+    red:     '0xff5773'
+    green:   '0xadda71'
+    yellow:  '0xffcb6b'
+    blue:    '0x7c89e0'
+    magenta: '0xc894eb'
+    cyan:    '0x8adeff'
+    white:   '0xe3e3e3'
+
 # The `style` can be specified to pick a specific face.
 #style: Regular
 

@@ -46,7 +46,10 @@ return packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    requires = { 'JoosepAlviste/nvim-ts-context-commentstring' }
+    requires = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'nvim-treesitter/playground'
+    }
   }
   use {
     'lukas-reineke/indent-blankline.nvim',
