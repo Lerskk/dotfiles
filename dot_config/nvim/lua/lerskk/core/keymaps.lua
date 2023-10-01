@@ -4,7 +4,6 @@ opt = { silent = true }
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-keymap('n', '<leader>pv', vim.cmd.Ex)
 keymap('n', '<leader>q', vim.cmd.q)
 keymap('n', '<leader>w', vim.cmd.w)
 keymap('n', '<leader>x', vim.cmd.x)

@@ -37,7 +37,20 @@ return packer.startup(function(use)
     tag = '0.1.2',
     requires = {
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim',  run = 'make' },
+      { 'nvim-telescope/telescope-file-browser.nvim' },
+      {
+        'nvim-telescope/telescope-frecency.nvim',
+        requires = { "kkharji/sqlite.lua" },
+        config = function()
+        end
+      },
+      {
+        'paopaol/telescope-git-diffs.nvim',
+        requires = {
+          'sindrets/diffview.nvim'
+        }
+      }
     }
   }
   use 'theprimeagen/harpoon'
@@ -121,6 +134,9 @@ return packer.startup(function(use)
     end,
     after = 'nvim-ts-context-commentstring',
   }
+  use { "akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end }
 
   -- obsidian
   use({
