@@ -23,7 +23,7 @@ keymap('n', '<leader>d', '\'_d')
 keymap('v', '<leader>d', '\'_d')
 
 -- save without formatting
-keymap('n', '<leader>wf', ':noautocmd w', { silent = true })
+keymap('n', '<leader>fw', ':noautocmd w', { silent = true })
 
 -- new tab
 keymap('n', '<leader>te', ':tabedit<CR>', { silent = true })

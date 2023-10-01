@@ -11,18 +11,19 @@ lsp.ensure_installed {
 }
 
 local trouble = require('trouble')
+local builtin = require('telescope.builtin')
 
 lsp.on_attach(function(_, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
 
   local opts = { buffer = bufnr }
 
-  vim.keymap.set("n", "gd", function() trouble.open('lsp_definitions') end, opts)
-  vim.keymap.set("n", "gr", function() trouble.open('lsp_references') end, opts)
-  vim.keymap.set("n", "gi", function() trouble.open('lsp_implementation') end, opts)
-  vim.keymap.set("n", "gt", function() trouble.open('lsp_type_definitions') end, opts)
+  vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
+  vim.keymap.set("n", "gr", builtin.lsp_references, opts)
+  vim.keymap.set("n", "gt", builtin.lsp_type_definitions, opts)
   vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, opts)
+  vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, opts)
+  vim.keymap.set("n", "<leader>fp", "<cmd>:!bunx prettier -w %<CR>", opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 
@@ -37,6 +38,30 @@ lsp.format_on_save {
 }
 
 lsp.setup()
+
+local null_ls = require('null-ls')
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+          vim.lsp.buf.format({ async = false })
+        end,
+      })
+    end
+  end,
+  sources = {
+    null_ls.builtins.code_actions.eslint,
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prismaFmt
+  }
+})
 
 local cmp = require('cmp')
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')

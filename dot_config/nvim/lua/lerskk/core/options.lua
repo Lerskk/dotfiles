@@ -47,6 +47,7 @@ opt.showtabline = 2
 opt.title = true
 opt.smartindent = true
 opt.backup = false
+opt.swapfile = false -- no swap file
 opt.showcmd = true
 opt.cmdheight = 1
 opt.laststatus = 2

@@ -84,12 +84,17 @@ if status is-interactive
 
     ### FUNCTIONS ###
     
-  function dev
+  function wdev
     if [ -d $argv[1] ]
       set PREVIOUS_DIR (pwd)
       cd $argv[1]
     
-      tmux split-window -h -p 30 -d
+      tmux split-window -h "npm run dev"
+      tmux split-window -v
+      tmux select-pane -t 2
+      tmux split-window -h "npx prisma studio --browser none"
+      tmux select-pane -t 0
+      tmux resize-pane -Z -t:.1
       nvim .
 
       cd $PREVIOUS_DIR
@@ -137,3 +142,7 @@ if status is-interactive
     curl -sS https://starship.rs/install.sh | sh && source ~/.config/fish/config.fish
   end
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
