@@ -1,0 +1,3 @@
+(helm-ag
+ :repo "emacsorphanage/helm-ag"
+ :fetcher github)

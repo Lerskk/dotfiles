@@ -1,0 +1,4 @@
+(clang-capf
+ :fetcher sourcehut
+ :repo "pkal/clang-capf"
+ :old-names (cpp-capf))

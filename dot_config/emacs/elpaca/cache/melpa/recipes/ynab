@@ -1,0 +1,2 @@
+(ynab :repo "thoreinstein/ynab.el"
+        :fetcher github)

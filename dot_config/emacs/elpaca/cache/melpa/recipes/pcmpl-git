@@ -1,0 +1,4 @@
+(pcmpl-git
+ :fetcher github
+ :repo "leoliu/pcmpl-git-el"
+ :files ("*.el" "git-options"))

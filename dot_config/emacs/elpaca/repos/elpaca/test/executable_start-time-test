@@ -1,0 +1,8 @@
+#!/bin/bash
+
+git -c advice.detachedHead=false checkout ${1:-HEAD}
+make -C .. &>/dev/null
+for i in {1..3}; do
+  TIMEFORMAT=%U;
+  time emacs --eval '(kill-emacs)';
+done
