@@ -76,6 +76,11 @@ cmp.setup {
       ellipsis_char = '...',
     }
   },
+  sources = {
+    { name = 'luasnip' },
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  },
   mapping = lsp.defaults.cmp_mappings({
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(cmp_select), { 'i', 'c' }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(cmp_select), { 'i', 'c' }),

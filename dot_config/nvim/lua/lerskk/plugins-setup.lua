@@ -98,6 +98,7 @@ return packer.startup(function(use)
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'saadparwaiz1/cmp_luasnip' },
       { 'hrsh7th/cmp-cmdline' },
       { 'hrsh7th/cmp-buffer' },
       { 'onsails/lspkind-nvim' },
@@ -109,6 +110,13 @@ return packer.startup(function(use)
     }
   }
   use 'nvimtools/none-ls.nvim'
+
+  -- snipets
+  use {
+    'L3MON4D3/LuaSnip',
+    tag = 'v2.*',
+    run = 'make install_jsregexp'
+  }
 
 
   -- surrounds
