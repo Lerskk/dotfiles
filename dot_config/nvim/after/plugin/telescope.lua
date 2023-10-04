@@ -9,6 +9,9 @@ if not actions_status then return end
 
 telescope.setup {
   defaults = {
+    file_ignore_patterns = {
+      'node_modules', '.git', '.next', 'dist' -- in addition to .gitignore
+    },
     mappings = {
       i = {
         ['<C-k>'] = actions.move_selection_previous,
@@ -39,10 +42,25 @@ telescope.load_extension('fzf')
 telescope.load_extension('frecency')
 telescope.load_extension('file_browser')
 telescope.load_extension('git_diffs')
+telescope.load_extension("ui-select")
 
-vim.keymap.set('n', '<leader>pf', '<Cmd>Telescope frecency workspace=CWD<CR>', {})
+
+vim.keymap.set('n', '<leader>?', builtin.keymaps, {})
+vim.keymap.set('n', '<leader>pp', function()
+  builtin.find_files({
+    hidden = true
+  })
+end, {})
+vim.keymap.set('n', '<leader>pa', function()
+  builtin.find_files({
+    hidden = true,
+    no_ignore = true,
+    no_ignore_parent = true,
+  })
+end, {})
+
+vim.keymap.set('n', '<leader>pr', '<Cmd>Telescope frecency workspace=CWD<CR>', {})
+vim.keymap.set('n', '<leader>pf', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>pv', '<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>', {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
-vim.keymap.set('n', '<leader>ps', function()
-  builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end, {})

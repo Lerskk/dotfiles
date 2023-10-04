@@ -39,6 +39,7 @@ return packer.startup(function(use)
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim',  run = 'make' },
       { 'nvim-telescope/telescope-file-browser.nvim' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
       {
         'nvim-telescope/telescope-frecency.nvim',
         requires = { "kkharji/sqlite.lua" },
@@ -66,10 +67,8 @@ return packer.startup(function(use)
   }
   use {
     'lukas-reineke/indent-blankline.nvim',
-    confign = function()
-      require('indent_blankline').setup {
-        show_current_context = true,
-      }
+    config = function()
+      require('ibl').setup()
     end,
   }
   use({

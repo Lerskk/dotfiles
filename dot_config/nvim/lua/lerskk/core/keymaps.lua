@@ -26,7 +26,5 @@ keymap('n', '<leader>fw', ':noautocmd w', { silent = true })
 
 -- new tab
 keymap('n', '<leader>te', ':tabedit<CR>', { silent = true })
-keymap('n', '<Tab>', ':tabnext<CR>', { silent = true })
-keymap('n', '<S-Tab>', ':tabprevious<CR>', { silent = true })
 keymap('n', '<leader>ss', ':split<Return><C-w>w')
 keymap('n', '<leader>sv', ':vsplit<Return><C-w>w')

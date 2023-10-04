@@ -22,16 +22,16 @@ ls.config.set_config({
   -- Allow autotrigger snippets
   enable_autosnippets = true,
   -- For equivalent of UltiSnips visual selection
-  store_selection_keys = "<Tab>",
+  store_selection_keys = "<C-s>",
   -- Event on which to check for exiting a snippet's region
   region_check_events = 'InsertEnter',
   delete_check_events = 'InsertLeave',
 })
 
-vim.keymap.set({ 'i', 's' }, '<Tab>', function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ 'i', 's' }, '<S-Tab>', function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ 'i', 's' }, '<S-Tab>', function() ls.jump(-1) end, { silent = true })
+
 vim.keymap.set('n', '<leader>pt', '<Cmd>lua print(vim.inspect(require("luasnip").get_snippet_filetypes()))<CR>',
   { silent = true })
 
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/luasnip/" })
+vim.keymap.set({ 'i', 's' }, '<S-Tab>', function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ 'i', 's' }, '<S-Tab>', function() ls.jump(-1) end, { silent = true })
