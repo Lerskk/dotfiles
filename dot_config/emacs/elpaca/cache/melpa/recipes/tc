@@ -1,4 +1,0 @@
-(tc
- :fetcher github
- :repo "kanchoku/tc"
- :files ("*.el" "tcode"))

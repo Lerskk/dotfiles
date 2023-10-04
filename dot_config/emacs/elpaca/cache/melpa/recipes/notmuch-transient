@@ -1,1 +1,0 @@
-(notmuch-transient :fetcher sourcehut :repo "tarsius/notmuch-transient")

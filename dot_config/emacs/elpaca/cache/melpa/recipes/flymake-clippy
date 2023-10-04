@@ -1,3 +1,0 @@
-(flymake-clippy
- :fetcher sourcehut
- :repo "mgmarlow/flymake-clippy")

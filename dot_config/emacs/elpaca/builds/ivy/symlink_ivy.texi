@@ -1,1 +1,0 @@
-/home/lerskk/.config/emacs/elpaca/repos/swiper/doc/ivy.texi

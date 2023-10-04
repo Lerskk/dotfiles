@@ -1,2 +1,0 @@
-(org-incoming :fetcher github
-              :repo "tinloaf/org-incoming")

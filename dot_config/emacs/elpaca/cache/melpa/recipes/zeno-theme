@@ -1,3 +1,0 @@
-(zeno-theme
- :repo "zenobht/zeno-theme"
- :fetcher github)

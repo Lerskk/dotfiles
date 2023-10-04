@@ -1,4 +1,0 @@
-(shell-maker
- :fetcher github
- :repo "xenodium/chatgpt-shell"
- :files ("shell-maker.el"))

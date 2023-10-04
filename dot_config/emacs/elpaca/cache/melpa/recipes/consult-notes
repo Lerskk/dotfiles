@@ -1,3 +1,0 @@
-(consult-notes
-:repo "mclear-tools/consult-notes"
-:fetcher github)

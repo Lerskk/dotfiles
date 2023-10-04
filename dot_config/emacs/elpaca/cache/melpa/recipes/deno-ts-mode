@@ -1,3 +1,0 @@
-(deno-ts-mode
- :fetcher sourcehut
- :repo "mgmarlow/deno-ts-mode")

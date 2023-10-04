@@ -1,5 +1,0 @@
-(git-modes :fetcher github
-           :repo "magit/git-modes"
-           :old-names (gitattributes-mode
-                       gitconfig-mode
-                       gitignore-mode))
