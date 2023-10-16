@@ -124,6 +124,7 @@ return packer.startup(function(use)
     config = function() require('nvim-surround').setup {} end
   }
   use { "windwp/nvim-autopairs", config = function() require("nvim-autopairs").setup {} end }
+  use { 'wellle/targets.vim' }
   use 'windwp/nvim-ts-autotag'
 
 

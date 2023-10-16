@@ -46,12 +46,12 @@ telescope.load_extension("ui-select")
 
 
 vim.keymap.set('n', '<leader>?', builtin.keymaps, {})
-vim.keymap.set('n', '<leader>pp', function()
+vim.keymap.set('n', '<leader>ff', function()
   builtin.find_files({
     hidden = true
   })
 end, {})
-vim.keymap.set('n', '<leader>pa', function()
+vim.keymap.set('n', '<leader>fp', function()
   builtin.find_files({
     hidden = true,
     no_ignore = true,
@@ -59,8 +59,8 @@ vim.keymap.set('n', '<leader>pa', function()
   })
 end, {})
 
-vim.keymap.set('n', '<leader>pr', '<Cmd>Telescope frecency workspace=CWD<CR>', {})
-vim.keymap.set('n', '<leader>pf', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>pv', '<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>', {})
+vim.keymap.set('n', '<leader>fr', '<Cmd>Telescope frecency workspace=CWD<CR>', {})
+vim.keymap.set('n', '<leader>f/', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fv', '<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>', {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})

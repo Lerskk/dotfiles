@@ -8,9 +8,9 @@ lsp.ensure_installed {
   'lua_ls',
   'prismals',
   'tailwindcss',
+  'cssls'
 }
 
-local trouble = require('trouble')
 local builtin = require('telescope.builtin')
 
 lsp.on_attach(function(_, bufnr)

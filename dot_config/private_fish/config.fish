@@ -9,11 +9,6 @@ if status is-interactive
   set --universal nvm_default_version lts/hydrogen
   set --universal nvm_default_packages yarn pnpm
 
-  # catppuccin for fzf
-  set -Ux FZF_DEFAULT_OPTS "\
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
   # fix clipboard with tmux + nvim
   set -Ux DISPLAY :1
 
@@ -72,6 +67,14 @@ if status is-interactive
   abbr gp "git push"
   abbr gpf "git push -f"
   abbr gpl "git pull"
+  abbr gst "git stash save -u"
+  abbr gstp "git stash pop"
+  abbr gstl "git stash list"
+  abbr gbl "git branch -l"
+  abbr gbd "git branch -d"
+  abbr gbD "git branch -D"
+  abbr gbm "git branch -m"
+  abbr gm "git merge --no-ff"
 
   # dotfiles
   abbr d "chezmoi" 
@@ -83,6 +86,11 @@ if status is-interactive
 
 
     ### FUNCTIONS ###
+
+  function notes
+    cd ~/notes
+    nvim .
+  end
     
   function wdev
     if [ -d $argv[1] ]
