@@ -1,8 +1,3 @@
---
--- Built with,
---
---        ,gggg,
---       d8" "8I                         ,dPYb,
 --       88  ,dP                         IP'`Yb
 --    8888888P"                          I8  8I
 --       88                              I8  8'
@@ -80,7 +75,9 @@ local theme = lush(function(injected_functions)
     DiffDelete { fg = red },                                -- Diff mode: Deleted line |diff.txt|
     DiffText { fg = normalText },                           -- Diff mode: Changed text within a changed line |diff.txt|
 
-    EndOfBuffer { fg = Normal.bg },                         -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    Conceal { fg = normalText },                            -- Placeholder characters substituted for concealed text (see 'conceallevel')
+
+    EndOfBuffer { fg = Normal.bg }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     ErrorMsg { bg = red.da(40), fg = normalText }, -- Error messages on the command line
@@ -123,7 +120,7 @@ local theme = lush(function(injected_functions)
     TabLine { Normal },                 -- Tab pages line, not active tab page label
     TabLineFill { bg = primaryBlack },  -- Tab pages line, where there are no labels
     TabLineSel { bg = secondaryBlack }, -- Tab pages line, active tab page label
-    -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
+    Title          { fg = violet }, -- Titles for output from ":set all", ":autocmd" etc.
     Visual { CursorLine },              -- Visual mode selection
     VisualNOS { Visual },               -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg { ErrorMsg },            -- Warning messages
@@ -286,13 +283,12 @@ local theme = lush(function(injected_functions)
     -- sym"@preproc"           { }, -- PreProc
     -- sym"@debug"             { }, -- Debug
     sym "@tag" { fg = red }, -- Tag
-    sym "@tag.attribute" { fg = yellow }
+    sym "@tag.attribute" { fg = yellow },
 
 
 
     -- unset variables
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
-    -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
     -- Cursor         { }, -- Character under the cursor
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')

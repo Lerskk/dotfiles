@@ -118,7 +118,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: FiraCode Nerd Font
+    family: FiraCode NerdFont
 
 colors:
   # Default colors

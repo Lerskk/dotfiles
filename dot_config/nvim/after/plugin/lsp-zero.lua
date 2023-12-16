@@ -8,7 +8,8 @@ lsp.ensure_installed {
   'lua_ls',
   'prismals',
   'tailwindcss',
-  'cssls'
+  'cssls',
+  'clangd'
 }
 
 local builtin = require('telescope.builtin')
@@ -22,7 +23,7 @@ lsp.on_attach(function(_, bufnr)
   vim.keymap.set("n", "gr", builtin.lsp_references, opts)
   vim.keymap.set("n", "gt", builtin.lsp_type_definitions, opts)
   vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-  vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, opts)
+  -- vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, opts)
   vim.keymap.set("n", "<leader>fp", "<cmd>:!bunx prettier -w %<CR>", opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)

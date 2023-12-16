@@ -48,7 +48,9 @@ telescope.load_extension("ui-select")
 vim.keymap.set('n', '<leader>?', builtin.keymaps, {})
 vim.keymap.set('n', '<leader>ff', function()
   builtin.find_files({
-    hidden = true
+    hidden = true,
+    no_ignore = true,
+    no_ignore_parent = true,
   })
 end, {})
 vim.keymap.set('n', '<leader>fp', function()
