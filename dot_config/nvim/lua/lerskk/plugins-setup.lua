@@ -31,6 +31,17 @@ return packer.startup(function(use)
   -- tmux
   use 'christoomey/vim-tmux-navigator'
 
+  -- file explorer
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
+
   -- fzf
   use {
     'nvim-telescope/telescope.nvim',
