@@ -47,6 +47,7 @@ if status is-interactive
   abbr v "nvim"
 
   # git
+  abbr he "HEAD"
   abbr g "git"
   abbr gs "git status"
   abbr gl "git log --oneline"
@@ -74,7 +75,13 @@ if status is-interactive
   abbr gbd "git branch -d"
   abbr gbD "git branch -D"
   abbr gbm "git branch -m"
+  abbr gre "git restore"
+  abbr gr "git reset"
+  abbr grh "git reset --hard"
   abbr gm "git merge --no-ff"
+  abbr gc "git clone"
+  abbr grea "git remote add"
+  abbr grer "git remote remove"
 
   # dotfiles
   abbr d "chezmoi" 

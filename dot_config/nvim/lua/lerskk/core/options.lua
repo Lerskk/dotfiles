@@ -43,8 +43,8 @@ opt.smartcase = true
 -- limit the amount of option on menu
 opt.pumheight = 10
 
-opt.showtabline = 2
-opt.title = true
+-- opt.showtabline = 2
+-- opt.title = true
 opt.smartindent = true
 opt.backup = false
 opt.swapfile = false -- no swap file
