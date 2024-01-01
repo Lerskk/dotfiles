@@ -22,13 +22,20 @@ telescope.setup {
   },
   extensions = {
     file_browser = {
-      theme = "ivy",
-      -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
+      grouped = true,
+      hidden = true,
       mappings = {
-        ["i"] = {
-          ['<C-k>'] = actions.move_selection_previous,
-          ['<C-j>'] = actions.move_selection_next,
+        ['i'] = {
+          ["<C-t>"] = function(prompt_bufnr)
+            actions.change_cwd(prompt_bufnr)
+            actions.close(prompt_bufnr)
+          end,
+        },
+        ['n'] = {
+          ["t"] = function(prompt_bufnr)
+            actions.change_cwd(prompt_bufnr)
+            actions.close(prompt_bufnr)
+          end,
         },
       },
     },

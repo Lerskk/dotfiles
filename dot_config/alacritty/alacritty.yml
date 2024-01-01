@@ -123,19 +123,19 @@ font:
 colors:
   # Default colors
   primary:
-    background: '0x171717'
-    foreground: '0xe3e3e3'
+    background: "0x171717"
+    foreground: "0xe3e3e3"
 
   # Normal colors
   normal:
-    black:   '0x171717'
-    red:     '0xff5773'
-    green:   '0xadda71'
-    yellow:  '0xffcb6b'
-    blue:    '0x7c89e0'
-    magenta: '0xc894eb'
-    cyan:    '0x8adeff'
-    white:   '0xe3e3e3'
+    black: "0x171717"
+    red: "0xff5773"
+    green: "0xadda71"
+    yellow: "0xffcb6b"
+    blue: "0x7c89e0"
+    magenta: "0xc894eb"
+    cyan: "0x8adeff"
+    white: "0xe3e3e3"
 
 # The `style` can be specified to pick a specific face.
 #style: Regular
@@ -399,40 +399,40 @@ colors:
 #save_to_clipboard: false
 
 # cursor:
-  # Cursor style
-  # style:
-    # Cursor shape
-    #
-    # Values for `shape`:
-    #   - ▇ Block
-    #   - _ Underline
-    #   - | Beam
-    # shape: Block
+# Cursor style
+# style:
+# Cursor shape
+#
+# Values for `shape`:
+#   - ▇ Block
+#   - _ Underline
+#   - | Beam
+# shape: Block
 
-    # Cursor blinking state
-    #
-    # Values for `blinking`:
-    #   - Never: Prevent the cursor from ever blinking
-    #   - Off: Disable blinking by default
-    #   - On: Enable blinking by default
-    #   - Always: Force the cursor to always blink
-    # blinking: On
+# Cursor blinking state
+#
+# Values for `blinking`:
+#   - Never: Prevent the cursor from ever blinking
+#   - Off: Disable blinking by default
+#   - On: Enable blinking by default
+#   - Always: Force the cursor to always blink
+# blinking: On
 
-    # Vi mode cursor style
-    #
-    # If the vi mode cursor style is `None` or not specified, it will fall back to
-    # the style of the active value of the normal cursor.
-    #
-    # See `cursor.style` for available options.
-    #vi_mode_style: None
+# Vi mode cursor style
+#
+# If the vi mode cursor style is `None` or not specified, it will fall back to
+# the style of the active value of the normal cursor.
+#
+# See `cursor.style` for available options.
+#vi_mode_style: None
 
-    # Cursor blinking interval in milliseconds.
-    # blink_interval: 500
+# Cursor blinking interval in milliseconds.
+# blink_interval: 500
 
-    # Time after which cursor stops blinking, in seconds.
-    #
-    # Specifying '0' will disable timeout for blinking.
-    # blink_timeout: 0
+# Time after which cursor stops blinking, in seconds.
+#
+# Specifying '0' will disable timeout for blinking.
+# blink_timeout: 0
 
 # If this is `true`, the cursor will be rendered as a hollow box when the
 # window is not focused.
@@ -455,11 +455,12 @@ colors:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
 shell:
- program: /bin/fish
- args:
-   - -c
-   - "tmux -q has-session && exec tmux attach-session || exec tmux new-session"
-   # - --login
+  program: /bin/fish
+  # args:
+  # - -c
+  # - "zellij --attach"
+  # - "tmux -q has-session && exec tmux attach-session || exec tmux new-session"
+  # - --login
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working

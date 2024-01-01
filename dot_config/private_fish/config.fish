@@ -26,6 +26,9 @@ if status is-interactive
   # rm -> trash-cli
   abbr rm "trash"
 
+  abbr z "zellij"
+  abbr za "zellij attach"
+
   # confirm before overwriting something
   abbr cp "cp -i"
   abbr mv "mv -i"
