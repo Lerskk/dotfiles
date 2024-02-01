@@ -85,6 +85,7 @@ if status is-interactive
   abbr gc "git clone"
   abbr grea "git remote add"
   abbr grer "git remote remove"
+  abbr gba "git add --all && git commit -m 'backup' && git push"
 
   # dotfiles
   abbr d "chezmoi" 

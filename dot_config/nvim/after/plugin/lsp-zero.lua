@@ -38,6 +38,9 @@ lsp.format_on_save {
   }
 }
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
 lsp.setup()
 
 local null_ls = require('null-ls')

@@ -1,5 +1,5 @@
 simplified_ui true
-mouse_mode false
+mouse_mode true
 copy_command "wl-copy"                    // wayland
 copy_on_select true
 default_shell "fish"
@@ -9,12 +9,12 @@ keybinds clear-defaults=true {
   normal {
     bind "Ctrl p" { SwitchToMode "Pane"; }
     bind "Ctrl x" { SwitchToMode "session"; }
-    bind "Ctrl s" { SwitchToMode "search"; }
+    bind "Ctrl s" { SwitchToMode "scroll"; }
     bind "Ctrl t" { SwitchToMode "tab"; }
   }
 
   locked {
-    bind "Esc" { SwitchToMode "Normal"; }
+    bind "Ctrl g" { SwitchToMode "Normal"; }
   }
 
   tab {
@@ -57,7 +57,7 @@ keybinds clear-defaults=true {
     bind "Esc" {  SwitchToMode "Normal"; }
     bind "Ctrl x" { SwitchToMode "Scroll";}
     bind "d" { Detach; }
-    bind "w" {
+    bind "x" {
       LaunchOrFocusPlugin "zellij:session-manager" {
         floating true
         move_to_focused_tab true

@@ -458,7 +458,7 @@ shell:
   program: /bin/fish
   # args:
   # - -c
-  # - "zellij --attach"
+  # - "zellij attach --index 0 || exec zellij"
   # - "tmux -q has-session && exec tmux attach-session || exec tmux new-session"
   # - --login
 # Startup directory
@@ -622,7 +622,6 @@ shell:
 #   - ScrollHalfPageDown
 #   - ScrollLineUp
 #   - ScrollLineDown
-#   - ScrollToTop
 #   - ScrollToBottom
 #   - ClearHistory
 #       Remove the terminal's scrollback history.
