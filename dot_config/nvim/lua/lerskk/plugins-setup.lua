@@ -122,6 +122,13 @@ return packer.startup(function(use)
     }
   }
   use 'nvimtools/none-ls.nvim'
+  use {
+    "pmizio/typescript-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      require("typescript-tools").setup {}
+    end,
+  }
 
   -- snipets
   use {

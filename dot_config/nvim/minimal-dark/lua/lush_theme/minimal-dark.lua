@@ -61,7 +61,7 @@ local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
     Normal { bg = primaryBlack, fg = normalText },          -- Normal text
-    Comment { fg = Normal.bg.li(36) },                      -- Any comment
+    Comment { fg = Normal.bg.li(46) },                      -- Any comment
     CursorLine { bg = Normal.bg.li(7) },                    -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     LineNr { bg = primaryBlack, fg = primaryBlack.li(42) }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     LineNrAbove { LineNr },                                 -- Line number for when the 'relativenumber' option is set, above the cursor line
@@ -77,7 +77,7 @@ local theme = lush(function(injected_functions)
 
     Conceal { fg = normalText },                            -- Placeholder characters substituted for concealed text (see 'conceallevel')
 
-    EndOfBuffer { fg = Normal.bg }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer { fg = Normal.bg },                         -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     ErrorMsg { bg = red.da(40), fg = normalText }, -- Error messages on the command line
@@ -120,7 +120,7 @@ local theme = lush(function(injected_functions)
     TabLine { Normal },                 -- Tab pages line, not active tab page label
     TabLineFill { bg = primaryBlack },  -- Tab pages line, where there are no labels
     TabLineSel { bg = secondaryBlack }, -- Tab pages line, active tab page label
-    Title          { fg = violet }, -- Titles for output from ":set all", ":autocmd" etc.
+    Title { fg = violet },              -- Titles for output from ":set all", ":autocmd" etc.
     Visual { CursorLine },              -- Visual mode selection
     VisualNOS { Visual },               -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg { ErrorMsg },            -- Warning messages
@@ -175,7 +175,7 @@ local theme = lush(function(injected_functions)
     -- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
     -- Debug          { }, --   Debugging statements
 
-    -- Underlined     { gui = "underline" }, -- Text that stands out, HTML links
+    Underlined { gui = "underline" },     -- Text that stands out, HTML links
     -- Ignore         { }, -- Left blank, hidden |hl-Ignore| (NOTE: May be invisible here in template)
     -- Error          { }, -- Any erroneous construct
     -- Todo           { }, -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX

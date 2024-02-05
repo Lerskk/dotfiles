@@ -24,7 +24,7 @@ lsp.on_attach(function(_, bufnr)
   vim.keymap.set("n", "gt", builtin.lsp_type_definitions, opts)
   vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
   -- vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, opts)
-  vim.keymap.set("n", "<leader>fp", "<cmd>:!bunx prettier -w %<CR>", opts)
+  -- vim.keymap.set("n", "<leader>fp", "<cmd>:!bunx prettier -w %<CR>", opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 
@@ -37,9 +37,6 @@ lsp.format_on_save {
     ['tsserver'] = { 'typescript' },
   }
 }
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
 lsp.setup()
 
@@ -81,8 +78,8 @@ cmp.setup {
     }
   },
   sources = {
-    { name = 'luasnip' },
     { name = 'nvim_lsp' },
+    { name = 'luasnip' },
     { name = 'buffer' },
   },
   mapping = lsp.defaults.cmp_mappings({
