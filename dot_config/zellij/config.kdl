@@ -20,7 +20,7 @@ keybinds clear-defaults=true {
   tab {
     bind "Esc" { SwitchToMode "Normal"; }
     bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
-    bind "h" "Left" "Up" "k" { GoToPreviousTab; SwitchToMode "Normal"; }
+    bind "h" "Ctrl t" "Left" "Up" "k" { GoToPreviousTab; SwitchToMode "Normal"; }
     bind "l" "Right" "Down" "j" { GoToNextTab; SwitchToMode "Normal"; }
     bind "n" { NewTab; SwitchToMode "Normal"; }
     bind "x" { CloseTab; SwitchToMode "Normal"; }
@@ -32,7 +32,7 @@ keybinds clear-defaults=true {
     bind "l" "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
     bind "j" "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
     bind "k" "Up" { MoveFocus "Up"; SwitchToMode "Normal"; }
-    bind "p" { SwitchFocus; SwitchToMode "Normal"; }
+    bind "Ctrl p" { SwitchFocus; SwitchToMode "Normal"; }
     bind "n" { NewPane; SwitchToMode "Normal"; }
     bind "d" { NewPane "Down"; SwitchToMode "Normal"; }
     bind "x" { CloseFocus; SwitchToMode "Normal"; }
@@ -55,9 +55,9 @@ keybinds clear-defaults=true {
 
   session {
     bind "Esc" {  SwitchToMode "Normal"; }
-    bind "Ctrl x" { SwitchToMode "Scroll";}
+    bind "x" { SwitchToMode "Scroll";}
     bind "d" { Detach; }
-    bind "x" {
+    bind "Ctrl x" {
       LaunchOrFocusPlugin "zellij:session-manager" {
         floating true
         move_to_focused_tab true
