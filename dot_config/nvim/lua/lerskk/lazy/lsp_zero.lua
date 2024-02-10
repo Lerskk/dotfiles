@@ -30,6 +30,7 @@ return {
 
       vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
       vim.keymap.set("n", "gr", builtin.lsp_references, opts)
+      vim.keymap.set("n", "<leader>gi", builtin.lsp_references, opts)
       vim.keymap.set("n", "gt", builtin.lsp_type_definitions, opts)
       vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
