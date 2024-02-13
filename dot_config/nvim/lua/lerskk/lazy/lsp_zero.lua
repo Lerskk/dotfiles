@@ -11,6 +11,7 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     'nvimtools/none-ls.nvim',
+    'j-hui/fidget.nvim',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-buffer',
     'onsails/lspkind-nvim',
@@ -24,13 +25,14 @@ return {
     local builtin = require('telescope.builtin')
 
     lsp_zero.on_attach(function(_, bufnr)
-      lsp_zero.default_keymaps({ buffer = bufnr })
+      lsp_zero.default_keymaps({ buffer = bufnr, exclude = { 'gi' } })
 
       local opts = { buffer = bufnr }
 
       vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
       vim.keymap.set("n", "gr", builtin.lsp_references, opts)
       vim.keymap.set("n", "<leader>gi", builtin.lsp_references, opts)
+      vim.keymap.set("n", "<leader>lr", '<cmd>LspRestart<CR>', opts)
       vim.keymap.set("n", "gt", builtin.lsp_type_definitions, opts)
       vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
@@ -55,7 +57,8 @@ return {
         lua_ls = function()
           local lua_opts = lsp_zero.nvim_lua_ls()
           require('lspconfig').lua_ls.setup(lua_opts)
-        end
+        end,
+
       },
     })
 
@@ -93,6 +96,7 @@ return {
     local cmp = require('cmp')
     local cmp_action = require('lsp-zero').cmp_action()
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
+    require("fidget").setup({})
     local kind_icons = {
       Text = "",
       Method = "󰆧",
@@ -175,9 +179,9 @@ return {
       mapping = cmp.mapping({
         ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-        ['<C-y>'] = cmp.mapping(cmp.mapping.confirm(), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp_action.luasnip_jump_forward(), { 'i', 'c' }),
         ['<C-b>'] = cmp.mapping(cmp_action.luasnip_jump_backward(), { 'i', 'c' }),
+        ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c' }),
       }),
@@ -205,6 +209,17 @@ return {
           }
         }
       })
+    })
+    vim.diagnostic.config({
+      -- update_in_insert = true,
+      float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = "",
+      },
     })
   end
 }

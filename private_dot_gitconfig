@@ -11,7 +11,27 @@
 [user]
 	email = faustoleo02@gmail.com
 	name = Lerskk
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCteEfbYPbK6TMvJPFQRkM3IaZfch+UuIOUF6pWdpQi
 [push]
   autoSetupRemote = true
 [remote "origin"]
   prune = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[maintenance]
+	repo = /home/lerskk/code/fiduxion-website
+[fetch]
+	writeCommitGraph = true
+[core]
+	untrackedcache = true
+	fsmonitor = true
+[branch]
+	sort = -committerdate
