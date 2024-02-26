@@ -11,6 +11,7 @@ if status is-interactive
 
   # fix clipboard with tmux + nvim
   set -Ux DISPLAY :1
+  set -Ux SSH_AUTH_SOCK ~/.1password/agent.sock
 
   ### ALIASES / ABBREVIATIONS / FUNCTIONS ###
   # ls -> exa
@@ -84,9 +85,10 @@ if status is-interactive
   abbr gr "git reset"
   abbr grh "git reset --hard"
   abbr gm "git merge --no-ff"
+  abbr greb "rebase --committer-date-is-author-date"
   abbr gc "git clone"
-  abbr grea "git remote add"
-  abbr grer "git remote remove"
+  abbr grema "git remote add"
+  abbr gremr "git remote remove"
   abbr gmaint "git maintenance start"
   abbr gba "git add --all && git commit -m 'backup' && git push"
 

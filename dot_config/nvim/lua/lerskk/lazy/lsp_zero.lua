@@ -69,7 +69,6 @@ return {
       }
     }
 
-
     local null_ls = require('null-ls')
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     null_ls.setup({
@@ -179,6 +178,8 @@ return {
       mapping = cmp.mapping({
         ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
+        ['<C-down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
+        ['<C-up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp_action.luasnip_jump_forward(), { 'i', 'c' }),
         ['<C-b>'] = cmp.mapping(cmp_action.luasnip_jump_backward(), { 'i', 'c' }),
         ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
