@@ -13,6 +13,7 @@ return {
     'nvimtools/none-ls.nvim',
     'j-hui/fidget.nvim',
     'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'onsails/lspkind-nvim',
     'folke/trouble.nvim',
@@ -173,6 +174,7 @@ return {
       sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'path' },
         { name = 'buffer' },
       },
       mapping = cmp.mapping({
