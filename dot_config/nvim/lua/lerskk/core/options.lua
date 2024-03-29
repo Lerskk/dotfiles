@@ -8,6 +8,13 @@ vim.opt.cursorline = true
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.expandtab = true
+opt.fileencoding = "utf-8"
+
+-- Text
+-- opt.textwidth = 100
+opt.wrap = false
+-- opt.linebreak = true
+-- opt.breakindent = true
 
 -- enable autoindent
 opt.autoindent = true
@@ -53,10 +60,8 @@ opt.cmdheight = 1
 opt.laststatus = 2
 opt.inccommand = 'split'
 opt.smarttab = true
-opt.breakindent = true
 opt.showmatch = true
 opt.autoread = true
-opt.wrap = true
 opt.signcolumn = 'number'
 opt.showbreak = '↳'
 

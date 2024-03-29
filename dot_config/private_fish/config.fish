@@ -13,6 +13,8 @@ if status is-interactive
   set -Ux DISPLAY :1
   set -Ux SSH_AUTH_SOCK ~/.1password/agent.sock
 
+  set -gx EDITOR nvim
+
   ### ALIASES / ABBREVIATIONS / FUNCTIONS ###
   # ls -> exa
   alias exa "exa --color=always --group-directories-first --icons --git" # settings
