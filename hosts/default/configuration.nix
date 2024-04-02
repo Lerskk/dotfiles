@@ -111,7 +111,6 @@
     trash-cli
     unzip
     zip
-    _1password-gui
     wl-clipboard
     ripgrep
     bat
@@ -119,9 +118,9 @@
     syncthing
     chezmoi
     fzf
+    git
     gnugrep
     nodejs_20
-    git
     gcc
     gnumake
     telegram-desktop
@@ -150,7 +149,7 @@
 
     NIXOS_OZONE_WL = "1";
   };
-
+  
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;

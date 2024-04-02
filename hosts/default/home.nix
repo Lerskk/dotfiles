@@ -1,10 +1,46 @@
 { config, pkgs, ... }:
 
-{
+let
+  # onePassPath = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  onePassPath = "~/.1password/agent.sock";
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lerskk";
   home.homeDirectory = "/home/lerskk";
+
+  # onePassPath = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
+
+
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host *
+          IdentityAgent ${onePassPath}
+    '';
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Lerskk";
+    userEmail = "faustoleo02@gmail.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      
+      gpg.format = "ssh";
+      gpg."ssh".program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      commit.gpgsign = true;
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCteEfbYPbK6TMvJPFQRkM3IaZfch+UuIOUF6pWdpQi";
+    };
+  };
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
