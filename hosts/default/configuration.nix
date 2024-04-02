@@ -28,6 +28,10 @@
   # Set your time zone.
   time.timeZone = "America/Argentina/Cordoba";
 
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+  ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
