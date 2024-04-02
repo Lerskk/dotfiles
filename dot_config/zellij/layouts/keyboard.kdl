@@ -1,6 +1,0 @@
-  layout {
-    pane {
-      command "nvim"
-      cwd "~/qmk_firmware"
-    }
-  }

@@ -1,2 +1,0 @@
-#!/bin/sh
-pw-cat --volume 10 --playback ~/.config/dunst/scripts/alert.mp3
