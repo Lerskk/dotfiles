@@ -114,7 +114,9 @@
     wl-clipboard
     ripgrep
     bat
-    blender
+    (blender.override {
+      cudaSupport = true;
+    })
     syncthing
     chezmoi
     fzf
