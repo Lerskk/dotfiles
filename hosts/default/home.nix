@@ -1,15 +1,38 @@
-{ config, pkgs, ... }:
+{ 
+  inputs,
+  outputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # onePassPath = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   onePassPath = "~/.1password/agent.sock";
 in {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "lerskk";
-  home.homeDirectory = "/home/lerskk";
+  imports = [outputs.homeManagerModules.default];
 
-  # onePassPath = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+
+  myHomeManager = {
+    bundles.general.enable = true;
+    bundles.desktop.enable = true;
+
+    # myHomeManager.blender.enable = true;
+  };
+
+  home = {
+    username = "lerskk";
+    homeDirectory = lib.mkDefault "/home/lerskk";
+    stateVersion = "23.11";
+
+    packages = with pkgs; [
+      (blender.override {
+        cudaSupport = true;
+      })
+    ];
+  };
+
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -49,12 +72,6 @@ in {
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

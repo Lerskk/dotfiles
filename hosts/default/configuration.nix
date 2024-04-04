@@ -5,7 +5,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -13,10 +12,19 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.luks.devices."luks-ac542ac1-deee-4a89-ad28-7c7f44f810d5".device = "/dev/disk/by-uuid/ac542ac1-deee-4a89-ad28-7c7f44f810d5";
+
+  myNixOS = {
+    bundles.users.enable = true;
+
+    home-users = {
+      "lerskk" = {
+        userConfig = ./home.nix;
+      };
+    };
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -53,21 +61,6 @@
     xkbVariant = "";
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.lerskk = {
-    isNormalUser = true;
-    description = "Lerskk";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
-  };
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "lerskk" = import ./home.nix;
-    };
-  };
-
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -92,9 +85,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -104,23 +94,18 @@
     eww
     dunst
     swww
-    alacritty
-    rofi-wayland
     firefox
     fish
     pfetch
-    zathura
     tldr
     eza
     trash-cli
     unzip
+    rofi-wayland
     zip
     wl-clipboard
     ripgrep
     bat
-    (blender.override {
-      cudaSupport = true;
-    })
     syncthing
     chezmoi
     fzf

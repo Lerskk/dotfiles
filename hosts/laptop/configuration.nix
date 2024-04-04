@@ -94,7 +94,6 @@
     ripgrep
     bat
 
-    blender
     vesktop
     syncthing
     
