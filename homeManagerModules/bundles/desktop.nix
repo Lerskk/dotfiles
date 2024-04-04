@@ -16,6 +16,7 @@
 
   config = {
     myHomeManager.alacritty.enable = lib.mkDefault true;
+    myHomeManager.gtk.enable = lib.mkDefault true;
     # myHomeManager.blender.enable = lib.mkDefault true;
     # myHomeManager.zathura.enable = lib.mkDefault true;
     # myHomeManager.rofi-wayland.enable = lib.mkDefault true;
