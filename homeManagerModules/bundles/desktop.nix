@@ -20,9 +20,21 @@
     # myHomeManager.zathura.enable = lib.mkDefault true;
     # myHomeManager.rofi-wayland.enable = lib.mkDefault true;
 
+    qt.enable = true;
+    qt.platformTheme = "gtk";
+    qt.style.name = "adwaita-dark";
+
+    home.sessionVariables = {
+      QT_STYLE_OVERRIDE = "adwaita-dark";
+    };
+
     home.packages = with pkgs; [
+      adwaita-qt
       alacritty
+      flameshot
+      gimp
       rofi-wayland
+      spotify
       zathura
     ];
   };
