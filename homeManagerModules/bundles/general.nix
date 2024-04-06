@@ -1,19 +1,7 @@
 {
   pkgs,
-  config,
-  inputs,
-  lib,
   ...
 }: {
-  options = {
-    myHomeManager.startupScript = lib.mkOption {
-      default = "";
-      description = ''
-        Startup scirpt
-      '';
-    };
-  };
-
   nixpkgs = {
     config = {
       allowUnfree = true;
@@ -21,15 +9,19 @@
     };
   };
 
+
   home.packages = with pkgs; [
+    age
     bat
+    btop
+    cargo
     eza
     fzf
-    htop
     killall
     neofetch
-    starship
     ripgrep
+    starship
+    syncthing
     unzip
     wget
     zip
