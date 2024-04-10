@@ -17,6 +17,7 @@
     myHomeManager.alacritty.enable = lib.mkDefault true;
     myHomeManager.gtk.enable = lib.mkDefault true;
     myHomeManager.hyprland.enable = lib.mkDefault true;
+    myHomeManager.tmux.enable = lib.mkDefault true;
     myHomeManager.wlogout.enable = lib.mkDefault true;
     myHomeManager.xdg.enable = lib.mkDefault true;
     myHomeManager.zathura.enable = lib.mkDefault true;
@@ -33,6 +34,7 @@
     home.packages = with pkgs; [
       adwaita-qt
       alacritty
+      dolphin
       # davinci-resolve
       flameshot
       geeqie
@@ -42,6 +44,8 @@
       inkscape
       krita
       obs-studio
+      opentabletdriver
+      playerctl
       rofi-wayland
       scrcpy
       spotify

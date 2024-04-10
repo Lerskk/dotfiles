@@ -22,6 +22,7 @@
     ripgrep
     starship
     syncthing
+    tmux
     unzip
     wget
     zip
