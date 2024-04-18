@@ -21,7 +21,6 @@
     neofetch
     ripgrep
     starship
-    syncthing
     tmux
     unzip
     wget

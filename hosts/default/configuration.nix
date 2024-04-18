@@ -100,13 +100,18 @@
     tldr
     eza
     trash-cli
+    xfce.thunar
     unzip
     rofi-wayland
     zip
     wl-clipboard
     ripgrep
     bat
+    exiftool
+    nvitop
+    ffmpeg
     syncthing
+    gvfs
     chezmoi
     fzf
     git
@@ -120,6 +125,19 @@
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
   ];
+
+  programs.xfconf.enable = true;
+  programs.thunar = {
+    enable = true;
+
+    plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
+    ];
+  };
+
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;

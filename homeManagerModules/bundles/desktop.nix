@@ -39,13 +39,19 @@
       flameshot
       geeqie
       gimp
+      google-chrome
       hyprlock
       hyprpicker
       inkscape
+      kdenlive
       krita
+      libreoffice
       obs-studio
+      obsidian
       opentabletdriver
       playerctl
+      psensor
+      pureref
       rofi-wayland
       scrcpy
       spotify
