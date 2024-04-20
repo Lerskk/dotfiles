@@ -38,7 +38,7 @@
 
   fonts.packages = with pkgs; [
     (google-fonts.override { fonts = [ "Nunito" ]; })
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
   ];
 
   # Select internationalisation properties.

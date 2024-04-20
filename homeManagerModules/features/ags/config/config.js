@@ -6,16 +6,6 @@ const battery = await Service.import("battery")
 const systemtray = await Service.import("systemtray")
 import { NotificationPopups } from "./widget/notification/notificationPopups.js"
 
-Utils.timeout(100, () => Utils.notify({
-  summary: "Notification Popup Example",
-  iconName: "info-symbolic",
-  body: "Lorem ipsum dolor sit amet, qui minim labore adipisicing "
-    + "minim sint cillum sint consectetur cupidatat.",
-  actions: {
-    "Cool": () => print("pressed Cool"),
-  },
-}))
-
 App.config({
   style: App.configDir + "/style.css",
   windows: [
@@ -25,7 +15,7 @@ App.config({
 
 
 const date = Variable('', {
-  poll: [1000, `date "+%A the%e of %B at %H:%M"`, (out) => {
+  poll: [1000, `date "+%A the %e of %B at %H:%M"`, (out) => {
     /**
       * @param { string } suffix
       */

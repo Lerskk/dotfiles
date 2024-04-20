@@ -15,6 +15,7 @@
   config = {
     myHomeManager.ags.enable = lib.mkDefault true;
     myHomeManager.alacritty.enable = lib.mkDefault true;
+    myHomeManager.cursor.enable = lib.mkDefault true;
     myHomeManager.gtk.enable = lib.mkDefault true;
     myHomeManager.hyprland.enable = lib.mkDefault true;
     myHomeManager.tmux.enable = lib.mkDefault true;
@@ -46,6 +47,8 @@
       kdenlive
       krita
       libreoffice
+      nh
+      nom
       obs-studio
       obsidian
       opentabletdriver
