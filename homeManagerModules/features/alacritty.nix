@@ -38,19 +38,19 @@
     shell.program = "fish";
     font = {
       bold = {
-        family = "FiraCode NerdFont";
+        family = "JetBrainsMono Nerd Font";
         style = "Bold";
       };
       bold_italic = {
-        family = "FiraCode NerdFont";
+        family = "JetBrainsMono Nerd Font";
         style = "Bold Italic";
       };
       italic = {
-        family = "FiraCode NerdFont";
+        family = "JetBrainsMono Nerd Font";
         style = "Italic";
       };
       normal = {
-        family = "FiraCode NerdFont";
+        family = "JetBrainsMono Nerd Font";
         style = "Regular";
       };
       size = 12;
