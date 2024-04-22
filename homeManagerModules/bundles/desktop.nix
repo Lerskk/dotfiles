@@ -60,6 +60,7 @@
       scrcpy
       spotify
       sway-contrib.grimshot
+      texliveFull
       xfce.thunar
       ventoy
       vlc

@@ -3,7 +3,6 @@ local opt = vim.opt
 -- better colors
 opt.termguicolors = true
 vim.opt.cursorline = true
-
 -- number of space in a <Tab>
 opt.tabstop = 2
 opt.softtabstop = 2
