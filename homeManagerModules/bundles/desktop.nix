@@ -18,6 +18,7 @@
     myHomeManager.cursor.enable = lib.mkDefault true;
     myHomeManager.gtk.enable = lib.mkDefault true;
     myHomeManager.hyprland.enable = lib.mkDefault true;
+    myHomeManager.nvim.enable = lib.mkDefault true;
     myHomeManager.tmux.enable = lib.mkDefault true;
     myHomeManager.wlogout.enable = lib.mkDefault true;
     myHomeManager.xdg.enable = lib.mkDefault true;
