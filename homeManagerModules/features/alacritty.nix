@@ -7,28 +7,28 @@
   programs.alacritty.settings = {
     colors = {
       bright = {
-        black = "0x171717";
-        blue = "0x7c89e0";
-        cyan = "0x8adeff";
-        green = "0xadda71";
-        magenta = "0xc894eb";
-        red = "0xff5773";
+        black = "0x262626";
+        blue = "0x748be9";
+        cyan = "0x99e0ee";
+        green = "0x99d92b";
+        magenta = "0xc098fb";
+        red = "0xf75a64";
         white = "0xe3e3e3";
-        yellow = "0xffcb6b";
+        yellow = "0xffcf10";
       };
       # cursor = {
       #   cursor = "0x171717";
       #   text = "0xe3e3e3";
       # };
       normal = {
-        black = "0x171717";
-        blue = "0x7c89e0";
-        cyan = "0x8adeff";
-        green = "0xadda71";
-        magenta = "0xc894eb";
-        red = "0xff5773";
+        black = "0x111111";
+        blue = "0x5571d4";
+        cyan = "0x7cc4d2";
+        green = "0x84bb24";
+        magenta = "0xaf73f9";
+        red = "0xe72338";
         white = "0xe3e3e3";
-        yellow = "0xffcb6b";
+        yellow = "0xefc200";
       };
       primary = {
         background = "0x171717";
