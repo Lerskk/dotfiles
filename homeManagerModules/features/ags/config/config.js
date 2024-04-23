@@ -41,7 +41,7 @@ const date = Variable('', {
 
 function Workspaces() {
   const activeId = hyprland.active.workspace.bind("id")
-  const dispatch = ws => hyprland.messageAsync(`dispath workspace ${ws}`);
+  const dispatch = ws => hyprland.messageAsync(`dispatch workspace ${ws}`);
 
   const workspaces = Array.from({ length: 5 }, (_, i) => i + 1).map((i) => Widget.Button({
     hpack: "start",

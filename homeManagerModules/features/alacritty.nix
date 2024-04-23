@@ -6,33 +6,51 @@
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     colors = {
-      bright = {
-        black = "0x262626";
-        blue = "0x748be9";
-        cyan = "0x99e0ee";
-        green = "0x99d92b";
-        magenta = "0xc098fb";
-        red = "0xf75a64";
-        white = "0xe3e3e3";
-        yellow = "0xffcf10";
+
+      cursor = {
+        cursor = "0xf5e0dc";
+        text = "0x1e1e2e";
       };
-      # cursor = {
-      #   cursor = "0x171717";
-      #   text = "0xe3e3e3";
-      # };
-      normal = {
-        black = "0x111111";
-        blue = "0x5571d4";
-        cyan = "0x7cc4d2";
-        green = "0x84bb24";
-        magenta = "0xaf73f9";
-        red = "0xe72338";
-        white = "0xe3e3e3";
-        yellow = "0xefc200";
+      vi_mode_cursor = {
+        cursor = "#b4befe";
+        text = "#1e1e2e";
       };
+
       primary = {
-        background = "0x171717";
-        foreground = "0xe3e3e3";
+        background = "#1e1e2e";
+        foreground = "#cdd6f4";
+        dim_foreground = "#7f849c";
+        bright_foreground = "#cdd6f4";
+      };
+      normal = {
+        black = "#45475a";
+        red = "#f38ba8";
+        green = "#a6e3a1";
+        yellow = "#f9e2af";
+        blue = "#89b4fa";
+        magenta = "#f5c2e7";
+        cyan = "#94e2d5";
+        white = "#bac2de";
+      };
+      bright = {
+        black = "#585b70";
+        red = "#f38ba8";
+        green = "#a6e3a1";
+        yellow = "#f9e2af";
+        blue = "#89b4fa";
+        magenta = "#f5c2e7";
+        cyan = "#94e2d5";
+        white = "#a6adc8";
+      };
+      dim = {
+        black = "#45475a";
+        red = "#f38ba8";
+        green = "#a6e3a1";
+        yellow = "#f9e2af";
+        blue = "#89b4fa";
+        magenta = "#f5c2e7";
+        cyan = "#94e2d5";
+        white = "#bac2de";
       };
     };
     shell.program = "fish";
