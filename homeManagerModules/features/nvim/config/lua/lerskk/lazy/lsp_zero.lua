@@ -38,30 +38,39 @@ return {
       vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     end)
+    
+    local lspconfig = require("lspconfig")
 
-    require('mason').setup({})
-    require('mason-lspconfig').setup({
-      ensure_installed = {
-        'html',
-        'jsonls',
-        'tsserver',
-        'eslint',
-        'lua_ls',
-        'prismals',
-        'tailwindcss',
-        'cssls',
-        'clangd'
-      },
-      handlers = {
-        lsp_zero.default_setup,
+    lspconfig.clangd.setup({})
+    lspconfig.cssls.setup({})
+    lspconfig.eslint.setup({})
+    lspconfig.html.setup({})
+    lspconfig.jsonls.setup({})
+    lspconfig.lua_ls.setup({})
+    lspconfig.prismals.setup({})
+    lspconfig.tailwindcss.setup({})
+    lspconfig.texlab.setup({})
+    lspconfig.tsserver.setup({})
 
-        lua_ls = function()
-          local lua_opts = lsp_zero.nvim_lua_ls()
-          require('lspconfig').lua_ls.setup(lua_opts)
-        end,
-
-      },
-    })
+    -- require('mason').setup({})
+    -- require('mason-lspconfig').setup({
+    --   ensure_installed = {
+    --     'jsonls',
+    --     'eslint',
+    --     'prismals',
+    --     'tailwindcss',
+    --     'clangd'
+    --   },
+    --   handlers = {
+    --     lsp_zero.default_setup,
+    --
+    --     lua_ls = function()
+    --       local lua_opts = lsp_zero.nvim_lua_ls()
+    --       require('lspconfig').lua_ls.setup(lua_opts)
+    --     end,
+    --
+    --   },
+    -- })
 
     lsp_zero.format_on_save {
       servers = {

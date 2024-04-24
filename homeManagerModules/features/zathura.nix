@@ -7,7 +7,7 @@
     options = {
       # font = "Tahoma Normal 12";
 
-      selectior-clipboard = "clipboaro";
+      selection-clipboard = "clipboard";
       adjust-open = "width";
       default-bg = "rgba(0,0,0,0.8)";
       recolor = true;

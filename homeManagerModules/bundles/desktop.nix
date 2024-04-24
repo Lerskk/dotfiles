@@ -49,7 +49,8 @@
       krita
       libreoffice
       nh
-      nom
+      nix-output-monitor
+      # neovim
       obs-studio
       obsidian
       opentabletdriver
