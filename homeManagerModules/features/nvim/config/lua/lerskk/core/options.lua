@@ -10,7 +10,7 @@ opt.expandtab = true
 opt.fileencoding = "utf-8"
 
 -- Text
-opt.textwidth = 80
+-- opt.textwidth = 80
 opt.wrap = true -- line wrap
 opt.breakindent = true -- keep indentation when wrapped
 opt.showbreak = '↳' -- character to show at the start of a line that has been wrapped
