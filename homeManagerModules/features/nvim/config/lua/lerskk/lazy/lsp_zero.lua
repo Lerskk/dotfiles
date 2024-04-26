@@ -25,6 +25,7 @@ return {
 
     local builtin = require('telescope.builtin')
 
+
     lsp_zero.on_attach(function(_, bufnr)
       lsp_zero.default_keymaps({ buffer = bufnr, exclude = { 'gi' } })
 
@@ -38,7 +39,7 @@ return {
       vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
       vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
     end)
-    
+
     local lspconfig = require("lspconfig")
 
     lspconfig.clangd.setup({})
@@ -46,7 +47,11 @@ return {
     lspconfig.eslint.setup({})
     lspconfig.html.setup({})
     lspconfig.jsonls.setup({})
-    lspconfig.lua_ls.setup({})
+    lspconfig.lua_ls.setup({
+      diagnostic = {
+        global = { 'vim ' }
+      }
+    })
     lspconfig.prismals.setup({})
     lspconfig.tailwindcss.setup({})
     lspconfig.texlab.setup({})
