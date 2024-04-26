@@ -25,7 +25,6 @@ return {
       {
         f(function(_, snip) return snip.captures[1] end),
         i(1),
-        i(2),
       }
     ),
     { condition = tex.in_mathzone }
