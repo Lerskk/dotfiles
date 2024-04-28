@@ -9,6 +9,40 @@ local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
 return {
   s({
+      trig = "([^%a])mm",
+      wordTrig = false,
+      regTrig = true,
+      snippetType = "autosnippet",
+      desc = "Inline math"
+    },
+    fmta(
+      [[<>$<>$]],
+      {
+        f(function(_, snip) return snip.captures[1] end),
+        d(1, get_visual),
+      }
+    )
+  ),
+
+  s({
+      trig = "env",
+      desc = "Generic environment"
+    },
+    fmta(
+      [[
+      \begin{<>}
+        <>
+      \end{<>}
+      ]],
+      {
+        i(1),
+        d(2, get_visual),
+        rep(1),
+      }
+    )
+  ),
+
+  s({
       trig = "new",
       snippetType = "autosnippet",
       desc = "Generic environment"

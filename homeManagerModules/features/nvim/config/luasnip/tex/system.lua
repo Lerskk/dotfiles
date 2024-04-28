@@ -210,7 +210,7 @@ return {
       desc = "Section"
     },
     fmta(
-      [[\hspace{<>}]],
+      [[\section{<>}]],
       {
         d(1, get_visual),
       }
