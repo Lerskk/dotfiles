@@ -25,6 +25,25 @@ return {
   ),
 
   s({
+      trig = "([^%a])mb",
+      wordTrig = false,
+      regTrig = true,
+      snippetType = "autosnippet",
+      desc = "Inline math"
+    },
+    fmta([[
+      \[
+        <>
+      .\]
+      ]],
+      {
+        d(1, get_visual),
+      }
+    )
+  ),
+
+
+  s({
       trig = "env",
       desc = "Generic environment"
     },

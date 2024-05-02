@@ -24,7 +24,7 @@ return {
   ),
 
   s({
-      trig = " RR",
+      trig = "reff",
       wordTrig = false,
       snippetType = "autosnippet",
       desc = "Reference"

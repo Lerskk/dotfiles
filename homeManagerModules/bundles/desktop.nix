@@ -36,6 +36,7 @@
     home.packages = with pkgs; [
       adwaita-qt
       alacritty
+      audacity
       dolphin
       # davinci-resolve
       flameshot
