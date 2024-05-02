@@ -82,6 +82,27 @@ return {
   ),
 
   s({
+      trig = "nnew",
+      snippetType = "autosnippet",
+      desc = "Generic environment"
+    },
+    fmta(
+      [[
+      \begin{<>}[<>]
+        <>
+      \end{<>}
+      ]],
+      {
+        i(1),
+        i(2),
+        d(3, get_visual),
+        rep(1),
+      }
+    ),
+    { condition = line_begin }
+  ),
+
+  s({
       trig = "n2",
       snippetType = "autosnippet",
       desc = "Generic environment with one extra argument"
