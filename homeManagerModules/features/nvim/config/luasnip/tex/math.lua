@@ -1177,17 +1177,6 @@ return {
     )
   ),
 
-  s({ trig = "([^%a])->", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
-    fmta(
-      [[<><>]],
-      {
-        f(function(_, snip) return snip.captures[1] end),
-        t("\\to "),
-      },
-      { condition = tex.in_mathzone }
-    )
-  ),
-
   s({ trig = "([^%a])!>", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
     fmta(
       [[<><>]],
