@@ -5,8 +5,11 @@
 }: {
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
+    env = {
+      TERM = "xterm-256color";
+    };
+    
     colors = {
-
       cursor = {
         cursor = "0xf5e0dc";
         text = "0x1e1e2e";

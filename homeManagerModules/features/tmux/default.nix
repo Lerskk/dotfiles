@@ -10,7 +10,7 @@
     enable = true;
     mouse = true;
 
-    terminal = "screen-256color";
+    # terminal = "screen-256color";
 
     prefix = "C-a";
     keyMode = "vi";
@@ -27,8 +27,8 @@
     shell = "${pkgs.fish}/bin/fish";
 
     extraConfig = "
-      set-option -g default-terminal 'screen-256color'
-      set-option -g terminal-overrides ',xterm-256color:RGB'
+      set -g default-terminal \"tmux-256color\"
+      set -ag terminal-overrides \",xterm-256color:RGB\"
 
       bind ^X lock-server
       bind ^C new-window -c \"$HOME\"
@@ -42,8 +42,10 @@
       bind ^W list-windows
       bind w list-windows
       bind z resize-pane -Z
+      bind r command-prompt -I \"#W\" { rename-window -- \"%%\" }
+      bind R command-prompt -I \"#W\" { rename-window -- \"%%\" }
       bind ^L refresh client
-      bind | split-window
+      bind | split-windo
       bind s split-window -v -c \"#{pane_current_path}\"
       bind v split-window -h -c \"#{pane_current_path}\"
       bind '\"' choose-window
