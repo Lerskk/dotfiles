@@ -19,7 +19,7 @@
     eza
     fzf
     killall
-    neofetch
+    fastfetch
     ripgrep
     starship
     tmux
