@@ -78,4 +78,4 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 -- disable comment on new line
 vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
 
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 2

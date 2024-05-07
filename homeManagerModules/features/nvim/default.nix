@@ -12,6 +12,7 @@
     enable = true;
 
     extraPackages = with pkgs; [
+      libclang
       lua-language-server
       gcc
       nodePackages."@prisma/language-server"

@@ -20,7 +20,12 @@
     plugins = with pkgs; [
       tmuxPlugins.catppuccin
       tmuxPlugins.yank
-      tmuxPlugins.resurrect
+      { 
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-processes 'nvim btop ssh nix-shell "nix develop"'
+        '';
+      }
       tmuxPlugins.continuum
     ];
 
