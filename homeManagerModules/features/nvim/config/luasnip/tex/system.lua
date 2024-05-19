@@ -70,7 +70,7 @@ return {
 
   s({
       trig = "inn",
-      snippetType = "autosnippet",
+      -- snippetType = "autosnippet",
       desc = "Input a LaTeX file"
     },
     fmta(
