@@ -12,11 +12,11 @@
     enable = true;
 
     extraPackages = with pkgs; [
-      libclang
       lua-language-server
       gcc
-      clang
       clang-tools
+      clang
+      libclang
       nodePackages."@prisma/language-server"
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server

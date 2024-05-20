@@ -15,7 +15,6 @@
     bat
     btop
     cargo
-    clang
     eza
     fzf
     killall

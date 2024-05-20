@@ -109,7 +109,6 @@
     bat
     exiftool
     nvitop
-    clang
     ffmpeg
     syncthing
     gvfs
