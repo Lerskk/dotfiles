@@ -243,11 +243,10 @@ function Bar(monitor = 0) {
   })
 }
 
-const monitors = JSON.parse(exec('hyprctl monitors -j'))
 App.config({
   style: "./style.css",
   windows: [
-    monitors.map(({ id }) => Bar(id))
+    hyprland.monitors.map(({ id }) => Bar(id))
   ],
 })
 
