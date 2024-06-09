@@ -46,6 +46,7 @@ return {
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
     lspconfig.grammarly.setup({})
+    lspconfig.pyright.setup({})
     lspconfig.html.setup({})
     lspconfig.jsonls.setup({})
     lspconfig.lua_ls.setup({

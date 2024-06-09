@@ -9,7 +9,7 @@ import { NotificationPopups } from "./widget/notification/notificationPopups.js"
 App.config({
   style: App.configDir + "/style.css",
   windows: [
-    NotificationPopups(),
+    NotificationPopups(1),
   ],
 })
 
