@@ -16,6 +16,7 @@
     myHomeManager.ags.enable = lib.mkDefault true;
     myHomeManager.alacritty.enable = lib.mkDefault true;
     myHomeManager.cursor.enable = lib.mkDefault true;
+    myHomeManager.fish.enable = lib.mkDefault true;
     myHomeManager.gtk.enable = lib.mkDefault true;
     myHomeManager.hyprland.enable = lib.mkDefault true;
     myHomeManager.nvim.enable = lib.mkDefault true;
