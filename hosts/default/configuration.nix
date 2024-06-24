@@ -11,8 +11,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-ac542ac1-deee-4a89-ad28-7c7f44f810d5".device = "/dev/disk/by-uuid/ac542ac1-deee-4a89-ad28-7c7f44f810d5";
-
   myNixOS = {
     bundles.users.enable = true;
 
