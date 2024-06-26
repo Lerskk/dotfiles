@@ -62,8 +62,6 @@
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -137,14 +135,8 @@
   services.xserver.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
-  
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
 
