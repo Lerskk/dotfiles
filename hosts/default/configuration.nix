@@ -35,6 +35,7 @@
   time.timeZone = "America/Argentina/Cordoba";
 
   fonts.packages = with pkgs; [
+    corefonts
     (google-fonts.override { fonts = [ "Nunito" ]; })
     (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
   ];
