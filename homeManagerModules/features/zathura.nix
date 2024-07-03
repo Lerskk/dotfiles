@@ -15,7 +15,7 @@
       recolor-keephue = true;
 
       zoom-center = true;
-      # zoom-min = "100";
+      # zoom-min = "101";
       zoom-step = "5";
 
       statusbar-bg = "rgba(0,0,0,0;)";
