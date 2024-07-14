@@ -20,7 +20,7 @@
       nodePackages."@prisma/language-server"
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server
-      nodePackages.vscode-css-languageserver-bin
+      nodePackages.vscode-langservers-extracted
       texlab
       vscode-langservers-extracted
     ];
