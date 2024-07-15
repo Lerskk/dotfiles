@@ -158,7 +158,6 @@ in config.boot.kernelPackages.nvidiaPackages.mkDriver {
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Pipewire
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

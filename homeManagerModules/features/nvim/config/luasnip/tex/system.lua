@@ -205,40 +205,43 @@ return {
   ),
 
   s({
-      trig = "h1",
-      snippetType = "autosnippet",
+      trig = "sec",
+      -- snippetType = "autosnippet",
       desc = "Section"
     },
     fmta(
-      [[\section{<>}]],
+      [[\section{<>}<>]],
       {
         d(1, get_visual),
+        i(0),
       }
     )
   ),
 
   s({
-      trig = "h2",
-      snippetType = "autosnippet",
+      trig = "ssec",
+      -- snippetType = "autosnippet",
       desc = "Subsection"
     },
     fmta(
-      [[\subsection{<>}]],
+      [[\subsection{<>}<>]],
       {
         d(1, get_visual),
+        i(0),
       }
     )
   ),
 
   s({
-      trig = "h3",
-      snippetType = "autosnippet",
+      trig = "sssec",
+      -- snippetType = "autosnippet",
       desc = "Section"
     },
     fmta(
-      [[\subsubsection{<>}]],
+      [[\subsubsection{<>}<>]],
       {
         d(1, get_visual),
+        i(0),
       }
     )
   ),

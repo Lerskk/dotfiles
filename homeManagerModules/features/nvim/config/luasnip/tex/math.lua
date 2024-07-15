@@ -1276,7 +1276,7 @@ return {
     )
   ),
 
-  s({ trig = "([^%a])ll", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
+  s({ trig = "([^%a])ll", wordTrig = false, regTrig = true },
     fmta(
       [[<><>]],
       {

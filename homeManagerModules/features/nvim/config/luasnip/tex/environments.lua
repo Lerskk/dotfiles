@@ -184,8 +184,8 @@ return {
   ),
 
   s({
-      trig = "ss",
-      snippetType = "autosnippet",
+      trig = "seq",
+      -- snippetType = "autosnippet",
       desc = "Split equation"
     },
     fmta(

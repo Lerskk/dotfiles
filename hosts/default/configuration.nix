@@ -86,6 +86,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vesktop
+    webcord
     discord-screenaudio
     
     eww
@@ -157,7 +158,6 @@
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Pipewire
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
