@@ -393,22 +393,22 @@ return {
     { condition = tex.in_mathzone }
   ),
 
-  s({
-      trig = "([^%a%\\])ll",
-      wordTrig = false,
-      regTrig = true,
-      snippetType = "autosnippet",
-      desc = "Logarithm with base subscript"
-    },
-    fmta(
-      "<>\\log_{<>}",
-      {
-        f(function(_, snip) return snip.captures[1] end),
-        i(1),
-      }
-    ),
-    { condition = tex.in_mathzone }
-  ),
+  -- s({
+  --     trig = "([^%a%\\])ll",
+  --     wordTrig = false,
+  --     regTrig = true,
+  --     snippetType = "autosnippet",
+  --     desc = "Logarithm with base subscript"
+  --   },
+  --   fmta(
+  --     "<>\\log_{<>}",
+  --     {
+  --       f(function(_, snip) return snip.captures[1] end),
+  --       i(1),
+  --     }
+  --   ),
+  --   { condition = tex.in_mathzone }
+  -- ),
 
   s({
       trig = "([^%a])dV",
