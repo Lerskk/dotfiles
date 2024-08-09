@@ -88,7 +88,12 @@
     vesktop
     webcord
     discord-screenaudio
-    
+    python310
+    gcc
+    python310Packages.tox
+    python310Packages.xkbcommon 
+    python310Packages.evdev
+    libxkbcommon   
     eww
     dunst
     swww
