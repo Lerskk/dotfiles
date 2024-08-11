@@ -47,11 +47,23 @@ return {
     )
   ),
   s({
-      trig = "tcite",
+      trig = "citey",
+      desc = "parencite year"
+    },
+    fmta(
+      [[\citeyear{<>}<>]],
+      {
+        d(1, get_visual),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "citet",
       desc = "cite title"
     },
     fmta(
-      [[\titlecite{<>}<>]],
+      [[\citetitle{<>}<>]],
       {
         d(1, get_visual),
         i(0),
@@ -59,11 +71,11 @@ return {
     )
   ),
   s({
-      trig = "ftcite",
+      trig = "citeft",
       desc = "cite full title"
     },
     fmta(
-      [[\titlecite*{<>}<>]],
+      [[\citetitle*{<>}<>]],
       {
         d(1, get_visual),
         i(0),
@@ -71,11 +83,11 @@ return {
     )
   ),
   s({
-      trig = "acite",
+      trig = "citea",
       desc = "cite author"
     },
     fmta(
-      [[\authorcite{<>}<>]],
+      [[\citeauthor{<>}<>]],
       {
         d(1, get_visual),
         i(0),
