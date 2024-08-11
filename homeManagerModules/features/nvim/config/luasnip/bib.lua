@@ -1,0 +1,260 @@
+return {
+  s({
+      trig = "article",
+      desc = "An article from a magazine or a journal."
+    },
+    fmta([[
+      @article{<>,
+        author = {<>},
+        title = {<>},
+        journal = {<>},
+        volume = {<>},
+        number = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        eid = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(10),
+        i(11),
+        i(12),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "book",
+      desc = "A published book"
+    },
+    fmta([[
+      @book{<>,
+        author = {<>},
+        title = {<>},
+        publisher = {<>},
+        volume = {<>},
+        number = {<>},
+        series = {<>},
+        address = {<>},
+        edition = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        doi = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(10),
+        i(11),
+        i(12),
+        i(13),
+        i(14),
+        i(15),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "booklet",
+      desc = "A informally published book."
+    },
+    fmta([[
+      @booklet{<>,
+        author = {<>},
+        title = {<>},
+        address = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "conference",
+      desc = "Equal to inproceedings."
+    },
+    fmta([[
+      @conference{<>,
+        author = {<>},
+        title = {<>},
+        booktitle = {<>},
+        publisher = {<>},
+        editor = {<>},
+        volume = {<>},
+        number = {<>},
+        series = {<>},
+        pages = {<>},
+        address = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(10),
+        i(11),
+        i(12),
+        i(13),
+        i(14),
+        i(15),
+        i(16),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "inbook",
+      desc = "A section of a book without its own title."
+    },
+    fmta([[
+      @inbook{<>,
+        author = {<>},
+        title = {<>},
+        editor = {<>},
+        publisher = {<>},
+        volume = {<>},
+        number = {<>},
+        series = {<>},
+        edition = {<>},
+        chapter = {<>},
+        type = {<>},
+        address = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(10),
+        i(11),
+        i(12),
+        i(13),
+        i(14),
+        i(15),
+        i(16),
+        i(17),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "misc",
+      desc = "Template useful for other kinds of publication."
+    },
+    fmta([[
+      @misc{<>,
+        author = {<>},
+        title = {<>},
+        howpublished = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(0),
+      }
+    )
+  ),
+  s({
+      trig = "online",
+      desc = "Template useful for online publications."
+    },
+    fmta([[
+      @online{<>,
+        author = {<>},
+        title = {<>},
+        howpublished = {<>},
+        year = {<>},
+        month = {<>},
+        url = {<>},
+        urldate = {<>},
+        note = {<>},
+      }<>
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+        i(0),
+      }
+    )
+  ),
+}

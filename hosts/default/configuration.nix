@@ -87,6 +87,7 @@
   environment.systemPackages = with pkgs; [
     vesktop
     webcord
+    ladybird
     discord-screenaudio
     python310
     gcc
