@@ -25,9 +25,9 @@ in {
     stateVersion = "23.11";
 
     packages = with pkgs; [
-      # (blender.override {
-      #   cudaSupport = true;
-      # })
+      (blender.override {
+        cudaSupport = true;
+      })
     ];
   };
 
