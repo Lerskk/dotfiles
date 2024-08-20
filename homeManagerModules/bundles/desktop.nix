@@ -59,6 +59,7 @@
       playerctl
       psensor
       pureref
+      qelectrotech
       rofi-wayland
       scrcpy
       spotify
