@@ -20,6 +20,7 @@
     killall
     fastfetch
     ripgrep
+    SDL2
     starship
     tmux
     unzip

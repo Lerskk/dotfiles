@@ -45,6 +45,14 @@ return {
     lspconfig.clangd.setup({})
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
+    require('lspconfig').ltex.setup({
+      settings = {
+        ltex = {
+          language = "en-US",
+          enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context", "html", "xhtml", "mail", "plaintext" }
+        },
+      },
+    })
     lspconfig.grammarly.setup({})
     lspconfig.pyright.setup({})
     lspconfig.html.setup({})

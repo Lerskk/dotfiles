@@ -81,7 +81,7 @@ return {
       desc = "and"
     },
     {
-      t("\\quad \\text{and} \\quad"),
+      t("\\ \\text{and} \\ "),
     },
     { condition = tex.in_mathzone }
   ),
