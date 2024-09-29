@@ -57,8 +57,6 @@
       obsidian
       opentabletdriver
       playerctl
-      psensor
-      pureref
       qelectrotech
       rofi-wayland
       scrcpy

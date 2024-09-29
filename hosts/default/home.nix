@@ -24,11 +24,11 @@ in {
     homeDirectory = lib.mkDefault "/home/lerskk";
     stateVersion = "23.11";
 
-    packages = with pkgs; [
-      (blender.override {
-        cudaSupport = true;
-      })
-    ];
+    # packages = with pkgs; [
+    #   (blender.override {
+    #     cudaSupport = true;
+    #   })
+    # ];
   };
 
   nixpkgs = {
