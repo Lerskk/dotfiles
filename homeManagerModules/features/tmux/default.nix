@@ -2,10 +2,10 @@
   pkgs,
   ...
 }: {
-  # home.file.".config/tmux" = {
-  #   source = ./config;
-  #   recursive = true;
-  # };
+  home.file.".config/tmux" = {
+    source = ./config;
+    recursive = true;
+  };
   programs.tmux = {
     enable = true;
     mouse = true;
@@ -73,6 +73,7 @@
       bind x swap-pane -D
       bind S choose-session
       bind -T copy-mode-vi v send-keys -X begin-selection
+      bind f run-shell 'tmux neww ~/.config/tmux/scripts/tmux-sessionizer'
     ";
     
   };
