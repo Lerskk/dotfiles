@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/code ~/.config ~/ ~/documents/blender/ -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/notes/1-projects ~/notes/2-areas ~/code ~/.config ~/ -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

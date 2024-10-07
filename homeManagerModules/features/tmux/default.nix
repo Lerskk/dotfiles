@@ -74,6 +74,8 @@
       bind S choose-session
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind f run-shell 'tmux neww ~/.config/tmux/scripts/tmux-sessionizer'
+      bind N run-shell '~/.config/tmux/scripts/tmux-sessionizer ~/notes'
+      bind D run-shell '~/.config/tmux/scripts/tmux-sessionizer ~/dotfiles'
     ";
     
   };
