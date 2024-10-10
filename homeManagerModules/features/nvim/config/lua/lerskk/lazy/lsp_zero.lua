@@ -44,6 +44,7 @@ return {
 
     lspconfig.clangd.setup({})
     lspconfig.cssls.setup({})
+    lspconfig.cmake.setup({})
     lspconfig.eslint.setup({})
     require('lspconfig').ltex.setup({
       settings = {
@@ -206,7 +207,7 @@ return {
         ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         ['<C-up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-        ['iy'] = cmp.mapping(cmp_action.luasnip_jump_forward(), { 'i', 'c' }),
+        ['jk'] = cmp.mapping(cmp_action.luasnip_jump_forward(), { 'i', 'c' }),
         ['<C-b>'] = cmp.mapping(cmp_action.luasnip_jump_backward(), { 'i', 'c' }),
         ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
