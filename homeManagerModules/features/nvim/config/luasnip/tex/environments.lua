@@ -25,6 +25,22 @@ return {
   ),
 
   s({
+      trig = "([^%a])lsti",
+      wordTrig = false,
+      regTrig = true,
+      snippetType = "autosnippet",
+      desc = "Inline code"
+    },
+    fmta(
+      [[\lstinline{<>}<>]],
+      {
+        f(function(_, snip) return snip.captures[1] end),
+        d(1, get_visual),
+      }
+    )
+  ),
+
+  s({
       trig = "([^%a])mb",
       wordTrig = false,
       regTrig = true,
