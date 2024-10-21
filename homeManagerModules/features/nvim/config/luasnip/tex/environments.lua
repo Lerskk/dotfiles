@@ -32,10 +32,11 @@ return {
       desc = "Inline code"
     },
     fmta(
-      [[\lstinline{<>}<>]],
+      [[<>\lstinline{<>}<>]],
       {
         f(function(_, snip) return snip.captures[1] end),
         d(1, get_visual),
+        i(0),
       }
     )
   ),
