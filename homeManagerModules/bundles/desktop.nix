@@ -39,7 +39,6 @@
       alacritty
       audacity
       dolphin
-      # davinci-resolve
       flameshot
       geeqie
       gimp
@@ -52,7 +51,6 @@
       libreoffice
       nh
       nix-output-monitor
-      # neovim
       obs-studio
       obsidian
       opentabletdriver
