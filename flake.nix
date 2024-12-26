@@ -38,12 +38,6 @@
         nativeBuildInputs = with pkgs; [
         ];
       };
-
-      python = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          python3
-        ];
-      };
     };
 
     homeManagerModules.default = ./homeManagerModules;

@@ -26,7 +26,7 @@
     myHomeManager.zathura.enable = lib.mkDefault true;
 
     qt.enable = true;
-    qt.platformTheme = "gtk";
+    qt.platformTheme.name = "gtk";
     qt.style.name = "adwaita-dark";
 
     home.sessionVariables = {

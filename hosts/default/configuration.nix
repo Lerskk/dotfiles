@@ -62,9 +62,26 @@
   };
 
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
+
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (
+        subject.isInGroup("users")
+          && (
+            action.id == "org.freedesktop.login1.reboot" ||
+            action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.power-off" ||
+            action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+          )
+        )
+      {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -87,16 +104,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vesktop
-    webcord
-    ladybird
-    discord-screenaudio
-    python310
-    gcc
-    python310Packages.tox
-    python310Packages.xkbcommon 
-    python310Packages.evdev
+    python3
     libxkbcommon   
-    eww
     dunst
     swww
     firefox
@@ -142,7 +151,7 @@
   services.tumbler.enable = true;
 
   services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   
   programs.hyprland = {
     enable = true;
