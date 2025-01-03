@@ -56,7 +56,7 @@
         white = "#bac2de";
       };
     };
-    shell.program = "fish";
+    terminal.shell.program = "fish";
     font = {
       bold = {
         family = "JetBrainsMono Nerd Font";

@@ -18,27 +18,15 @@
   })
   (myLib.filesIn ./bundles);
 
-# features =
-#   myLib.extendModules
-#   (name: {
-#     extraOptions = {
-#       myNixOS.${name}.enable = lib.mkEnableOption "enable my ${name} configuration";
-#     };
-#
-#     configExtension = config: (lib.mkIf cfg.${name}.enable config);
-#   })
-#   (myLib.filesIn ./features);
-
 in {
   imports = 
-    [ inputs.home-manager.nixosModules.home-manager]
+    [ inputs.home-manager.nixosModules.home-manager ]
     ++ bundles;
     # ++ features;
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.allowBroken = true;
   };
 }
 

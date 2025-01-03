@@ -67,6 +67,25 @@
       wlogout
       # xdg-desktop-portal-hyprland
       zathura
+
+
+      vesktop
+      python3
+      libxkbcommon   
+      dunst
+      swww
+      firefox
+      tldr
+      xfce.thunar
+      rofi-wayland
+      nvitop
+      ffmpeg
+      syncthing
+      gnugrep
+      gnumake
+      telegram-desktop
+      cmake
+      wget
     ];
   };
 

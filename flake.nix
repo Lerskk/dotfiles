@@ -33,13 +33,6 @@
       "lerskk" = mkHome "x86_64-linux" ./hosts/default/home.nix;
     };
 
-    devShells.x86_64-linux = {
-      default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-        ];
-      };
-    };
-
     homeManagerModules.default = ./homeManagerModules;
     nixosModules.default = ./nixosModules;
   };

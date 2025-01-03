@@ -23,12 +23,6 @@ in {
     username = "lerskk";
     homeDirectory = lib.mkDefault "/home/lerskk";
     stateVersion = "23.11";
-
-    # packages = with pkgs; [
-    #   (blender.override {
-    #     cudaSupport = true;
-    #   })
-    # ];
   };
 
   nixpkgs = {
@@ -102,7 +96,7 @@ in {
   #  /etc/profiles/per-user/lerskk/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
