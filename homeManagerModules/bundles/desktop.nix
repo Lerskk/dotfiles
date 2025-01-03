@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   ...
@@ -67,7 +68,6 @@
       wlogout
       # xdg-desktop-portal-hyprland
       zathura
-
 
       vesktop
       python3

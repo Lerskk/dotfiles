@@ -11,6 +11,7 @@
     configDir = ./config;
     
     extraPackages = with pkgs; [
+      inputs.ags.packages.${pkgs.system}.hyprland
       accountsservice
       gtksourceview
       sass
