@@ -66,7 +66,7 @@ return {
     lspconfig.prismals.setup({})
     lspconfig.tailwindcss.setup({})
     lspconfig.texlab.setup({})
-    lspconfig.tsserver.setup({})
+    lspconfig.ts_ls.setup({})
 
     -- require('mason').setup({})
     -- require('mason-lspconfig').setup({
