@@ -1,12 +1,10 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
-  home.file.".config/nvim" = {
-    source = ./config;
-    recursive = true;
-  };
+  home.file."./.config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/homeManagerModules/features/nvim/config";
 
 
   programs.neovim = {
@@ -14,10 +12,10 @@
 
     extraPackages = with pkgs; [
       lua-language-server
-      gcc
-      clang-tools
-      clang
-      libclang
+      # gcc
+      # clang-tools
+      # clang
+      # libclang
       ltex-ls
       # nodePackages."@prisma/language-server"
       # nodePackages."@tailwindcss/language-server"
