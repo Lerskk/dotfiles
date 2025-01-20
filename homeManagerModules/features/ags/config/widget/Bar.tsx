@@ -18,7 +18,7 @@ const Workspaces = () => {
   print(workspaces.length)
   return (
     <box>
-      {workspaces.map((workspace, i) => 
+      {workspaces.map((workspace, i) =>
         <button className="workspace" onClick={() => hyprland.dispatch("workspace", (i + 1).toString())}>
           {i + 1}
         </button>

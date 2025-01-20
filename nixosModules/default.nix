@@ -18,11 +18,22 @@
   })
   (myLib.filesIn ./bundles);
 
+  features =
+  myLib.extendModules
+  (name: {
+    extraOptions = {
+      myNixOS.features.${name}.enable = lib.mkEnableOption "enable ${name} module bundle";
+    };
+
+    configExtension = config: (lib.mkIf cfg.features.${name}.enable config);
+  })
+  (myLib.filesIn ./features);
+
 in {
   imports = 
     [ inputs.home-manager.nixosModules.home-manager ]
-    ++ bundles;
-    # ++ features;
+    ++ bundles
+    ++ features;
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];

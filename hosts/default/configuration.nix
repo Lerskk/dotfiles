@@ -12,6 +12,7 @@
   myNixOS = {
     bundles.users.enable = true;
     bundles.general-desktop.enable = true;
+    features.syncthing.enable = true;
 
     home-users = {
       "lerskk" = {

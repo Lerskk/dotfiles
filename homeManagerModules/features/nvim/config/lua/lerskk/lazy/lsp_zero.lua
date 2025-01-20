@@ -4,6 +4,8 @@ return {
 
   dependencies = {
     "williamboman/mason.nvim",
+    'valentjn/vscode-ltex',
+    "jhofscheier/ltex-utils.nvim",
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lsp',
@@ -46,6 +48,14 @@ return {
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
     require('lspconfig').ltex.setup({
+
+      on_attach = function(client, bufnr)
+        -- your other on_attach code
+        -- for example, set keymaps here, like
+        -- vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+        -- (see below code block for more details)
+        require("ltex-utils").on_attach(bufnr)
+      end,
       settings = {
         ltex = {
           language = "en-US",
