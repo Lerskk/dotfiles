@@ -19,6 +19,7 @@
     fzf
     killall
     fastfetch
+    gcc
     ripgrep
     SDL2
     starship
