@@ -44,7 +44,8 @@ return {
 
     local lspconfig = require("lspconfig")
 
-    lspconfig.ccls.setup({})
+    lspconfig.clangd.setup({})
+    lspconfig.glslls.setup({})
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
     require('lspconfig').ltex.setup({
@@ -59,7 +60,7 @@ return {
       settings = {
         ltex = {
           language = "en-US",
-          enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context", "html", "xhtml", "mail", "plaintext" }
+          enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context", "xhtml", "mail", "plaintext" }
         },
       },
     })
