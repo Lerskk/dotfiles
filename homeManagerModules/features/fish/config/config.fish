@@ -13,12 +13,12 @@ if status is-interactive
 
   ### ALIASES / ABBREVIATIONS / FUNCTIONS ###
   # ls -> exa
-  alias exa "exa --color=always --group-directories-first --icons --git" # settings
-  alias ls "exa -alhg" # alias for ATL + L
-  abbr ls "exa -alhg" # my preferred listing
-  abbr la "exa -a"  # all files and dirs
-  abbr ll "exa -lg"  # long format
-  abbr lt "exa -aT" # tree listing
+  alias exa "eza --color=always --group-directories-first --icons --git" # settings
+  alias ls "eza -alhg" # alias for ATL + L
+  abbr ls "eza -alhg" # my preferred listing
+  abbr la "eza -a"  # all files and dirs
+  abbr ll "eza -lg"  # long format
+  abbr lt "eza -aT --git-ignore" # tree listing
 
   # cat -> bat
   abbr cat "bat"
