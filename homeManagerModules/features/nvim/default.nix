@@ -15,7 +15,6 @@
       # clang-tools
       # clang
       # libclang
-      ltex-ls
       nodePackages."@prisma/language-server"
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server

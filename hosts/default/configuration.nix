@@ -71,6 +71,13 @@
     });
   '';
 
+  security.wrappers.pkexec = {
+    source = "${pkgs.polkit}/bin/pkexec";
+    owner = "root";
+    group = "root";
+    setuid = true;
+  };
+
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -92,6 +99,7 @@
     fish
     pfetch
     eza
+    nodejs_22
     trash-cli
     unzip
     zip
