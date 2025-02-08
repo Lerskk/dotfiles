@@ -5,7 +5,6 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     'valentjn/vscode-ltex',
-    "jhofscheier/ltex-utils.nvim",
     'williamboman/mason-lspconfig.nvim',
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lsp',
