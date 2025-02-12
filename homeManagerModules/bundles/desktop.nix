@@ -70,7 +70,6 @@
       zathura
 
       vesktop
-      python3
       libxkbcommon   
       dunst
       swww
