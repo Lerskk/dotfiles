@@ -21,7 +21,7 @@
     };
   };
 
-  networking.hostName = "nixos"; 
+  networking.hostName = "desktop"; 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   networking.networkmanager.enable = true;
@@ -96,6 +96,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    (callPackage ../../plover.nix {}).dev
     fish
     pfetch
     eza
@@ -110,6 +111,11 @@
     fzf
     git
   ];
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   programs.xfconf.enable = true;
     programs.thunar = {
@@ -133,6 +139,8 @@
   };
 
   environment.sessionVariables = {
+    FLAKE = "/home/lerskk/dotfiles";
+
     WLR_NO_HARDWARE_CURSORS = "1";
 
     NIXOS_OZONE_WL = "1";

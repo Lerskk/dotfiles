@@ -12,4 +12,7 @@ return {
     { "\\", "<cmd>Oil<cr>", desc = "Oil" },
   },
 
+  view_options = {
+    show_hidden = true,
+  }
 }

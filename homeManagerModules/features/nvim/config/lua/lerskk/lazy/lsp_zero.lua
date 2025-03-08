@@ -44,7 +44,7 @@ return {
     local lspconfig = require("lspconfig")
 
     lspconfig.clangd.setup({})
-    lspconfig.glslls.setup({})
+    lspconfig.glsl_analyzer.setup({})
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
     require('lspconfig').ltex.setup({

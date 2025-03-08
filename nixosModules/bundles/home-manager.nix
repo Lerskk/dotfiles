@@ -12,7 +12,7 @@ in {
     userName = "lerskk";
 
     userConfig = lib.mkOption {
-      default = ./../../hosts/default/home.nix;
+      default = ./../../hosts/desktop/home.nix;
       description = ''
         home-manager config path
       '';

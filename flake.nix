@@ -26,11 +26,11 @@
     with myLib; {
 
     nixosConfigurations = {
-      default = mkSystem ./hosts/default/configuration.nix;
+      desktop = mkSystem ./hosts/desktop/configuration.nix;
     };
 
     homeConfigurations = {
-      "lerskk" = mkHome "x86_64-linux" ./hosts/default/home.nix;
+      "lerskk" = mkHome "x86_64-linux" ./hosts/desktop/home.nix;
     };
 
     homeManagerModules.default = ./homeManagerModules;

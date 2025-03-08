@@ -20,7 +20,7 @@
       configExtension = config: (lib.mkIf cfg.${name}.enable config);
     })
     (myLib.filesIn ./features);
-
+  wayland.windowManager.sway.config.terminal = "alacritty";
   # Taking all module bundles in ./bundles and adding bundle.enables to them
   bundles =
     myLib.extendModules

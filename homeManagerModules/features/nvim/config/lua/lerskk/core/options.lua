@@ -90,3 +90,16 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*.*",
   command = "silent! loadview",
 })
+
+vim.filetype.add({
+  extension = {
+    ["vert"] = "glsl",
+    ["tesc"] = "glsl",
+    ["tese"] = "glsl",
+    ["frag"] = "glsl",
+    ["geom"] = "glsl",
+    ["comp"] = "glsl",
+    ["vs"] = "glsl",
+    ["fs"] = "glsl",
+  }
+})
