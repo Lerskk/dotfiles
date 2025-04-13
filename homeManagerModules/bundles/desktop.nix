@@ -44,6 +44,7 @@
       geeqie
       gimp
       google-chrome
+      hypridle
       hyprlock
       hyprpicker
       inkscape
