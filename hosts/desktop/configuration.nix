@@ -131,7 +131,7 @@
   services.tumbler.enable = true;
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  programs.uwsm.enable = true;
   
   programs.hyprland = {
     enable = true;
