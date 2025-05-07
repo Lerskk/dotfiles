@@ -25,14 +25,6 @@ in {
     stateVersion = "23.11";
   };
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = (_: true);
-    };
-  };
-
-
   programs.ssh = {
     enable = true;
     extraConfig = ''

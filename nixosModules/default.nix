@@ -34,11 +34,6 @@ in {
     [ inputs.home-manager.nixosModules.home-manager ]
     ++ bundles
     ++ features;
-
-  config = {
-    nix.settings.experimental-features = ["nix-command" "flakes"];
-    nixpkgs.config.allowUnfree = true;
-  };
 }
 
 

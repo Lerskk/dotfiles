@@ -24,6 +24,9 @@
   networking.hostName = "desktop"; 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.config.allowUnfree = true;
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Argentina/Cordoba";

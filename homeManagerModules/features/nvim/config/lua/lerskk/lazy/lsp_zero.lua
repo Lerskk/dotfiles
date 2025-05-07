@@ -47,22 +47,6 @@ return {
     lspconfig.glsl_analyzer.setup({})
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
-    require('lspconfig').ltex.setup({
-
-      on_attach = function(client, bufnr)
-        -- your other on_attach code
-        -- for example, set keymaps here, like
-        -- vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-        -- (see below code block for more details)
-        require("ltex-utils").on_attach(bufnr)
-      end,
-      settings = {
-        ltex = {
-          language = "en-US",
-          enabled = { "bibtex", "gitcommit", "markdown", "org", "tex", "restructuredtext", "rsweave", "latex", "quarto", "rmd", "context", "xhtml", "mail", "plaintext" }
-        },
-      },
-    })
     lspconfig.grammarly.setup({})
     lspconfig.pyright.setup({})
     lspconfig.html.setup({})

@@ -39,7 +39,6 @@
       adwaita-qt
       alacritty
       audacity
-      dolphin
       flameshot
       geeqie
       gimp
@@ -48,7 +47,6 @@
       hyprlock
       hyprpicker
       inkscape
-      kdenlive
       krita
       libreoffice
       nh

@@ -15,7 +15,6 @@
       # clang-tools
       # clang
       # libclang
-      nodePackages."@prisma/language-server"
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
