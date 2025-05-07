@@ -47,7 +47,6 @@ return {
     lspconfig.glsl_analyzer.setup({})
     lspconfig.cssls.setup({})
     lspconfig.eslint.setup({})
-    lspconfig.grammarly.setup({})
     lspconfig.pyright.setup({})
     lspconfig.html.setup({})
     lspconfig.jsonls.setup({})
