@@ -142,7 +142,7 @@
   };
 
   environment.sessionVariables = {
-    FLAKE = "/home/lerskk/dotfiles";
+    NH_FLAKE = "/home/lerskk/dotfiles";
 
     WLR_NO_HARDWARE_CURSORS = "1";
 
