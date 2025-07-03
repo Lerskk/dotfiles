@@ -62,7 +62,6 @@
       sway-contrib.grimshot
       texliveFull
       xfce.thunar
-      ventoy
       vlc
       wlogout
       # xdg-desktop-portal-hyprland

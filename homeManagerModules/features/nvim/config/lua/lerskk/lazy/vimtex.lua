@@ -1,5 +1,6 @@
 return {
   'lervag/vimtex',
+  lazy = false,
   ft = 'tex',
   init = function()
     vim.keymap.set('n', '<leader>v', '<cmd>VimtexView<CR>')
@@ -8,5 +9,17 @@ return {
     vim.g.vimtex_quickfix_mode = 0
 
     vim.g.tex_conceal = "abdmg"
+
+    -- Force latexmk to use biber
+    vim.g.vimtex_compiler_latexmk = {
+      options = {
+        "-verbose",
+        "-file-line-error",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-pdf",
+        "-bibtex"
+      }
+    }
   end
 }
