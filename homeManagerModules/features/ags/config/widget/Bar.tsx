@@ -1,9 +1,9 @@
-import { App, Astal, Gtk, Gdk } from "astal/gtk3"
+import app from "ags/gtk4/app"
+import { Astal } from "ags/gtk4"
+import { createPoll } from "ags/time"
 import { Variable } from "astal"
 import Hyprland from "gi://AstalHyprland"
 const hyprland = Hyprland.get_default()
-
-const time = Variable("").poll(1000, "date")
 
 const Workspaces = () => {
   const hyprWorkspaces = hyprland.workspaces
@@ -19,33 +19,29 @@ const Workspaces = () => {
   return (
     <box>
       {workspaces.map((workspace, i) =>
-        <button className="workspace" onClick={() => hyprland.dispatch("workspace", (i + 1).toString())}>
+        <box>
           {i + 1}
-        </button>
+        </box>
       )}
     </box>
   )
 }
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
-  const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+app.start({
+  main() {
+    const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+    const clock = createPoll("", 1000, "date")
 
-
-  return <window
-    className="Bar"
-    gdkmonitor={gdkmonitor}
-    exclusivity={Astal.Exclusivity.EXCLUSIVE}
-    anchor={TOP | LEFT | RIGHT}
-    application={App}>
-    <centerbox>
-      <Workspaces />
-      <button
-        onClicked={() => print("hello")}
-        halign={Gtk.Align.CENTER}
-      >
-        <label label={time()} />
-      </button>
-      <box />
-    </centerbox>
-  </window>
-}
+    return (
+      <window
+        visible
+        anchor={TOP | LEFT | RIGHT}>
+        <centerbox>
+          <Workspaces />
+          <label label={clock} />
+          <box />
+        </centerbox>
+      </window>
+    )
+  }
+})

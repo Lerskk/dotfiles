@@ -82,6 +82,7 @@
       gnumake
       telegram-desktop
       cmake
+      kdePackages.xwaylandvideobridge
       wget
     ];
   };
