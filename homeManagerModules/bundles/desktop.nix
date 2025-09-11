@@ -81,6 +81,7 @@
       gnugrep
       gnumake
       telegram-desktop
+      tidal-hifi
       cmake
       kdePackages.xwaylandvideobridge
       wget
