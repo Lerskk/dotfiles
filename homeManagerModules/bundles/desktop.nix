@@ -56,7 +56,7 @@
       opentabletdriver
       playerctl
       qelectrotech
-      rofi-wayland
+      rofi
       scrcpy
       spotify
       sway-contrib.grimshot
@@ -74,9 +74,9 @@
       firefox
       tldr
       xfce.thunar
-      rofi-wayland
       nvitop
       ffmpeg
+      slurp
       syncthing
       gnugrep
       gnumake
@@ -84,6 +84,8 @@
       tidal-hifi
       cmake
       kdePackages.xwaylandvideobridge
+      xdg-desktop-portal-hyprland
+      webcord
       wget
     ];
   };

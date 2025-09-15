@@ -99,7 +99,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    (callPackage ../../plover.nix {}).dev
     fish
     pfetch
     eza
