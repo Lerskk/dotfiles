@@ -387,6 +387,9 @@ declare module 'gi://JavaScriptCore?version=6.0' {
         interface ExceptionHandler {
             (context: Context, exception: Exception): void;
         }
+        interface Executor {
+            (resolve: Value, reject: Value): void;
+        }
         interface OptionsFunc {
             (option: string, type: OptionType, description?: string | null): boolean;
         }
@@ -420,7 +423,14 @@ declare module 'gi://JavaScriptCore?version=6.0' {
              */
             WRITABLE,
         }
-        module Class {
+        namespace Class {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -455,11 +465,38 @@ declare module 'gi://JavaScriptCore?version=6.0' {
              */
             get parent(): Class;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Class.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Class.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Class.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Class.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Class.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Class.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Class.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Class.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -591,7 +628,12 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             get_parent(): Class;
         }
 
-        module Context {
+        namespace Context {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::virtual-machine': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -623,6 +665,15 @@ declare module 'gi://JavaScriptCore?version=6.0' {
              */
             get virtualMachine(): VirtualMachine;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Context.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Context.ConstructorProps>, ...args: any[]);
@@ -632,6 +683,24 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             static ['new'](): Context;
 
             static new_with_virtual_machine(vm: VirtualMachine): Context;
+
+            // Signals
+
+            connect<K extends keyof Context.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Context.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Context.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Context.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Context.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Context.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -790,7 +859,10 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             throw_with_name(error_name: string, error_message: string): void;
         }
 
-        module Exception {
+        namespace Exception {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -802,6 +874,15 @@ declare module 'gi://JavaScriptCore?version=6.0' {
         class Exception extends GObject.Object {
             static $gtype: GObject.GType<Exception>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Exception.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Exception.ConstructorProps>, ...args: any[]);
@@ -811,6 +892,24 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             static ['new'](context: Context, message: string): Exception;
 
             static new_with_name(context: Context, name: string, message: string): Exception;
+
+            // Signals
+
+            connect<K extends keyof Exception.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Exception.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Exception.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Exception.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Exception.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Exception.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -857,7 +956,12 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             to_string(): string;
         }
 
-        module Value {
+        namespace Value {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -878,6 +982,15 @@ declare module 'gi://JavaScriptCore?version=6.0' {
              * The #JSCContext in which the value was created.
              */
             get context(): Context;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Value.SignalSignatures;
 
             // Constructors
 
@@ -923,6 +1036,8 @@ declare module 'gi://JavaScriptCore?version=6.0' {
 
             static new_object(context: Context, instance?: any | null, jsc_class?: Class | null): Value;
 
+            static new_promise(context: Context, executor: Executor): Value;
+
             static new_string(context: Context, string?: string | null): Value;
 
             static new_string_from_bytes(context: Context, bytes?: GLib.Bytes | null): Value;
@@ -930,6 +1045,24 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             static new_typed_array(context: Context, type: TypedArrayType, length: number): Value;
 
             static new_undefined(context: Context): Value;
+
+            // Signals
+
+            connect<K extends keyof Value.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Value.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Value.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Value.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Value.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Value.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1253,7 +1386,10 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             typed_array_get_type(): TypedArrayType;
         }
 
-        module VirtualMachine {
+        namespace VirtualMachine {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1270,6 +1406,15 @@ declare module 'gi://JavaScriptCore?version=6.0' {
         class VirtualMachine extends GObject.Object {
             static $gtype: GObject.GType<VirtualMachine>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VirtualMachine.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VirtualMachine.ConstructorProps>, ...args: any[]);
@@ -1277,13 +1422,31 @@ declare module 'gi://JavaScriptCore?version=6.0' {
             _init(...args: any[]): void;
 
             static ['new'](): VirtualMachine;
+
+            // Signals
+
+            connect<K extends keyof VirtualMachine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VirtualMachine.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VirtualMachine.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VirtualMachine.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VirtualMachine.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VirtualMachine.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module WeakValue {
-            // Signal callback interfaces
-
-            interface Cleared {
-                (): void;
+        namespace WeakValue {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                cleared: () => void;
+                'notify::value': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1308,6 +1471,15 @@ declare module 'gi://JavaScriptCore?version=6.0' {
              */
             set value(val: Value);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: WeakValue.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<WeakValue.ConstructorProps>, ...args: any[]);
@@ -1318,12 +1490,21 @@ declare module 'gi://JavaScriptCore?version=6.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'cleared', callback: (_source: this) => void): number;
-            connect_after(signal: 'cleared', callback: (_source: this) => void): number;
-            emit(signal: 'cleared'): void;
+            connect<K extends keyof WeakValue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WeakValue.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof WeakValue.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, WeakValue.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof WeakValue.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<WeakValue.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

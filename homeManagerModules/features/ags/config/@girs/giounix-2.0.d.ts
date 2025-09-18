@@ -26,7 +26,7 @@ declare module 'gi://GioUnix?version=2.0' {
 
         /**
          * Extension point for default handler to URI association. See
-         * [Extending GIO][extending-gio].
+         * [Extending GIO](overview.html#extending-gio).
          */
         const DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: string;
         /**
@@ -55,287 +55,497 @@ declare module 'gi://GioUnix?version=2.0' {
         function file_descriptor_based_get_fd(fd_based: Gio.FileDescriptorBased): number;
         /**
          * Determines if `mount_path` is considered an implementation of the
-         * OS. This is primarily used for hiding mountable and mounted volumes
+         * OS.
+         *
+         * This is primarily used for hiding mountable and mounted volumes
          * that only are used in the OS and has little to no relevance to the
          * casual user.
          * @param mount_path a mount path, e.g. `/media/disk` or `/usr`
-         * @returns %TRUE if @mount_path is considered an implementation detail     of the OS.
+         * @returns true if @mount_path is considered an implementation detail    of the OS; false otherwise
          */
         function is_mount_path_system_internal(mount_path: string): boolean;
         /**
          * Determines if `device_path` is considered a block device path which is only
-         * used in implementation of the OS. This is primarily used for hiding
-         * mounted volumes that are intended as APIs for programs to read, and system
-         * administrators at a shell; rather than something that should, for example,
-         * appear in a GUI. For example, the Linux `/proc` filesystem.
+         * used in implementation of the OS.
+         *
+         * This is primarily used for hiding mounted volumes that are intended as APIs
+         * for programs to read, and system administrators at a shell; rather than
+         * something that should, for example, appear in a GUI. For example, the Linux
+         * `/proc` filesystem.
          *
          * The list of device paths considered ‘system’ ones may change over time.
          * @param device_path a device path, e.g. `/dev/loop0` or `nfsd`
-         * @returns %TRUE if @device_path is considered an implementation detail of    the OS.
+         * @returns true if @device_path is considered an implementation detail of    the OS; false otherwise
          */
         function is_system_device_path(device_path: string): boolean;
         /**
          * Determines if `fs_type` is considered a type of file system which is only
-         * used in implementation of the OS. This is primarily used for hiding
-         * mounted volumes that are intended as APIs for programs to read, and system
-         * administrators at a shell; rather than something that should, for example,
-         * appear in a GUI. For example, the Linux `/proc` filesystem.
+         * used in implementation of the OS.
+         *
+         * This is primarily used for hiding mounted volumes that are intended as APIs
+         * for programs to read, and system administrators at a shell; rather than
+         * something that should, for example, appear in a GUI. For example, the Linux
+         * `/proc` filesystem.
          *
          * The list of file system types considered ‘system’ ones may change over time.
          * @param fs_type a file system type, e.g. `procfs` or `tmpfs`
-         * @returns %TRUE if @fs_type is considered an implementation detail of the OS.
+         * @returns true if @fs_type is considered an implementation detail of the OS;    false otherwise
          */
         function is_system_fs_type(fs_type: string): boolean;
         /**
-         * Gets a #GUnixMountEntry for a given mount path. If `time_read`
-         * is set, it will be filled with a unix timestamp for checking
-         * if the mounts have changed since with g_unix_mounts_changed_since().
+         * Gets a [struct`GioUnix`.MountEntry] for a given mount path.
+         *
+         * If `time_read` is set, it will be filled with a Unix timestamp for checking
+         * if the mounts have changed since with
+         * [func`GioUnix`.mount_entries_changed_since].
          *
          * If more mounts have the same mount path, the last matching mount
          * is returned.
          *
-         * This will return %NULL if there is no mount point at `mount_path`.
-         * @param mount_path path for a possible unix mount.
-         * @returns a #GUnixMountEntry.
+         * This will return `NULL` if there is no mount point at `mount_path`.
+         * @param mount_path path for a possible Unix mount
+         * @returns a [struct@GioUnix.MountEntry]
          */
         function mount_at(mount_path: string): [Gio.UnixMountEntry | null, number];
         /**
-         * Compares two unix mounts.
-         * @param mount1 first #GUnixMountEntry to compare.
-         * @param mount2 second #GUnixMountEntry to compare.
-         * @returns 1, 0 or -1 if @mount1 is greater than, equal to, or less than @mount2, respectively.
+         * Compares two Unix mounts.
+         * @param mount1 first [struct@GioUnix.MountEntry] to compare
+         * @param mount2 second [struct@GioUnix.MountEntry] to compare
+         * @returns `1`, `0` or `-1` if @mount1 is greater than, equal to,    or less than @mount2, respectively
          */
         function mount_compare(mount1: Gio.UnixMountEntry, mount2: Gio.UnixMountEntry): number;
         /**
          * Makes a copy of `mount_entry`.
-         * @param mount_entry a #GUnixMountEntry.
-         * @returns a new #GUnixMountEntry
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a new [struct@GioUnix.MountEntry]
          */
         function mount_copy(mount_entry: Gio.UnixMountEntry): Gio.UnixMountEntry;
         /**
-         * Gets a #GUnixMountEntry for a given file path. If `time_read`
-         * is set, it will be filled with a unix timestamp for checking
-         * if the mounts have changed since with g_unix_mounts_changed_since().
+         * Checks if the Unix mounts have changed since a given Unix time.
+         *
+         * This can only work reliably if a [class`GioUnix`.MountMonitor] is running in
+         * the process, otherwise changes in the mount entries file (such as
+         * `/proc/self/mountinfo` on Linux) cannot be detected and, as a result, this
+         * function has to conservatively always return `TRUE`.
+         *
+         * It is more efficient to use [signal`GioUnix`.MountMonitor::mounts-changed] to
+         * be signalled of changes to the mount entries, rather than polling using this
+         * function. This function is more appropriate for infrequently determining
+         * cache validity.
+         * @param time a timestamp
+         * @returns true if the mounts have changed since @time; false otherwise Since 2.84
+         */
+        function mount_entries_changed_since(time: number): boolean;
+        /**
+         * Gets a list of [struct`GioUnix`.MountEntry] instances representing the Unix
+         * mounts.
+         *
+         * If `time_read` is set, it will be filled with the mount timestamp, allowing
+         * for checking if the mounts have changed with
+         * [func`GioUnix`.mount_entries_changed_since].
+         * @returns a list of the    Unix mounts
+         */
+        function mount_entries_get(): [Gio.UnixMountEntry[], number];
+        /**
+         * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
+         * listed in `table_path`.
+         *
+         * This is a generalized version of [func`GioUnix`.mount_entries_get], mainly
+         * intended for internal testing use. Note that [func`GioUnix`.mount_entries_get]
+         * may parse multiple hierarchical table files, so this function is not a direct
+         * superset of its functionality.
+         *
+         * If there is an error reading or parsing the file, `NULL` will be returned
+         * and both out parameters will be set to `0`.
+         * @param table_path path to the mounts table file (for example `/proc/self/mountinfo`)
+         * @returns mount   entries, or `NULL` if there was an error loading them
+         */
+        function mount_entries_get_from_file(table_path: string): [Gio.UnixMountEntry[] | null, number];
+        /**
+         * Gets a [struct`GioUnix`.MountEntry] for a given mount path.
+         *
+         * If `time_read` is set, it will be filled with a Unix timestamp for checking
+         * if the mounts have changed since with
+         * [func`GioUnix`.mount_entries_changed_since].
          *
          * If more mounts have the same mount path, the last matching mount
          * is returned.
          *
-         * This will return %NULL if looking up the mount entry fails, if
+         * This will return `NULL` if there is no mount point at `mount_path`.
+         * @param mount_path path for a possible Unix mount
+         * @returns a [struct@GioUnix.MountEntry]
+         */
+        function mount_entry_at(mount_path: string): [Gio.UnixMountEntry | null, number];
+        /**
+         * Compares two Unix mounts.
+         * @param mount1 first [struct@GioUnix.MountEntry] to compare
+         * @param mount2 second [struct@GioUnix.MountEntry] to compare
+         * @returns `1`, `0` or `-1` if @mount1 is greater than, equal to,    or less than @mount2, respectively
+         */
+        function mount_entry_compare(mount1: Gio.UnixMountEntry, mount2: Gio.UnixMountEntry): number;
+        /**
+         * Makes a copy of `mount_entry`.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a new [struct@GioUnix.MountEntry]
+         */
+        function mount_entry_copy(mount_entry: Gio.UnixMountEntry): Gio.UnixMountEntry;
+        /**
+         * Gets a [struct`GioUnix`.MountEntry] for a given file path.
+         *
+         * If `time_read` is set, it will be filled with a Unix timestamp for checking
+         * if the mounts have changed since with
+         * [func`GioUnix`.mount_entries_changed_since].
+         *
+         * If more mounts have the same mount path, the last matching mount
+         * is returned.
+         *
+         * This will return `NULL` if looking up the mount entry fails, if
          * `file_path` doesn’t exist or there is an I/O error.
-         * @param file_path file path on some unix mount.
-         * @returns a #GUnixMountEntry.
+         * @param file_path file path on some Unix mount
+         * @returns a [struct@GioUnix.MountEntry]
+         */
+        function mount_entry_for(file_path: string): [Gio.UnixMountEntry | null, number];
+        /**
+         * Frees a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         */
+        function mount_entry_free(mount_entry: Gio.UnixMountEntry): void;
+        /**
+         * Gets the device path for a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the device path
+         */
+        function mount_entry_get_device_path(mount_entry: Gio.UnixMountEntry): string;
+        /**
+         * Gets the filesystem type for the Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the file system type
+         */
+        function mount_entry_get_fs_type(mount_entry: Gio.UnixMountEntry): string;
+        /**
+         * Gets the mount path for a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry] to get the mount path for
+         * @returns the mount path for @mount_entry
+         */
+        function mount_entry_get_mount_path(mount_entry: Gio.UnixMountEntry): string;
+        /**
+         * Gets a comma separated list of mount options for the Unix mount.
+         *
+         * For example: `rw,relatime,seclabel,data=ordered`.
+         *
+         * This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+         * a [struct`GioUnix`.MountEntry] as an argument.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the options, or `NULL` if not    available.
+         */
+        function mount_entry_get_options(mount_entry: Gio.UnixMountEntry): string | null;
+        /**
+         * Gets the root of the mount within the filesystem. This is useful e.g. for
+         * mounts created by bind operation, or btrfs subvolumes.
+         *
+         * For example, the root path is equal to `/` for a mount created by
+         * `mount /dev/sda1 /mnt/foo` and `/bar` for
+         * `mount --bind /mnt/foo/bar /mnt/bar`.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the root, or `NULL` if not supported
+         */
+        function mount_entry_get_root_path(mount_entry: Gio.UnixMountEntry): string | null;
+        /**
+         * Guesses whether a Unix mount entry can be ejected.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is deemed to be ejectable; false otherwise
+         */
+        function mount_entry_guess_can_eject(mount_entry: Gio.UnixMountEntry): boolean;
+        /**
+         * Guesses the icon of a Unix mount entry.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a [iface@Gio.Icon]
+         */
+        function mount_entry_guess_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
+        /**
+         * Guesses the name of a Unix mount entry.
+         *
+         * The result is a translated string.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a newly allocated translated string
+         */
+        function mount_entry_guess_name(mount_entry: Gio.UnixMountEntry): string;
+        /**
+         * Guesses whether a Unix mount entry should be displayed in the UI.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is deemed to be displayable; false otherwise
+         */
+        function mount_entry_guess_should_display(mount_entry: Gio.UnixMountEntry): boolean;
+        /**
+         * Guesses the symbolic icon of a Unix mount entry.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a [iface@Gio.Icon]
+         */
+        function mount_entry_guess_symbolic_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
+        /**
+         * Checks if a Unix mount is mounted read only.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is read only; false otherwise
+         */
+        function mount_entry_is_readonly(mount_entry: Gio.UnixMountEntry): boolean;
+        /**
+         * Checks if a Unix mount is a system mount.
+         *
+         * This is the Boolean OR of
+         * [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+         * [func`GioUnix`.is_mount_path_system_internal] on `mount_entry’`s properties.
+         *
+         * The definition of what a ‘system’ mount entry is may change over time as new
+         * file system types and device paths are ignored.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if the Unix mount is for a system path; false otherwise
+         */
+        function mount_entry_is_system_internal(mount_entry: Gio.UnixMountEntry): boolean;
+        /**
+         * Gets a [struct`GioUnix`.MountEntry] for a given file path.
+         *
+         * If `time_read` is set, it will be filled with a Unix timestamp for checking
+         * if the mounts have changed since with
+         * [func`GioUnix`.mount_entries_changed_since].
+         *
+         * If more mounts have the same mount path, the last matching mount
+         * is returned.
+         *
+         * This will return `NULL` if looking up the mount entry fails, if
+         * `file_path` doesn’t exist or there is an I/O error.
+         * @param file_path file path on some Unix mount
+         * @returns a [struct@GioUnix.MountEntry]
          */
         function mount_for(file_path: string): [Gio.UnixMountEntry | null, number];
         /**
-         * Frees a unix mount.
-         * @param mount_entry a #GUnixMountEntry.
+         * Frees a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
          */
         function mount_free(mount_entry: Gio.UnixMountEntry): void;
         /**
-         * Gets the device path for a unix mount.
-         * @param mount_entry a #GUnixMount.
-         * @returns a string containing the device path.
+         * Gets the device path for a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the device path
          */
         function mount_get_device_path(mount_entry: Gio.UnixMountEntry): string;
         /**
-         * Gets the filesystem type for the unix mount.
-         * @param mount_entry a #GUnixMount.
-         * @returns a string containing the file system type.
+         * Gets the filesystem type for the Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the file system type
          */
         function mount_get_fs_type(mount_entry: Gio.UnixMountEntry): string;
         /**
-         * Gets the mount path for a unix mount.
-         * @param mount_entry input #GUnixMountEntry to get the mount path for.
-         * @returns the mount path for @mount_entry.
+         * Gets the mount path for a Unix mount.
+         * @param mount_entry a [struct@GioUnix.MountEntry] to get the mount path for
+         * @returns the mount path for @mount_entry
          */
         function mount_get_mount_path(mount_entry: Gio.UnixMountEntry): string;
         /**
-         * Gets a comma-separated list of mount options for the unix mount. For example,
-         * `rw,relatime,seclabel,data=ordered`.
+         * Gets a comma separated list of mount options for the Unix mount.
          *
-         * This is similar to g_unix_mount_point_get_options(), but it takes
-         * a #GUnixMountEntry as an argument.
-         * @param mount_entry a #GUnixMountEntry.
-         * @returns a string containing the options, or %NULL if not available.
+         * For example: `rw,relatime,seclabel,data=ordered`.
+         *
+         * This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+         * a [struct`GioUnix`.MountEntry] as an argument.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the options, or `NULL` if not    available.
          */
         function mount_get_options(mount_entry: Gio.UnixMountEntry): string | null;
         /**
          * Gets the root of the mount within the filesystem. This is useful e.g. for
          * mounts created by bind operation, or btrfs subvolumes.
          *
-         * For example, the root path is equal to "/" for mount created by
-         * "mount /dev/sda1 /mnt/foo" and "/bar" for
-         * "mount --bind /mnt/foo/bar /mnt/bar".
-         * @param mount_entry a #GUnixMountEntry.
-         * @returns a string containing the root, or %NULL if not supported.
+         * For example, the root path is equal to `/` for a mount created by
+         * `mount /dev/sda1 /mnt/foo` and `/bar` for
+         * `mount --bind /mnt/foo/bar /mnt/bar`.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a string containing the root, or `NULL` if not supported
          */
         function mount_get_root_path(mount_entry: Gio.UnixMountEntry): string | null;
         /**
-         * Guesses whether a Unix mount can be ejected.
-         * @param mount_entry a #GUnixMountEntry
-         * @returns %TRUE if @mount_entry is deemed to be ejectable.
+         * Guesses whether a Unix mount entry can be ejected.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is deemed to be ejectable; false otherwise
          */
         function mount_guess_can_eject(mount_entry: Gio.UnixMountEntry): boolean;
         /**
-         * Guesses the icon of a Unix mount.
-         * @param mount_entry a #GUnixMountEntry
-         * @returns a #GIcon
+         * Guesses the icon of a Unix mount entry.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a [iface@Gio.Icon]
          */
         function mount_guess_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
         /**
-         * Guesses the name of a Unix mount.
+         * Guesses the name of a Unix mount entry.
+         *
          * The result is a translated string.
-         * @param mount_entry a #GUnixMountEntry
-         * @returns A newly allocated string that must     be freed with g_free()
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a newly allocated translated string
          */
         function mount_guess_name(mount_entry: Gio.UnixMountEntry): string;
         /**
-         * Guesses whether a Unix mount should be displayed in the UI.
-         * @param mount_entry a #GUnixMountEntry
-         * @returns %TRUE if @mount_entry is deemed to be displayable.
+         * Guesses whether a Unix mount entry should be displayed in the UI.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is deemed to be displayable; false otherwise
          */
         function mount_guess_should_display(mount_entry: Gio.UnixMountEntry): boolean;
         /**
-         * Guesses the symbolic icon of a Unix mount.
-         * @param mount_entry a #GUnixMountEntry
-         * @returns a #GIcon
+         * Guesses the symbolic icon of a Unix mount entry.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns a [iface@Gio.Icon]
          */
         function mount_guess_symbolic_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
         /**
-         * Checks if a unix mount is mounted read only.
-         * @param mount_entry a #GUnixMount.
-         * @returns %TRUE if @mount_entry is read only.
+         * Checks if a Unix mount is mounted read only.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if @mount_entry is read only; false otherwise
          */
         function mount_is_readonly(mount_entry: Gio.UnixMountEntry): boolean;
         /**
-         * Checks if a Unix mount is a system mount. This is the Boolean OR of
-         * g_unix_is_system_fs_type(), g_unix_is_system_device_path() and
-         * g_unix_is_mount_path_system_internal() on `mount_entry’`s properties.
+         * Checks if a Unix mount is a system mount.
+         *
+         * This is the Boolean OR of
+         * [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+         * [func`GioUnix`.is_mount_path_system_internal] on `mount_entry’`s properties.
          *
          * The definition of what a ‘system’ mount entry is may change over time as new
          * file system types and device paths are ignored.
-         * @param mount_entry a #GUnixMount.
-         * @returns %TRUE if the unix mount is for a system path.
+         * @param mount_entry a [struct@GioUnix.MountEntry]
+         * @returns true if the Unix mount is for a system path; false otherwise
          */
         function mount_is_system_internal(mount_entry: Gio.UnixMountEntry): boolean;
         /**
-         * Gets a #GUnixMountPoint for a given mount path. If `time_read` is set, it
-         * will be filled with a unix timestamp for checking if the mount points have
-         * changed since with g_unix_mount_points_changed_since().
+         * Gets a [struct`GioUnix`.MountPoint] for a given mount path.
+         *
+         * If `time_read` is set, it will be filled with a Unix timestamp for checking if
+         * the mount points have changed since with
+         * [func`GioUnix`.mount_points_changed_since].
          *
          * If more mount points have the same mount path, the last matching mount point
          * is returned.
-         * @param mount_path path for a possible unix mount point.
-         * @returns a #GUnixMountPoint, or %NULL if no match is found.
+         * @param mount_path path for a possible Unix mount point
+         * @returns a [struct@GioUnix.MountPoint], or `NULL`    if no match is found
          */
         function mount_point_at(mount_path: string): [Gio.UnixMountPoint | null, number];
         /**
-         * Compares two unix mount points.
-         * @param mount1 a #GUnixMount.
-         * @param mount2 a #GUnixMount.
-         * @returns 1, 0 or -1 if @mount1 is greater than, equal to, or less than @mount2, respectively.
+         * Compares two Unix mount points.
+         * @param mount1 a [struct@GioUnix.MountPoint]
+         * @param mount2 a [struct@GioUnix.MountPoint]
+         * @returns `1`, `0` or `-1` if @mount1 is greater than, equal to,    or less than @mount2, respectively
          */
         function mount_point_compare(mount1: Gio.UnixMountPoint, mount2: Gio.UnixMountPoint): number;
         /**
          * Makes a copy of `mount_point`.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns a new #GUnixMountPoint
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a new [struct@GioUnix.MountPoint]
          */
         function mount_point_copy(mount_point: Gio.UnixMountPoint): Gio.UnixMountPoint;
         /**
-         * Frees a unix mount point.
-         * @param mount_point unix mount point to free.
+         * Frees a Unix mount point.
+         * @param mount_point Unix mount point to free.
          */
         function mount_point_free(mount_point: Gio.UnixMountPoint): void;
         /**
-         * Gets the device path for a unix mount point.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns a string containing the device path.
+         * Gets the device path for a Unix mount point.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a string containing the device path
          */
         function mount_point_get_device_path(mount_point: Gio.UnixMountPoint): string;
         /**
          * Gets the file system type for the mount point.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns a string containing the file system type.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a string containing the file system type
          */
         function mount_point_get_fs_type(mount_point: Gio.UnixMountPoint): string;
         /**
-         * Gets the mount path for a unix mount point.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns a string containing the mount path.
+         * Gets the mount path for a Unix mount point.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a string containing the mount path
          */
         function mount_point_get_mount_path(mount_point: Gio.UnixMountPoint): string;
         /**
          * Gets the options for the mount point.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns a string containing the options.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a string containing the options
          */
         function mount_point_get_options(mount_point: Gio.UnixMountPoint): string | null;
         /**
          * Guesses whether a Unix mount point can be ejected.
-         * @param mount_point a #GUnixMountPoint
-         * @returns %TRUE if @mount_point is deemed to be ejectable.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns true if @mount_point is deemed to be ejectable; false otherwise
          */
         function mount_point_guess_can_eject(mount_point: Gio.UnixMountPoint): boolean;
         /**
          * Guesses the icon of a Unix mount point.
-         * @param mount_point a #GUnixMountPoint
-         * @returns a #GIcon
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a [iface@Gio.Icon]
          */
         function mount_point_guess_icon(mount_point: Gio.UnixMountPoint): Gio.Icon;
         /**
          * Guesses the name of a Unix mount point.
+         *
          * The result is a translated string.
-         * @param mount_point a #GUnixMountPoint
-         * @returns A newly allocated string that must     be freed with g_free()
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a newly allocated translated string
          */
         function mount_point_guess_name(mount_point: Gio.UnixMountPoint): string;
         /**
          * Guesses the symbolic icon of a Unix mount point.
-         * @param mount_point a #GUnixMountPoint
-         * @returns a #GIcon
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns a [iface@Gio.Icon]
          */
         function mount_point_guess_symbolic_icon(mount_point: Gio.UnixMountPoint): Gio.Icon;
         /**
-         * Checks if a unix mount point is a loopback device.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns %TRUE if the mount point is a loopback. %FALSE otherwise.
+         * Checks if a Unix mount point is a loopback device.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns true if the mount point is a loopback device; false otherwise
          */
         function mount_point_is_loopback(mount_point: Gio.UnixMountPoint): boolean;
         /**
-         * Checks if a unix mount point is read only.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns %TRUE if a mount point is read only.
+         * Checks if a Unix mount point is read only.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns true if a mount point is read only; false otherwise
          */
         function mount_point_is_readonly(mount_point: Gio.UnixMountPoint): boolean;
         /**
-         * Checks if a unix mount point is mountable by the user.
-         * @param mount_point a #GUnixMountPoint.
-         * @returns %TRUE if the mount point is user mountable.
+         * Checks if a Unix mount point is mountable by the user.
+         * @param mount_point a [struct@GioUnix.MountPoint]
+         * @returns true if the mount point is user mountable; false otherwise
          */
         function mount_point_is_user_mountable(mount_point: Gio.UnixMountPoint): boolean;
         /**
-         * Checks if the unix mount points have changed since a given unix time.
-         * @param time guint64 to contain a timestamp.
-         * @returns %TRUE if the mount points have changed since @time.
+         * Checks if the Unix mount points have changed since a given Unix time.
+         *
+         * Unlike [func`GioUnix`.mount_entries_changed_since], this function can work
+         * reliably without a [class`GioUnix`.MountMonitor] running, as it accesses the
+         * static mount point information (such as `/etc/fstab` on Linux), which has a
+         * valid modification time.
+         *
+         * It is more efficient to use [signal`GioUnix`.MountMonitor::mountpoints-changed]
+         * to be signalled of changes to the mount points, rather than polling using
+         * this function. This function is more appropriate for infrequently determining
+         * cache validity.
+         * @param time a timestamp
+         * @returns true if the mount points have changed since @time; false otherwise
          */
         function mount_points_changed_since(time: number): boolean;
         /**
-         * Gets a #GList of #GUnixMountPoint containing the unix mount points.
-         * If `time_read` is set, it will be filled with the mount timestamp,
-         * allowing for checking if the mounts have changed with
-         * g_unix_mount_points_changed_since().
-         * @returns a #GList of the UNIX mountpoints.
+         * Gets a list of [struct`GioUnix`.MountPoint] instances representing the Unix
+         * mount points.
+         *
+         * If `time_read` is set, it will be filled with the mount timestamp, allowing
+         * for checking if the mounts have changed with
+         * [func`GioUnix`.mount_points_changed_since].
+         * @returns a list of the Unix    mount points
          */
         function mount_points_get(): [Gio.UnixMountPoint[], number];
         /**
          * Gets an array of [struct`Gio`.UnixMountPoint]s containing the Unix mount
          * points listed in `table_path`.
          *
-         * This is a generalized version of g_unix_mount_points_get(), mainly intended
-         * for internal testing use. Note that g_unix_mount_points_get() may parse
-         * multiple hierarchical table files, so this function is not a direct superset
-         * of its functionality.
+         * This is a generalized version of [func`GioUnix`.mount_points_get], mainly
+         * intended for internal testing use. Note that [func`GioUnix`.mount_points_get]
+         * may parse multiple hierarchical table files, so this function is not a direct
+         * superset of its functionality.
          *
          * If there is an error reading or parsing the file, `NULL` will be returned
          * and both out parameters will be set to `0`.
@@ -344,27 +554,29 @@ declare module 'gi://GioUnix?version=2.0' {
          */
         function mount_points_get_from_file(table_path: string): [Gio.UnixMountPoint[] | null, number];
         /**
-         * Checks if the unix mounts have changed since a given unix time.
-         * @param time guint64 to contain a timestamp.
-         * @returns %TRUE if the mounts have changed since @time.
+         * Checks if the Unix mounts have changed since a given Unix time.
+         * @param time a timestamp
+         * @returns true if the mounts have changed since @time; false otherwise
          */
         function mounts_changed_since(time: number): boolean;
         /**
-         * Gets a #GList of #GUnixMountEntry containing the unix mounts.
-         * If `time_read` is set, it will be filled with the mount
-         * timestamp, allowing for checking if the mounts have changed
-         * with g_unix_mounts_changed_since().
-         * @returns a #GList of the UNIX mounts.
+         * Gets a list of [struct`GioUnix`.MountEntry] instances representing the Unix
+         * mounts.
+         *
+         * If `time_read` is set, it will be filled with the mount timestamp, allowing
+         * for checking if the mounts have changed with
+         * [func`GioUnix`.mount_entries_changed_since].
+         * @returns a list of the    Unix mounts
          */
         function mounts_get(): [Gio.UnixMountEntry[], number];
         /**
          * Gets an array of [struct`Gio`.UnixMountEntry]s containing the Unix mounts
          * listed in `table_path`.
          *
-         * This is a generalized version of g_unix_mounts_get(), mainly intended for
-         * internal testing use. Note that g_unix_mounts_get() may parse multiple
-         * hierarchical table files, so this function is not a direct superset of its
-         * functionality.
+         * This is a generalized version of [func`GioUnix`.mount_entries_get], mainly
+         * intended for internal testing use. Note that [func`GioUnix`.mount_entries_get]
+         * may parse multiple hierarchical table files, so this function is not a direct
+         * superset of its functionality.
          *
          * If there is an error reading or parsing the file, `NULL` will be returned
          * and both out parameters will be set to `0`.
@@ -375,7 +587,12 @@ declare module 'gi://GioUnix?version=2.0' {
         interface DesktopAppLaunchCallback {
             (appinfo: Gio.DesktopAppInfo, pid: GLib.Pid): void;
         }
-        module DesktopAppInfo {
+        namespace DesktopAppInfo {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::filename': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AppInfo.ConstructorProps {
@@ -401,6 +618,15 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             get filename(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DesktopAppInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DesktopAppInfo.ConstructorProps>, ...args: any[]);
@@ -412,6 +638,24 @@ declare module 'gi://GioUnix?version=2.0' {
             static new_from_filename(filename: string): DesktopAppInfo;
 
             static new_from_keyfile(key_file: GLib.KeyFile): DesktopAppInfo;
+
+            // Signals
+
+            connect<K extends keyof DesktopAppInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DesktopAppInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DesktopAppInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DesktopAppInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DesktopAppInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DesktopAppInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -831,7 +1075,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 uris?: string[] | null,
                 context?: Gio.AppLaunchContext | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Async version of [method`Gio`.AppInfo.launch_uris].
              *
@@ -867,7 +1111,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 context?: Gio.AppLaunchContext | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes a [method`Gio`.AppInfo.launch_uris_async] operation.
              * @param result the async result
@@ -1227,7 +1471,21 @@ declare module 'gi://GioUnix?version=2.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -1355,7 +1613,12 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -1505,14 +1768,39 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module FDMessage {
+        namespace FDMessage {
+            // Signal signatures
+            interface SignalSignatures extends Gio.SocketControlMessage.SignalSignatures {
+                'notify::fd-list': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.SocketControlMessage.ConstructorProps {
@@ -1550,6 +1838,15 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             get fdList(): Gio.UnixFDList;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FDMessage.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<FDMessage.ConstructorProps>, ...args: any[]);
@@ -1559,6 +1856,24 @@ declare module 'gi://GioUnix?version=2.0' {
             static ['new'](): FDMessage;
 
             static new_with_fd_list(fd_list: Gio.UnixFDList): FDMessage;
+
+            // Signals
+
+            connect<K extends keyof FDMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FDMessage.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FDMessage.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FDMessage.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FDMessage.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FDMessage.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1605,7 +1920,13 @@ declare module 'gi://GioUnix?version=2.0' {
             static steal_fds(message: Gio.UnixFDMessage): number[];
         }
 
-        module InputStream {
+        namespace InputStream {
+            // Signal signatures
+            interface SignalSignatures extends Gio.InputStream.SignalSignatures {
+                'notify::close-fd': (pspec: GObject.ParamSpec) => void;
+                'notify::fd': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -1649,6 +1970,15 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             get fd(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: InputStream.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<InputStream.ConstructorProps>, ...args: any[]);
@@ -1656,6 +1986,24 @@ declare module 'gi://GioUnix?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](fd: number, close_fd: boolean): InputStream;
+
+            // Signals
+
+            connect<K extends keyof InputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InputStream.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof InputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InputStream.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof InputStream.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<InputStream.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1842,7 +2190,7 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional cancellable object
              */
-            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Requests an asynchronous closes of the stream, releasing resources related to it.
              * When the operation is finished `callback` will be called.
@@ -1882,7 +2230,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes closing a stream asynchronously, started from g_input_stream_close_async().
              * @param result a #GAsyncResult.
@@ -1953,9 +2301,9 @@ declare module 'gi://GioUnix?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -1963,14 +2311,17 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore
              */
-            read_all_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            read_all_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): [globalThis.Promise<number>, Uint8Array];
             /**
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -1988,9 +2339,9 @@ declare module 'gi://GioUnix?version=2.0' {
              * Request an asynchronous read of `count` bytes from the stream into the
              * buffer starting at `buffer`.
              *
-             * This is the asynchronous equivalent of g_input_stream_read_all().
+             * This is the asynchronous equivalent of [method`InputStream`.read_all].
              *
-             * Call g_input_stream_read_all_finish() to collect the result.
+             * Call [method`InputStream`.read_all_finish] to collect the result.
              *
              * Any outstanding I/O request with higher priority (lower numerical
              * value) will be executed before an outstanding request with lower
@@ -2003,10 +2354,10 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): [Promise<number> | void, Uint8Array];
+            ): [globalThis.Promise<number> | void, Uint8Array];
             /**
              * Finishes an asynchronous stream read operation started with
-             * g_input_stream_read_all_async().
+             * [method`InputStream`.read_all_async].
              *
              * As a special exception to the normal conventions for functions that
              * use #GError, if this function returns %FALSE (and sets `error)` then
@@ -2045,7 +2396,10 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            read_async(io_priority: number, cancellable?: Gio.Cancellable | null): [Promise<number>, Uint8Array];
+            read_async(
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): [globalThis.Promise<number>, Uint8Array];
             /**
              * Request an asynchronous read of `count` bytes from the stream into the buffer
              * starting at `buffer`. When the operation is finished `callback` will be called.
@@ -2111,7 +2465,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): [Promise<number> | void, Uint8Array];
+            ): [globalThis.Promise<number> | void, Uint8Array];
             /**
              * Like g_input_stream_read(), this tries to read `count` bytes from
              * the stream in a blocking fashion. However, rather than reading into
@@ -2170,7 +2524,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 count: number,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GLib.Bytes>;
+            ): globalThis.Promise<GLib.Bytes>;
             /**
              * Request an asynchronous read of `count` bytes from the stream into a
              * new #GBytes. When the operation is finished `callback` will be
@@ -2234,7 +2588,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GLib.Bytes> | void;
+            ): globalThis.Promise<GLib.Bytes> | void;
             /**
              * Finishes an asynchronous stream read-into-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -2302,7 +2656,11 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the [I/O priority](iface.AsyncResult.html#io-priority) of the request
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            skip_async(count: number, io_priority: number, cancellable?: Gio.Cancellable | null): Promise<number>;
+            skip_async(
+                count: number,
+                io_priority: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous skip of `count` bytes from the stream.
              * When the operation is finished `callback` will be called.
@@ -2372,7 +2730,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes a stream skip operation.
              * @param result a #GAsyncResult.
@@ -2668,7 +3026,21 @@ declare module 'gi://GioUnix?version=2.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -2796,7 +3168,12 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -2946,22 +3323,38 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module MountMonitor {
-            // Signal callback interfaces
-
-            interface MountpointsChanged {
-                (): void;
-            }
-
-            interface MountsChanged {
-                (): void;
+        namespace MountMonitor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'mountpoints-changed': () => void;
+                'mounts-changed': () => void;
             }
 
             // Constructor properties interface
@@ -2970,10 +3363,26 @@ declare module 'gi://GioUnix?version=2.0' {
         }
 
         /**
-         * Watches #GUnixMounts for changes.
+         * Watches for changes to the set of mount entries and mount points in the
+         * system.
+         *
+         * Connect to the [signal`GioUnix`.MountMonitor::mounts-changed] signal to be
+         * notified of changes to the [struct`GioUnix`.MountEntry] list.
+         *
+         * Connect to the [signal`GioUnix`.MountMonitor::mountpoints-changed] signal to
+         * be notified of changes to the [struct`GioUnix`.MountPoint] list.
          */
         class MountMonitor extends GObject.Object {
             static $gtype: GObject.GType<MountMonitor>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MountMonitor.SignalSignatures;
 
             // Constructors
 
@@ -2985,28 +3394,34 @@ declare module 'gi://GioUnix?version=2.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'mountpoints-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'mountpoints-changed', callback: (_source: this) => void): number;
-            emit(signal: 'mountpoints-changed'): void;
-            connect(signal: 'mounts-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'mounts-changed', callback: (_source: this) => void): number;
-            emit(signal: 'mounts-changed'): void;
+            connect<K extends keyof MountMonitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MountMonitor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MountMonitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MountMonitor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MountMonitor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MountMonitor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
             /**
-             * Gets the #GUnixMountMonitor for the current thread-default main
+             * Gets the [class`GioUnix`.MountMonitor] for the current thread-default main
              * context.
              *
              * The mount monitor can be used to monitor for changes to the list of
              * mounted filesystems as well as the list of mount points (ie: fstab
              * entries).
              *
-             * You must only call g_object_unref() on the return value from under
-             * the same main context as you called this function.
+             * You must only call [method`GObject`.Object.unref] on the return value from
+             * under the same main context as you called this function.
              */
             static get(): Gio.UnixMountMonitor;
             /**
@@ -3017,13 +3432,19 @@ declare module 'gi://GioUnix?version=2.0' {
              * circumstances.  Since `mount_monitor` is a singleton, it also meant
              * that calling this function would have side effects for other users of
              * the monitor.
-             * @param mount_monitor a #GUnixMountMonitor
-             * @param limit_msec a integer with the limit in milliseconds to     poll for changes.
+             * @param mount_monitor a [class@GioUnix.MountMonitor]
+             * @param limit_msec a integer with the limit (in milliseconds) to poll for changes
              */
             static set_rate_limit(mount_monitor: Gio.UnixMountMonitor, limit_msec: number): void;
         }
 
-        module OutputStream {
+        namespace OutputStream {
+            // Signal signatures
+            interface SignalSignatures extends Gio.OutputStream.SignalSignatures {
+                'notify::close-fd': (pspec: GObject.ParamSpec) => void;
+                'notify::fd': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -3067,6 +3488,15 @@ declare module 'gi://GioUnix?version=2.0' {
              */
             get fd(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: OutputStream.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<OutputStream.ConstructorProps>, ...args: any[]);
@@ -3074,6 +3504,24 @@ declare module 'gi://GioUnix?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](fd: number, close_fd: boolean): OutputStream;
+
+            // Signals
+
+            connect<K extends keyof OutputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, OutputStream.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof OutputStream.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, OutputStream.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof OutputStream.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<OutputStream.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -3327,7 +3775,7 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the io priority of the request.
              * @param cancellable optional cancellable object
              */
-            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            close_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Requests an asynchronous close of the stream, releasing resources
              * related to it. When the operation is finished `callback` will be
@@ -3367,7 +3815,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Closes an output stream.
              * @param result a #GAsyncResult.
@@ -3399,7 +3847,7 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param io_priority the io priority of the request.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            flush_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            flush_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Forces an asynchronous write of all user-space buffered data for
              * the given `stream`.
@@ -3433,7 +3881,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes flushing an output stream.
              * @param result a GAsyncResult.
@@ -3495,7 +3943,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 flags: Gio.OutputStreamSpliceFlags | null,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Splices a stream asynchronously.
              * When the operation is finished `callback` will be called.
@@ -3537,7 +3985,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes an asynchronous stream splice operation.
              * @param result a #GAsyncResult.
@@ -3619,7 +4067,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 buffer: Uint8Array | string,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous write of `count` bytes from `buffer` into
              * the stream. When the operation is finished `callback` will be called.
@@ -3673,7 +4121,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes an asynchronous stream write operation started with
              * g_output_stream_write_all_async().
@@ -3733,7 +4181,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 buffer: Uint8Array | string,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous write of `count` bytes from `buffer` into
              * the stream. When the operation is finished `callback` will be called.
@@ -3827,7 +4275,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * A wrapper function for g_output_stream_write() which takes a
              * #GBytes as input.  This can be more convenient for use by language
@@ -3867,7 +4315,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 bytes: GLib.Bytes | Uint8Array,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * This function is similar to g_output_stream_write_async(), but
              * takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
@@ -3917,7 +4365,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes a stream write-from-#GBytes operation.
              * @param result a #GAsyncResult.
@@ -4012,7 +4460,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 vectors: Gio.OutputVector[],
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous write of the bytes contained in the `n_vectors` `vectors` into
              * the stream. When the operation is finished `callback` will be called.
@@ -4068,7 +4516,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes an asynchronous stream write operation started with
              * g_output_stream_writev_all_async().
@@ -4123,7 +4571,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 vectors: Gio.OutputVector[],
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<number>;
+            ): globalThis.Promise<number>;
             /**
              * Request an asynchronous write of the bytes contained in `n_vectors` `vectors` into
              * the stream. When the operation is finished `callback` will be called.
@@ -4207,7 +4655,7 @@ declare module 'gi://GioUnix?version=2.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<number> | void;
+            ): globalThis.Promise<number> | void;
             /**
              * Finishes a stream writev operation.
              * @param result a #GAsyncResult.
@@ -4581,7 +5029,21 @@ declare module 'gi://GioUnix?version=2.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -4709,7 +5171,12 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -4859,11 +5326,31 @@ declare module 'gi://GioUnix?version=2.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         type DesktopAppInfoClass = typeof DesktopAppInfo;
@@ -4897,6 +5384,133 @@ declare module 'gi://GioUnix?version=2.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Static methods
+
+            /**
+             * Gets a [struct`GioUnix`.MountEntry] for a given mount path.
+             *
+             * If `time_read` is set, it will be filled with a Unix timestamp for checking
+             * if the mounts have changed since with
+             * [func`GioUnix`.mount_entries_changed_since].
+             *
+             * If more mounts have the same mount path, the last matching mount
+             * is returned.
+             *
+             * This will return `NULL` if there is no mount point at `mount_path`.
+             * @param mount_path path for a possible Unix mount
+             */
+            static at(mount_path: string): [Gio.UnixMountEntry | null, number];
+            /**
+             * Compares two Unix mounts.
+             * @param mount1 first [struct@GioUnix.MountEntry] to compare
+             * @param mount2 second [struct@GioUnix.MountEntry] to compare
+             */
+            static compare(mount1: Gio.UnixMountEntry, mount2: Gio.UnixMountEntry): number;
+            /**
+             * Makes a copy of `mount_entry`.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static copy(mount_entry: Gio.UnixMountEntry): Gio.UnixMountEntry;
+            /**
+             * Gets a [struct`GioUnix`.MountEntry] for a given file path.
+             *
+             * If `time_read` is set, it will be filled with a Unix timestamp for checking
+             * if the mounts have changed since with
+             * [func`GioUnix`.mount_entries_changed_since].
+             *
+             * If more mounts have the same mount path, the last matching mount
+             * is returned.
+             *
+             * This will return `NULL` if looking up the mount entry fails, if
+             * `file_path` doesn’t exist or there is an I/O error.
+             * @param file_path file path on some Unix mount
+             */
+            static ['for'](file_path: string): [Gio.UnixMountEntry | null, number];
+            /**
+             * Frees a Unix mount.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static free(mount_entry: Gio.UnixMountEntry): void;
+            /**
+             * Gets the device path for a Unix mount.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static get_device_path(mount_entry: Gio.UnixMountEntry): string;
+            /**
+             * Gets the filesystem type for the Unix mount.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static get_fs_type(mount_entry: Gio.UnixMountEntry): string;
+            /**
+             * Gets the mount path for a Unix mount.
+             * @param mount_entry a [struct@GioUnix.MountEntry] to get the mount path for
+             */
+            static get_mount_path(mount_entry: Gio.UnixMountEntry): string;
+            /**
+             * Gets a comma separated list of mount options for the Unix mount.
+             *
+             * For example: `rw,relatime,seclabel,data=ordered`.
+             *
+             * This is similar to [func`GioUnix`.MountPoint.get_options], but it takes
+             * a [struct`GioUnix`.MountEntry] as an argument.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static get_options(mount_entry: Gio.UnixMountEntry): string | null;
+            /**
+             * Gets the root of the mount within the filesystem. This is useful e.g. for
+             * mounts created by bind operation, or btrfs subvolumes.
+             *
+             * For example, the root path is equal to `/` for a mount created by
+             * `mount /dev/sda1 /mnt/foo` and `/bar` for
+             * `mount --bind /mnt/foo/bar /mnt/bar`.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static get_root_path(mount_entry: Gio.UnixMountEntry): string | null;
+            /**
+             * Guesses whether a Unix mount entry can be ejected.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static guess_can_eject(mount_entry: Gio.UnixMountEntry): boolean;
+            /**
+             * Guesses the icon of a Unix mount entry.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static guess_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
+            /**
+             * Guesses the name of a Unix mount entry.
+             *
+             * The result is a translated string.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static guess_name(mount_entry: Gio.UnixMountEntry): string;
+            /**
+             * Guesses whether a Unix mount entry should be displayed in the UI.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static guess_should_display(mount_entry: Gio.UnixMountEntry): boolean;
+            /**
+             * Guesses the symbolic icon of a Unix mount entry.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static guess_symbolic_icon(mount_entry: Gio.UnixMountEntry): Gio.Icon;
+            /**
+             * Checks if a Unix mount is mounted read only.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static is_readonly(mount_entry: Gio.UnixMountEntry): boolean;
+            /**
+             * Checks if a Unix mount is a system mount.
+             *
+             * This is the Boolean OR of
+             * [func`GioUnix`.is_system_fs_type], [func`GioUnix`.is_system_device_path] and
+             * [func`GioUnix`.is_mount_path_system_internal] on `mount_entry’`s properties.
+             *
+             * The definition of what a ‘system’ mount entry is may change over time as new
+             * file system types and device paths are ignored.
+             * @param mount_entry a [struct@GioUnix.MountEntry]
+             */
+            static is_system_internal(mount_entry: Gio.UnixMountEntry): boolean;
         }
 
         type MountMonitorClass = typeof MountMonitor;
@@ -4914,85 +5528,88 @@ declare module 'gi://GioUnix?version=2.0' {
             // Static methods
 
             /**
-             * Gets a #GUnixMountPoint for a given mount path. If `time_read` is set, it
-             * will be filled with a unix timestamp for checking if the mount points have
-             * changed since with g_unix_mount_points_changed_since().
+             * Gets a [struct`GioUnix`.MountPoint] for a given mount path.
+             *
+             * If `time_read` is set, it will be filled with a Unix timestamp for checking if
+             * the mount points have changed since with
+             * [func`GioUnix`.mount_points_changed_since].
              *
              * If more mount points have the same mount path, the last matching mount point
              * is returned.
-             * @param mount_path path for a possible unix mount point.
+             * @param mount_path path for a possible Unix mount point
              */
             static at(mount_path: string): [Gio.UnixMountPoint | null, number];
             /**
-             * Compares two unix mount points.
-             * @param mount1 a #GUnixMount.
-             * @param mount2 a #GUnixMount.
+             * Compares two Unix mount points.
+             * @param mount1 a [struct@GioUnix.MountPoint]
+             * @param mount2 a [struct@GioUnix.MountPoint]
              */
             static compare(mount1: Gio.UnixMountPoint, mount2: Gio.UnixMountPoint): number;
             /**
              * Makes a copy of `mount_point`.
-             * @param mount_point a #GUnixMountPoint.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static copy(mount_point: Gio.UnixMountPoint): Gio.UnixMountPoint;
             /**
-             * Frees a unix mount point.
-             * @param mount_point unix mount point to free.
+             * Frees a Unix mount point.
+             * @param mount_point Unix mount point to free.
              */
             static free(mount_point: Gio.UnixMountPoint): void;
             /**
-             * Gets the device path for a unix mount point.
-             * @param mount_point a #GUnixMountPoint.
+             * Gets the device path for a Unix mount point.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static get_device_path(mount_point: Gio.UnixMountPoint): string;
             /**
              * Gets the file system type for the mount point.
-             * @param mount_point a #GUnixMountPoint.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static get_fs_type(mount_point: Gio.UnixMountPoint): string;
             /**
-             * Gets the mount path for a unix mount point.
-             * @param mount_point a #GUnixMountPoint.
+             * Gets the mount path for a Unix mount point.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static get_mount_path(mount_point: Gio.UnixMountPoint): string;
             /**
              * Gets the options for the mount point.
-             * @param mount_point a #GUnixMountPoint.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static get_options(mount_point: Gio.UnixMountPoint): string | null;
             /**
              * Guesses whether a Unix mount point can be ejected.
-             * @param mount_point a #GUnixMountPoint
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static guess_can_eject(mount_point: Gio.UnixMountPoint): boolean;
             /**
              * Guesses the icon of a Unix mount point.
-             * @param mount_point a #GUnixMountPoint
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static guess_icon(mount_point: Gio.UnixMountPoint): Gio.Icon;
             /**
              * Guesses the name of a Unix mount point.
+             *
              * The result is a translated string.
-             * @param mount_point a #GUnixMountPoint
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static guess_name(mount_point: Gio.UnixMountPoint): string;
             /**
              * Guesses the symbolic icon of a Unix mount point.
-             * @param mount_point a #GUnixMountPoint
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static guess_symbolic_icon(mount_point: Gio.UnixMountPoint): Gio.Icon;
             /**
-             * Checks if a unix mount point is a loopback device.
-             * @param mount_point a #GUnixMountPoint.
+             * Checks if a Unix mount point is a loopback device.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static is_loopback(mount_point: Gio.UnixMountPoint): boolean;
             /**
-             * Checks if a unix mount point is read only.
-             * @param mount_point a #GUnixMountPoint.
+             * Checks if a Unix mount point is read only.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static is_readonly(mount_point: Gio.UnixMountPoint): boolean;
             /**
-             * Checks if a unix mount point is mountable by the user.
-             * @param mount_point a #GUnixMountPoint.
+             * Checks if a Unix mount point is mountable by the user.
+             * @param mount_point a [struct@GioUnix.MountPoint]
              */
             static is_user_mountable(mount_point: Gio.UnixMountPoint): boolean;
         }
@@ -5006,7 +5623,7 @@ declare module 'gi://GioUnix?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module DesktopAppInfoLookup {
+        namespace DesktopAppInfoLookup {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5037,7 +5654,7 @@ declare module 'gi://GioUnix?version=2.0' {
             new (): DesktopAppInfoLookup; // This allows `obj instanceof DesktopAppInfoLookup`
         };
 
-        module FileDescriptorBased {
+        namespace FileDescriptorBased {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}

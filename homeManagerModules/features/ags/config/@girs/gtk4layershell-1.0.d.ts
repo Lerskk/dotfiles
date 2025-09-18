@@ -5,6 +5,7 @@
 /// <reference path="./glib-2.0.d.ts" />
 /// <reference path="./gdk-4.0.d.ts" />
 /// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
 /// <reference path="./pangocairo-1.0.d.ts" />
 /// <reference path="./pango-1.0.d.ts" />
 /// <reference path="./harfbuzz-0.0.d.ts" />
@@ -30,7 +31,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
     import type GObject from 'gi://GObject?version=2.0';
     import type GLib from 'gi://GLib?version=2.0';
     import type Gdk from 'gi://Gdk?version=4.0';
-    import type cairo from 'gi://cairo?version=1.0';
+    import type cairo from 'cairo';
     import type PangoCairo from 'gi://PangoCairo?version=1.0';
     import type Pango from 'gi://Pango?version=1.0';
     import type HarfBuzz from 'gi://HarfBuzz?version=0.0';
@@ -145,16 +146,16 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
         function get_minor_version(): number;
         /**
          * NOTE: To get which monitor the surface is actually on, use
-         * gdk_display_get_monitor_at_window().
+         * gdk_display_get_monitor_at_surface().
          * @param window A layer surface.
-         * @returns the monitor this surface will/has requested to be on, can be %NULL.
+         * @returns the monitor this surface will/has requested to be on.
          */
-        function get_monitor(window: Gtk.Window): Gdk.Monitor;
+        function get_monitor(window: Gtk.Window): Gdk.Monitor | null;
         /**
          * NOTE: this function does not return ownership of the string. Do not free the returned string.
          * Future calls into the library may invalidate the returned string.
          * @param window A layer surface.
-         * @returns a reference to the namespace property. If namespace is unset, returns the default namespace ("gtk4-layer-shell"). Never returns %NULL.
+         * @returns a reference to the namespace property. If namespace is unset, returns the default namespace("gtk4-layer-shell"). Never returns %NULL.
          */
         function get_namespace(window: Gtk.Window): string;
         /**
@@ -199,7 +200,8 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
         function set_exclusive_zone(window: Gtk.Window, exclusive_zone: number): void;
         /**
          * Sets if/when `window` should receive keyboard events from the compositor, see
-         * GtkLayerShellKeyboardMode for details.
+         * GtkLayerShellKeyboardMode for details. To control mouse/touch interactivity use input regions,
+         * see [#61](https://github.com/wmww/gtk4-layer-shell/issues/61) for details.
          *
          * Default is %GTK_LAYER_SHELL_KEYBOARD_MODE_NONE
          * @param window A layer surface.
@@ -207,7 +209,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
          */
         function set_keyboard_mode(window: Gtk.Window, mode: KeyboardMode | null): void;
         /**
-         * Set the "layer" on which the surface appears (controls if it is over top of or below other surfaces). The layer may
+         * Set the "layer" on which the surface appears(controls if it is over top of or below other surfaces). The layer may
          * be changed on-the-fly in the current version of the layer shell protocol, but on compositors that only support an
          * older version the `window` is remapped so the change can take effect.
          *
@@ -218,7 +220,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
         function set_layer(window: Gtk.Window, layer: Layer | null): void;
         /**
          * Set the margin for a specific `edge` of a `window`. Effects both surface's distance from
-         * the edge and its exclusive zone size (if auto exclusive zone enabled).
+         * the edge and its exclusive zone size(if auto exclusive zone enabled).
          *
          * Default is 0 for each #GtkLayerShellEdge
          * @param window A layer surface.
@@ -234,7 +236,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
          * @param window A layer surface.
          * @param monitor The output this layer surface will be placed on (%NULL to let the compositor decide).
          */
-        function set_monitor(window: Gtk.Window, monitor: Gdk.Monitor): void;
+        function set_monitor(window: Gtk.Window, monitor?: Gdk.Monitor | null): void;
         /**
          * Set the "namespace" of the surface.
          *
@@ -247,7 +249,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
          * @param window A layer surface.
          * @param name_space The namespace of this layer surface.
          */
-        function set_namespace(window: Gtk.Window, name_space: string): void;
+        function set_namespace(window: Gtk.Window, name_space?: string | null): void;
         /**
          * Name of the imported GIR library
          * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188

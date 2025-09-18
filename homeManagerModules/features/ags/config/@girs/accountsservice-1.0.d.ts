@@ -110,15 +110,33 @@ declare module 'gi://AccountsService?version=1.0' {
             NONE,
         }
         function user_manager_error_quark(): GLib.Quark;
-        module User {
-            // Signal callback interfaces
-
-            interface Changed {
-                (): void;
-            }
-
-            interface SessionsChanged {
-                (): void;
+        namespace User {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                changed: () => void;
+                'sessions-changed': () => void;
+                'notify::account-type': (pspec: GObject.ParamSpec) => void;
+                'notify::automatic-login': (pspec: GObject.ParamSpec) => void;
+                'notify::email': (pspec: GObject.ParamSpec) => void;
+                'notify::home-directory': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-file': (pspec: GObject.ParamSpec) => void;
+                'notify::is-loaded': (pspec: GObject.ParamSpec) => void;
+                'notify::language': (pspec: GObject.ParamSpec) => void;
+                'notify::local-account': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::locked': (pspec: GObject.ParamSpec) => void;
+                'notify::login-frequency': (pspec: GObject.ParamSpec) => void;
+                'notify::login-history': (pspec: GObject.ParamSpec) => void;
+                'notify::login-time': (pspec: GObject.ParamSpec) => void;
+                'notify::nonexistent': (pspec: GObject.ParamSpec) => void;
+                'notify::password-hint': (pspec: GObject.ParamSpec) => void;
+                'notify::password-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::real-name': (pspec: GObject.ParamSpec) => void;
+                'notify::shell': (pspec: GObject.ParamSpec) => void;
+                'notify::system-account': (pspec: GObject.ParamSpec) => void;
+                'notify::uid': (pspec: GObject.ParamSpec) => void;
+                'notify::user-name': (pspec: GObject.ParamSpec) => void;
+                'notify::x-session': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -223,6 +241,15 @@ declare module 'gi://AccountsService?version=1.0' {
             get x_session(): string;
             get xSession(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: User.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<User.ConstructorProps>, ...args: any[]);
@@ -231,15 +258,21 @@ declare module 'gi://AccountsService?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'changed', callback: (_source: this) => void): number;
-            emit(signal: 'changed'): void;
-            connect(signal: 'sessions-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'sessions-changed', callback: (_source: this) => void): number;
-            emit(signal: 'sessions-changed'): void;
+            connect<K extends keyof User.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, User.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof User.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, User.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof User.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<User.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -564,23 +597,17 @@ declare module 'gi://AccountsService?version=1.0' {
             set_x_session(x_session: string): void;
         }
 
-        module UserManager {
-            // Signal callback interfaces
-
-            interface UserAdded {
-                (user: User): void;
-            }
-
-            interface UserChanged {
-                (user: User): void;
-            }
-
-            interface UserIsLoggedInChanged {
-                (user: User): void;
-            }
-
-            interface UserRemoved {
-                (user: User): void;
+        namespace UserManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'user-added': (arg0: User) => void;
+                'user-changed': (arg0: User) => void;
+                'user-is-logged-in-changed': (arg0: User) => void;
+                'user-removed': (arg0: User) => void;
+                'notify::exclude-usernames-list': (pspec: GObject.ParamSpec) => void;
+                'notify::has-multiple-users': (pspec: GObject.ParamSpec) => void;
+                'notify::include-usernames-list': (pspec: GObject.ParamSpec) => void;
+                'notify::is-loaded': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -620,6 +647,15 @@ declare module 'gi://AccountsService?version=1.0' {
             get is_loaded(): boolean;
             get isLoaded(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: UserManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<UserManager.ConstructorProps>, ...args: any[]);
@@ -628,21 +664,21 @@ declare module 'gi://AccountsService?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'user-added', callback: (_source: this, user: User) => void): number;
-            connect_after(signal: 'user-added', callback: (_source: this, user: User) => void): number;
-            emit(signal: 'user-added', user: User): void;
-            connect(signal: 'user-changed', callback: (_source: this, user: User) => void): number;
-            connect_after(signal: 'user-changed', callback: (_source: this, user: User) => void): number;
-            emit(signal: 'user-changed', user: User): void;
-            connect(signal: 'user-is-logged-in-changed', callback: (_source: this, user: User) => void): number;
-            connect_after(signal: 'user-is-logged-in-changed', callback: (_source: this, user: User) => void): number;
-            emit(signal: 'user-is-logged-in-changed', user: User): void;
-            connect(signal: 'user-removed', callback: (_source: this, user: User) => void): number;
-            connect_after(signal: 'user-removed', callback: (_source: this, user: User) => void): number;
-            emit(signal: 'user-removed', user: User): void;
+            connect<K extends keyof UserManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UserManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UserManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UserManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UserManager.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -684,7 +720,7 @@ declare module 'gi://AccountsService?version=1.0' {
              * @param username a unix user name
              * @param cancellable optional #GCancellable object,     %NULL to ignore
              */
-            cache_user_async(username: string, cancellable?: Gio.Cancellable | null): Promise<User>;
+            cache_user_async(username: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<User>;
             /**
              * Asynchronously caches a user account so it shows up via
              * act_user_manager_list_users().
@@ -714,7 +750,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 username: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<User> | void;
+            ): globalThis.Promise<User> | void;
             /**
              * Finishes an asynchronous user caching.
              *
@@ -751,7 +787,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 fullname: string,
                 accounttype: UserAccountType | null,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<User>;
+            ): globalThis.Promise<User>;
             /**
              * Asynchronously creates a user account on the system.
              *
@@ -787,7 +823,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 accounttype: UserAccountType | null,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<User> | void;
+            ): globalThis.Promise<User> | void;
             /**
              * Finishes an asynchronous user creation.
              *
@@ -816,7 +852,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 user: User,
                 remove_files: boolean,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Asynchronously deletes a user account from the system.
              *
@@ -848,7 +884,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 remove_files: boolean,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an asynchronous user account deletion.
              *
@@ -899,7 +935,7 @@ declare module 'gi://AccountsService?version=1.0' {
              * @returns %TRUE if successful, otherwise %FALSE
              */
             uncache_user(username: string): boolean;
-            uncache_user_async(username: string, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            uncache_user_async(username: string, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             uncache_user_async(
                 username: string,
                 cancellable: Gio.Cancellable | null,
@@ -909,7 +945,7 @@ declare module 'gi://AccountsService?version=1.0' {
                 username: string,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an asynchronous user uncaching.
              *

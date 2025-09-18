@@ -1,47 +1,39 @@
 import app from "ags/gtk4/app"
-import { Astal } from "ags/gtk4"
+import { Astal, Gtk, Gdk } from "ags/gtk4"
+import { execAsync } from "ags/process"
 import { createPoll } from "ags/time"
-import { Variable } from "astal"
-import Hyprland from "gi://AstalHyprland"
-const hyprland = Hyprland.get_default()
 
-const Workspaces = () => {
-  const hyprWorkspaces = hyprland.workspaces
-  hyprWorkspaces.sort((a, b) => a.id - b.id)
+export default function Bar(gdkmonitor: Gdk.Monitor) {
+  const time = createPoll("", 1000, "date")
+  const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
-  const workspaces: (Hyprland.Workspace | undefined)[] = Array.from({ length: 5 }, (_, i) => {
-    const workspace = hyprWorkspaces.find((ws) => ws.id == i)
-    return workspace
-  })
-
-
-  print(workspaces.length)
   return (
-    <box>
-      {workspaces.map((workspace, i) =>
-        <box>
-          {i + 1}
-        </box>
-      )}
-    </box>
+    <window
+      visible
+      name="bar"
+      class="Bar"
+      gdkmonitor={gdkmonitor}
+      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      anchor={TOP | LEFT | RIGHT}
+      application={app}
+    >
+      <centerbox cssName="centerbox">
+        <button
+          $type="start"
+          onClicked={() => execAsync("echo hello").then(console.log)}
+          hexpand
+          halign={Gtk.Align.CENTER}
+        >
+          <label label="Welcome to AGS!" />
+        </button>
+        <box $type="center" />
+        <menubutton $type="end" hexpand halign={Gtk.Align.CENTER}>
+          <label label={time} />
+          <popover>
+            <Gtk.Calendar />
+          </popover>
+        </menubutton>
+      </centerbox>
+    </window>
   )
 }
-
-app.start({
-  main() {
-    const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
-    const clock = createPoll("", 1000, "date")
-
-    return (
-      <window
-        visible
-        anchor={TOP | LEFT | RIGHT}>
-        <centerbox>
-          <Workspaces />
-          <label label={clock} />
-          <box />
-        </centerbox>
-      </window>
-    )
-  }
-})

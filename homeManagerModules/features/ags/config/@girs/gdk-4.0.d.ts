@@ -1,4 +1,5 @@
 /// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
 /// <reference path="./gobject-2.0.d.ts" />
 /// <reference path="./glib-2.0.d.ts" />
 /// <reference path="./pangocairo-1.0.d.ts" />
@@ -20,7 +21,7 @@
 
 declare module 'gi://Gdk?version=4.0' {
     // Module dependencies
-    import type cairo from 'gi://cairo?version=1.0';
+    import type cairo from 'cairo';
     import type GObject from 'gi://GObject?version=2.0';
     import type GLib from 'gi://GLib?version=2.0';
     import type PangoCairo from 'gi://PangoCairo?version=1.0';
@@ -661,7 +662,7 @@ declare module 'gi://Gdk?version=4.0' {
             EXACT,
         }
         /**
-         * `GdkMemoryFormat` describes formats that image data can have in memory.
+         * Describes formats that image data can have in memory.
          *
          * It describes formats by listing the contents of the memory passed to it.
          * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
@@ -675,7 +676,7 @@ declare module 'gi://Gdk?version=4.0' {
          */
 
         /**
-         * `GdkMemoryFormat` describes formats that image data can have in memory.
+         * Describes formats that image data can have in memory.
          *
          * It describes formats by listing the contents of the memory passed to it.
          * So `GDK_MEMORY_A8R8G8B8` will be 1 byte (8 bits) of alpha, followed by a
@@ -1258,6 +1259,8 @@ declare module 'gi://Gdk?version=4.0' {
         const EVENT_STOP: boolean;
         const KEY_0: number;
         const KEY_1: number;
+        const KEY_10ChannelsDown: number;
+        const KEY_10ChannelsUp: number;
         const KEY_2: number;
         const KEY_3: number;
         const KEY_3270_AltCursor: number;
@@ -1290,6 +1293,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_3270_Rule: number;
         const KEY_3270_Setup: number;
         const KEY_3270_Test: number;
+        const KEY_3DMode: number;
         const KEY_4: number;
         const KEY_5: number;
         const KEY_6: number;
@@ -1298,6 +1302,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_9: number;
         const KEY_A: number;
         const KEY_AE: number;
+        const KEY_ALSToggle: number;
         const KEY_Aacute: number;
         const KEY_Abelowdot: number;
         const KEY_Abreve: number;
@@ -1308,6 +1313,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Abrevetilde: number;
         const KEY_AccessX_Enable: number;
         const KEY_AccessX_Feedback_Enable: number;
+        const KEY_Accessibility: number;
         const KEY_Acircumflex: number;
         const KEY_Acircumflexacute: number;
         const KEY_Acircumflexbelowdot: number;
@@ -1315,6 +1321,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Acircumflexhook: number;
         const KEY_Acircumflextilde: number;
         const KEY_AddFavorite: number;
+        const KEY_Addressbook: number;
         const KEY_Adiaeresis: number;
         const KEY_Agrave: number;
         const KEY_Ahook: number;
@@ -1322,6 +1329,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Alt_R: number;
         const KEY_Amacron: number;
         const KEY_Aogonek: number;
+        const KEY_AppSelect: number;
         const KEY_ApplicationLeft: number;
         const KEY_ApplicationRight: number;
         const KEY_Arabic_0: number;
@@ -1495,9 +1503,16 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Armenian_yentamna: number;
         const KEY_Armenian_za: number;
         const KEY_Armenian_zhe: number;
+        const KEY_AspectRatio: number;
+        const KEY_Assistant: number;
         const KEY_Atilde: number;
+        const KEY_AttendantOff: number;
+        const KEY_AttendantOn: number;
+        const KEY_AttendantToggle: number;
         const KEY_AudibleBell_Enable: number;
+        const KEY_Audio: number;
         const KEY_AudioCycleTrack: number;
+        const KEY_AudioDesc: number;
         const KEY_AudioForward: number;
         const KEY_AudioLowerVolume: number;
         const KEY_AudioMedia: number;
@@ -1514,6 +1529,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_AudioRepeat: number;
         const KEY_AudioRewind: number;
         const KEY_AudioStop: number;
+        const KEY_AutopilotEngageToggle: number;
         const KEY_Away: number;
         const KEY_B: number;
         const KEY_Babovedot: number;
@@ -1528,6 +1544,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_BounceKeys_Enable: number;
         const KEY_Break: number;
         const KEY_BrightnessAdjust: number;
+        const KEY_BrightnessAuto: number;
+        const KEY_BrightnessMax: number;
+        const KEY_BrightnessMin: number;
+        const KEY_Buttonconfig: number;
         const KEY_Byelorussian_SHORTU: number;
         const KEY_Byelorussian_shortu: number;
         const KEY_C: number;
@@ -1539,19 +1559,34 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Cacute: number;
         const KEY_Calculator: number;
         const KEY_Calendar: number;
+        const KEY_CameraAccessDisable: number;
+        const KEY_CameraAccessEnable: number;
+        const KEY_CameraAccessToggle: number;
+        const KEY_CameraDown: number;
+        const KEY_CameraFocus: number;
+        const KEY_CameraLeft: number;
+        const KEY_CameraRight: number;
+        const KEY_CameraUp: number;
+        const KEY_CameraZoomIn: number;
+        const KEY_CameraZoomOut: number;
         const KEY_Cancel: number;
         const KEY_Caps_Lock: number;
         const KEY_Ccaron: number;
         const KEY_Ccedilla: number;
         const KEY_Ccircumflex: number;
         const KEY_Ch: number;
+        const KEY_ChannelDown: number;
+        const KEY_ChannelUp: number;
         const KEY_Clear: number;
         const KEY_ClearGrab: number;
+        const KEY_ClearvuSonar: number;
         const KEY_Close: number;
         const KEY_Codeinput: number;
         const KEY_ColonSign: number;
         const KEY_Community: number;
+        const KEY_ContextMenu: number;
         const KEY_ContrastAdjust: number;
+        const KEY_ControlPanel: number;
         const KEY_Control_L: number;
         const KEY_Control_R: number;
         const KEY_Copy: number;
@@ -1664,14 +1699,22 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Cyrillic_zhe_descender: number;
         const KEY_D: number;
         const KEY_DOS: number;
+        const KEY_DVD: number;
         const KEY_Dabovedot: number;
+        const KEY_Data: number;
+        const KEY_Database: number;
         const KEY_Dcaron: number;
         const KEY_Delete: number;
+        const KEY_Dictate: number;
         const KEY_Display: number;
+        const KEY_DisplayOff: number;
+        const KEY_DisplayToggle: number;
+        const KEY_DoNotDisturb: number;
         const KEY_Documents: number;
         const KEY_DongSign: number;
         const KEY_Down: number;
         const KEY_Dstroke: number;
+        const KEY_DualRangeRadar: number;
         const KEY_E: number;
         const KEY_ENG: number;
         const KEY_ETH: number;
@@ -1688,12 +1731,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Ecircumflextilde: number;
         const KEY_EcuSign: number;
         const KEY_Ediaeresis: number;
+        const KEY_Editor: number;
         const KEY_Egrave: number;
         const KEY_Ehook: number;
         const KEY_Eisu_Shift: number;
         const KEY_Eisu_toggle: number;
         const KEY_Eject: number;
         const KEY_Emacron: number;
+        const KEY_EmojiPicker: number;
         const KEY_End: number;
         const KEY_Eogonek: number;
         const KEY_Escape: number;
@@ -1752,13 +1797,19 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Farsi_8: number;
         const KEY_Farsi_9: number;
         const KEY_Farsi_yeh: number;
+        const KEY_FastReverse: number;
         const KEY_Favorites: number;
         const KEY_Finance: number;
         const KEY_Find: number;
         const KEY_First_Virtual_Screen: number;
+        const KEY_FishingChart: number;
+        const KEY_Fn: number;
+        const KEY_FnRightShift: number;
+        const KEY_Fn_Esc: number;
         const KEY_Forward: number;
         const KEY_FrameBack: number;
         const KEY_FrameForward: number;
+        const KEY_FullScreen: number;
         const KEY_G: number;
         const KEY_Gabovedot: number;
         const KEY_Game: number;
@@ -1806,6 +1857,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Georgian_zen: number;
         const KEY_Georgian_zhar: number;
         const KEY_Go: number;
+        const KEY_GraphicsEditor: number;
         const KEY_Greek_ALPHA: number;
         const KEY_Greek_ALPHAaccent: number;
         const KEY_Greek_BETA: number;
@@ -1989,6 +2041,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Hangul_YU: number;
         const KEY_Hangul_YeorinHieuh: number;
         const KEY_Hangul_switch: number;
+        const KEY_HangupPhone: number;
         const KEY_Hankaku: number;
         const KEY_Hcircumflex: number;
         const KEY_Hebrew_switch: number;
@@ -2055,11 +2108,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Igrave: number;
         const KEY_Ihook: number;
         const KEY_Imacron: number;
+        const KEY_Images: number;
+        const KEY_Info: number;
         const KEY_Insert: number;
         const KEY_Iogonek: number;
         const KEY_Itilde: number;
         const KEY_J: number;
         const KEY_Jcircumflex: number;
+        const KEY_Journal: number;
         const KEY_K: number;
         const KEY_KP_0: number;
         const KEY_KP_1: number;
@@ -2105,6 +2161,17 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Katakana: number;
         const KEY_KbdBrightnessDown: number;
         const KEY_KbdBrightnessUp: number;
+        const KEY_KbdInputAssistAccept: number;
+        const KEY_KbdInputAssistCancel: number;
+        const KEY_KbdInputAssistNext: number;
+        const KEY_KbdInputAssistNextgroup: number;
+        const KEY_KbdInputAssistPrev: number;
+        const KEY_KbdInputAssistPrevgroup: number;
+        const KEY_KbdLcdMenu1: number;
+        const KEY_KbdLcdMenu2: number;
+        const KEY_KbdLcdMenu3: number;
+        const KEY_KbdLcdMenu4: number;
+        const KEY_KbdLcdMenu5: number;
         const KEY_KbdLightOnOff: number;
         const KEY_Kcedilla: number;
         const KEY_Keyboard: number;
@@ -2142,7 +2209,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Lcaron: number;
         const KEY_Lcedilla: number;
         const KEY_Left: number;
+        const KEY_LeftDown: number;
+        const KEY_LeftUp: number;
         const KEY_LightBulb: number;
+        const KEY_LightsToggle: number;
         const KEY_Linefeed: number;
         const KEY_LiraSign: number;
         const KEY_LogGrabInfo: number;
@@ -2157,11 +2227,50 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Macedonia_dse: number;
         const KEY_Macedonia_gje: number;
         const KEY_Macedonia_kje: number;
+        const KEY_Macro1: number;
+        const KEY_Macro10: number;
+        const KEY_Macro11: number;
+        const KEY_Macro12: number;
+        const KEY_Macro13: number;
+        const KEY_Macro14: number;
+        const KEY_Macro15: number;
+        const KEY_Macro16: number;
+        const KEY_Macro17: number;
+        const KEY_Macro18: number;
+        const KEY_Macro19: number;
+        const KEY_Macro2: number;
+        const KEY_Macro20: number;
+        const KEY_Macro21: number;
+        const KEY_Macro22: number;
+        const KEY_Macro23: number;
+        const KEY_Macro24: number;
+        const KEY_Macro25: number;
+        const KEY_Macro26: number;
+        const KEY_Macro27: number;
+        const KEY_Macro28: number;
+        const KEY_Macro29: number;
+        const KEY_Macro3: number;
+        const KEY_Macro30: number;
+        const KEY_Macro4: number;
+        const KEY_Macro5: number;
+        const KEY_Macro6: number;
+        const KEY_Macro7: number;
+        const KEY_Macro8: number;
+        const KEY_Macro9: number;
+        const KEY_MacroPreset1: number;
+        const KEY_MacroPreset2: number;
+        const KEY_MacroPreset3: number;
+        const KEY_MacroPresetCycle: number;
+        const KEY_MacroRecordStart: number;
+        const KEY_MacroRecordStop: number;
         const KEY_Mae_Koho: number;
         const KEY_Mail: number;
         const KEY_MailForward: number;
+        const KEY_MarkWaypoint: number;
         const KEY_Market: number;
         const KEY_Massyo: number;
+        const KEY_MediaRepeat: number;
+        const KEY_MediaTopMenu: number;
         const KEY_Meeting: number;
         const KEY_Memo: number;
         const KEY_Menu: number;
@@ -2173,6 +2282,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_MillSign: number;
         const KEY_ModeLock: number;
         const KEY_Mode_switch: number;
+        const KEY_MonBrightnessCycle: number;
         const KEY_MonBrightnessDown: number;
         const KEY_MonBrightnessUp: number;
         const KEY_MouseKeys_Accel_Enable: number;
@@ -2186,16 +2296,39 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_N: number;
         const KEY_Nacute: number;
         const KEY_NairaSign: number;
+        const KEY_NavChart: number;
+        const KEY_NavInfo: number;
         const KEY_Ncaron: number;
         const KEY_Ncedilla: number;
         const KEY_New: number;
         const KEY_NewSheqelSign: number;
         const KEY_News: number;
         const KEY_Next: number;
+        const KEY_NextElement: number;
+        const KEY_NextFavorite: number;
         const KEY_Next_VMode: number;
         const KEY_Next_Virtual_Screen: number;
+        const KEY_NotificationCenter: number;
         const KEY_Ntilde: number;
         const KEY_Num_Lock: number;
+        const KEY_Numeric0: number;
+        const KEY_Numeric1: number;
+        const KEY_Numeric11: number;
+        const KEY_Numeric12: number;
+        const KEY_Numeric2: number;
+        const KEY_Numeric3: number;
+        const KEY_Numeric4: number;
+        const KEY_Numeric5: number;
+        const KEY_Numeric6: number;
+        const KEY_Numeric7: number;
+        const KEY_Numeric8: number;
+        const KEY_Numeric9: number;
+        const KEY_NumericA: number;
+        const KEY_NumericB: number;
+        const KEY_NumericC: number;
+        const KEY_NumericD: number;
+        const KEY_NumericPound: number;
+        const KEY_NumericStar: number;
         const KEY_O: number;
         const KEY_OE: number;
         const KEY_Oacute: number;
@@ -2220,6 +2353,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Ohornhook: number;
         const KEY_Ohorntilde: number;
         const KEY_Omacron: number;
+        const KEY_OnScreenKeyboard: number;
         const KEY_Ooblique: number;
         const KEY_Open: number;
         const KEY_OpenURL: number;
@@ -2234,8 +2368,10 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Page_Up: number;
         const KEY_Paste: number;
         const KEY_Pause: number;
+        const KEY_PauseRecord: number;
         const KEY_PesetaSign: number;
         const KEY_Phone: number;
+        const KEY_PickupPhone: number;
         const KEY_Pictures: number;
         const KEY_Pointer_Accelerate: number;
         const KEY_Pointer_Button1: number;
@@ -2269,11 +2405,14 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Pointer_UpRight: number;
         const KEY_PowerDown: number;
         const KEY_PowerOff: number;
+        const KEY_Presentation: number;
         const KEY_Prev_VMode: number;
         const KEY_Prev_Virtual_Screen: number;
         const KEY_PreviousCandidate: number;
+        const KEY_PreviousElement: number;
         const KEY_Print: number;
         const KEY_Prior: number;
+        const KEY_PrivacyScreenToggle: number;
         const KEY_Q: number;
         const KEY_R: number;
         const KEY_R1: number;
@@ -2293,22 +2432,28 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_R9: number;
         const KEY_RFKill: number;
         const KEY_Racute: number;
+        const KEY_RadarOverlay: number;
         const KEY_Rcaron: number;
         const KEY_Rcedilla: number;
         const KEY_Red: number;
         const KEY_Redo: number;
         const KEY_Refresh: number;
+        const KEY_RefreshRateToggle: number;
         const KEY_Reload: number;
         const KEY_RepeatKeys_Enable: number;
         const KEY_Reply: number;
         const KEY_Return: number;
         const KEY_Right: number;
+        const KEY_RightDown: number;
+        const KEY_RightUp: number;
         const KEY_RockerDown: number;
         const KEY_RockerEnter: number;
         const KEY_RockerUp: number;
         const KEY_Romaji: number;
+        const KEY_RootMenu: number;
         const KEY_RotateWindows: number;
         const KEY_RotationKB: number;
+        const KEY_RotationLockToggle: number;
         const KEY_RotationPB: number;
         const KEY_RupeeSign: number;
         const KEY_S: number;
@@ -2320,6 +2465,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Scedilla: number;
         const KEY_Scircumflex: number;
         const KEY_ScreenSaver: number;
+        const KEY_Screensaver: number;
         const KEY_ScrollClick: number;
         const KEY_ScrollDown: number;
         const KEY_ScrollUp: number;
@@ -2327,6 +2473,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Search: number;
         const KEY_Select: number;
         const KEY_SelectButton: number;
+        const KEY_SelectiveScreenshot: number;
         const KEY_Send: number;
         const KEY_Serbian_DJE: number;
         const KEY_Serbian_DZE: number;
@@ -2344,7 +2491,9 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Shift_Lock: number;
         const KEY_Shift_R: number;
         const KEY_Shop: number;
+        const KEY_SidevuSonar: number;
         const KEY_SingleCandidate: number;
+        const KEY_SingleRangeRadar: number;
         const KEY_Sinh_a: number;
         const KEY_Sinh_aa: number;
         const KEY_Sinh_aa2: number;
@@ -2427,12 +2576,16 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Sinh_ya: number;
         const KEY_Sleep: number;
         const KEY_SlowKeys_Enable: number;
+        const KEY_SlowReverse: number;
+        const KEY_Sos: number;
         const KEY_Spell: number;
+        const KEY_SpellCheck: number;
         const KEY_SplitScreen: number;
         const KEY_Standby: number;
         const KEY_Start: number;
         const KEY_StickyKeys_Enable: number;
         const KEY_Stop: number;
+        const KEY_StopRecord: number;
         const KEY_Subtitle: number;
         const KEY_Super_L: number;
         const KEY_Super_R: number;
@@ -2456,6 +2609,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Tab: number;
         const KEY_Tabovedot: number;
         const KEY_TaskPane: number;
+        const KEY_Taskmanager: number;
         const KEY_Tcaron: number;
         const KEY_Tcedilla: number;
         const KEY_Terminal: number;
@@ -2553,6 +2707,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_TouchpadOn: number;
         const KEY_TouchpadToggle: number;
         const KEY_Touroku: number;
+        const KEY_TraditionalSonar: number;
         const KEY_Travel: number;
         const KEY_Tslash: number;
         const KEY_U: number;
@@ -2588,6 +2743,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Umacron: number;
         const KEY_Undo: number;
         const KEY_Ungrab: number;
+        const KEY_Unmute: number;
         const KEY_Uogonek: number;
         const KEY_Up: number;
         const KEY_Uring: number;
@@ -2596,12 +2752,17 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_UserPB: number;
         const KEY_Utilde: number;
         const KEY_V: number;
+        const KEY_VOD: number;
         const KEY_VendorHome: number;
         const KEY_Video: number;
+        const KEY_VideoPhone: number;
         const KEY_View: number;
+        const KEY_VoiceCommand: number;
+        const KEY_Voicemail: number;
         const KEY_VoidSymbol: number;
         const KEY_W: number;
         const KEY_WLAN: number;
+        const KEY_WPSButton: number;
         const KEY_WWAN: number;
         const KEY_WWW: number;
         const KEY_Wacute: number;
@@ -2635,6 +2796,7 @@ declare module 'gi://Gdk?version=4.0' {
         const KEY_Zenkaku_Hankaku: number;
         const KEY_ZoomIn: number;
         const KEY_ZoomOut: number;
+        const KEY_ZoomReset: number;
         const KEY_Zstroke: number;
         const KEY_a: number;
         const KEY_aacute: number;
@@ -3555,7 +3717,7 @@ declare module 'gi://Gdk?version=4.0' {
          */
         const PRIORITY_REDRAW: number;
         /**
-         * The main way to not draw GL content in GTK.
+         * Draws GL content onto a cairo context.
          *
          * It takes a render buffer ID (`source_type` == GL_RENDERBUFFER) or a texture
          * id (`source_type` == GL_TEXTURE) and draws it onto `cr` with an OVER operation,
@@ -3639,6 +3801,21 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function cairo_set_source_rgba(cr: cairo.Context, rgba: RGBA): void;
         /**
+         * Returns the color state object representing the oklab color space.
+         *
+         * This is a perceptually uniform color state.
+         * @returns the color state object for oklab
+         */
+        function color_state_get_oklab(): ColorState;
+        /**
+         * Returns the color state object representing the oklch color space.
+         *
+         * This is the polar variant of oklab, in which the hue is encoded as
+         * a polar coordinate.
+         * @returns the color state object for oklch
+         */
+        function color_state_get_oklch(): ColorState;
+        /**
          * Returns the color state object representing the linear rec2100 color space.
          *
          * This color state uses the primaries defined by BT.2020-2 and BT.2100-0 and a linear
@@ -3690,9 +3867,9 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function color_state_get_srgb_linear(): ColorState;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3706,11 +3883,11 @@ declare module 'gi://Gdk?version=4.0' {
             type: GObject.GType,
             io_priority: number,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<[GObject.Value]>;
+        ): globalThis.Promise<[GObject.Value]>;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3728,9 +3905,9 @@ declare module 'gi://Gdk?version=4.0' {
             callback: Gio.AsyncReadyCallback<Gio.InputStream> | null,
         ): void;
         /**
-         * Read content from the given input stream and deserialize it, asynchronously.
+         * Reads content from the given input stream and deserialize it, asynchronously.
          *
-         * The default I/O priority is %G_PRIORITY_DEFAULT (i.e. 0), and lower numbers
+         * The default I/O priority is `G_PRIORITY_DEFAULT` (i.e. 0), and lower numbers
          * indicate a higher priority.
          * @param stream a `GInputStream` to read the serialized content from
          * @param mime_type the mime type to deserialize from
@@ -3746,7 +3923,7 @@ declare module 'gi://Gdk?version=4.0' {
             io_priority: number,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Gio.InputStream> | null,
-        ): Promise<[GObject.Value]> | void;
+        ): globalThis.Promise<[GObject.Value]> | void;
         /**
          * Finishes a content deserialization operation.
          * @param result the `GAsyncResult`
@@ -3805,7 +3982,7 @@ declare module 'gi://Gdk?version=4.0' {
             value: GObject.Value | any,
             io_priority: number,
             cancellable?: Gio.Cancellable | null,
-        ): Promise<boolean>;
+        ): globalThis.Promise<boolean>;
         /**
          * Serialize content and write it to the given output stream, asynchronously.
          *
@@ -3845,7 +4022,7 @@ declare module 'gi://Gdk?version=4.0' {
             io_priority: number,
             cancellable?: Gio.Cancellable | null,
             callback?: Gio.AsyncReadyCallback<Gio.OutputStream> | null,
-        ): Promise<boolean> | void;
+        ): globalThis.Promise<boolean> | void;
         /**
          * Finishes a content serialization operation.
          * @param result the `GAsyncResult`
@@ -3929,19 +4106,19 @@ declare module 'gi://Gdk?version=4.0' {
          * `gdk/gdkkeysyms.h` header file
          * but without the leading “GDK_KEY_”.
          * @param keyval_name a key name
-         * @returns the corresponding key value, or %GDK_KEY_VoidSymbol   if the key name is not a valid key
+         * @returns the corresponding key value, or `GDK_KEY_VoidSymbol`   if the key name is not a valid key
          */
         function keyval_from_name(keyval_name: string): number;
         /**
-         * Returns %TRUE if the given key value is in lower case.
+         * Returns true if the given key value is in lower case.
          * @param keyval a key value.
-         * @returns %TRUE if @keyval is in lower case, or if @keyval is not   subject to case conversion.
+         * @returns true if @keyval is in lower case, or if @keyval is not   subject to case conversion.
          */
         function keyval_is_lower(keyval: number): boolean;
         /**
-         * Returns %TRUE if the given key value is in upper case.
+         * Returns true if the given key value is in upper case.
          * @param keyval a key value.
-         * @returns %TRUE if @keyval is in upper case, or if @keyval is not subject to  case conversion.
+         * @returns true if @keyval is in upper case, or if @keyval is not subject to  case conversion.
          */
         function keyval_is_upper(keyval: number): boolean;
         /**
@@ -3961,12 +4138,12 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function keyval_to_lower(keyval: number): number;
         /**
-         * Convert from a GDK key symbol to the corresponding Unicode
+         * Converts from a GDK key symbol to the corresponding Unicode
          * character.
          *
          * Note that the conversion does not take the current locale
          * into consideration, which might be expected for particular
-         * keyvals, such as %GDK_KEY_KP_Decimal.
+         * keyvals, such as `GDK_KEY_KP_Decimal`.
          * @param keyval a GDK key symbol
          * @returns the corresponding unicode character, or 0 if there   is no corresponding character.
          */
@@ -4065,9 +4242,9 @@ declare module 'gi://Gdk?version=4.0' {
          */
         function texture_error_quark(): GLib.Quark;
         /**
-         * Convert from a Unicode character to a key symbol.
+         * Converts from a Unicode character to a key symbol.
          * @param wc a Unicode character
-         * @returns the corresponding GDK key symbol, if one exists.   or, if there is no corresponding symbol, wc | 0x01000000
+         * @returns the corresponding GDK key symbol, if one exists,   or, if there is no corresponding symbol, `wc | 0x01000000`
          */
         function unicode_to_keyval(wc: number): number;
         /**
@@ -4330,7 +4507,7 @@ declare module 'gi://Gdk?version=4.0' {
          * Apple, CapsLock or ShiftLock.
          *
          * Note that GDK may add internal values to events which include values outside
-         * of this enumeration. Your code should preserve and ignore them.  You can use
+         * of this enumeration. Your code should preserve and ignore them. You can use
          * %GDK_MODIFIER_MASK to remove all private values.
          */
 
@@ -4342,7 +4519,7 @@ declare module 'gi://Gdk?version=4.0' {
          * Apple, CapsLock or ShiftLock.
          *
          * Note that GDK may add internal values to events which include values outside
-         * of this enumeration. Your code should preserve and ignore them.  You can use
+         * of this enumeration. Your code should preserve and ignore them. You can use
          * %GDK_MODIFIER_MASK to remove all private values.
          */
         export namespace ModifierType {
@@ -4359,8 +4536,8 @@ declare module 'gi://Gdk?version=4.0' {
              */
             SHIFT_MASK,
             /**
-             * a Lock key (depending on the modifier mapping of the
-             *  X server this may either be CapsLock or ShiftLock).
+             * a Lock key (depending on the Windowing System configuration,
+             *    this may either be <kbd>CapsLock</kbd> or <kbd>ShiftLock</kbd>).
              */
             LOCK_MASK,
             /**
@@ -4368,9 +4545,9 @@ declare module 'gi://Gdk?version=4.0' {
              */
             CONTROL_MASK,
             /**
-             * the fourth modifier key (it depends on the modifier
-             *  mapping of the X server which key is interpreted as this modifier, but
-             *  normally it is the Alt key).
+             * the fourth modifier key (it depends on the Windowing System
+             *    configuration which key is interpreted as this modifier, but normally it
+             *    is the <kbd>Alt</kbd> key).
              */
             ALT_MASK,
             /**
@@ -4573,7 +4750,12 @@ declare module 'gi://Gdk?version=4.0' {
              */
             SUSPENDED,
         }
-        module AppLaunchContext {
+        namespace AppLaunchContext {
+            // Signal signatures
+            interface SignalSignatures extends Gio.AppLaunchContext.SignalSignatures {
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gio.AppLaunchContext.ConstructorProps {
@@ -4582,7 +4764,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkAppLaunchContext` handles launching an application in a graphical context.
+         * Handles launching an application in a graphical context.
          *
          * It is an implementation of `GAppLaunchContext` that provides startup
          * notification and allows to launch applications on a specific workspace.
@@ -4612,11 +4794,40 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get display(): Display;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: AppLaunchContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<AppLaunchContext.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof AppLaunchContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppLaunchContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof AppLaunchContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, AppLaunchContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof AppLaunchContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<AppLaunchContext.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4683,6 +4894,11 @@ declare module 'gi://Gdk?version=4.0' {
             set_timestamp(timestamp: number): void;
         }
 
+        namespace ButtonEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to a button on a pointer device.
          */
@@ -4693,6 +4909,24 @@ declare module 'gi://Gdk?version=4.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof ButtonEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ButtonEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ButtonEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ButtonEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ButtonEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ButtonEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
@@ -4702,15 +4936,20 @@ declare module 'gi://Gdk?version=4.0' {
             get_button(): number;
         }
 
-        module CairoContext {
+        namespace CairoContext {
+            // Signal signatures
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DrawContext.ConstructorProps {}
         }
 
         /**
-         * `GdkCairoContext` is an object representing the platform-specific
-         * draw context.
+         * Represents the platform-specific draw context.
          *
          * `GdkCairoContext`s are created for a surface using
          * [method`Gdk`.Surface.create_cairo_context], and the context
@@ -4719,11 +4958,38 @@ declare module 'gi://Gdk?version=4.0' {
         abstract class CairoContext extends DrawContext {
             static $gtype: GObject.GType<CairoContext>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CairoContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CairoContext.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CairoContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CairoContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CairoContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CairoContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CairoContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CairoContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4741,7 +5007,15 @@ declare module 'gi://Gdk?version=4.0' {
             cairo_create(): cairo.Context | null;
         }
 
-        module CicpParams {
+        namespace CicpParams {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::color-primaries': (pspec: GObject.ParamSpec) => void;
+                'notify::matrix-coefficients': (pspec: GObject.ParamSpec) => void;
+                'notify::range': (pspec: GObject.ParamSpec) => void;
+                'notify::transfer-function': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4756,8 +5030,9 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkCicpParams` struct contains the parameters that define
-         * a colorstate according to the ITU-T H.273
+         * Contains the parameters that define a colorstate with cicp parameters.
+         *
+         * Cicp parameters are specified in the ITU-T H.273
          * [specification](https://www.itu.int/rec/T-REC-H.273/en).
          *
          * See the documentation of individual properties for supported values.
@@ -4868,6 +5143,15 @@ declare module 'gi://Gdk?version=4.0' {
             get transferFunction(): number;
             set transferFunction(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CicpParams.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CicpParams.ConstructorProps>, ...args: any[]);
@@ -4875,6 +5159,24 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
 
             static ['new'](): CicpParams;
+
+            // Signals
+
+            connect<K extends keyof CicpParams.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CicpParams.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CicpParams.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CicpParams.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CicpParams.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CicpParams.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4886,7 +5188,7 @@ declare module 'gi://Gdk?version=4.0' {
              * with an error message that can be presented to the user.
              * @returns A newly allocated `GdkColorState`
              */
-            build_color_state(): ColorState | null;
+            build_color_state(): ColorState;
             /**
              * Returns the value of the color-primaries property
              * of `self`.
@@ -4931,11 +5233,14 @@ declare module 'gi://Gdk?version=4.0' {
             set_transfer_function(transfer_function: number): void;
         }
 
-        module Clipboard {
-            // Signal callback interfaces
-
-            interface Changed {
-                (): void;
+        namespace Clipboard {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                changed: () => void;
+                'notify::content': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::formats': (pspec: GObject.ParamSpec) => void;
+                'notify::local': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -4949,8 +5254,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkClipboard` object represents data shared between applications or
-         * inside an application.
+         * Represents data shared between applications or inside an application.
          *
          * To get a `GdkClipboard` object, use [method`Gdk`.Display.get_clipboard] or
          * [method`Gdk`.Display.get_primary_clipboard]. You can find out about the data
@@ -4990,6 +5294,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get local(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Clipboard.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Clipboard.ConstructorProps>, ...args: any[]);
@@ -4998,12 +5311,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'changed', callback: (_source: this) => void): number;
-            emit(signal: 'changed'): void;
+            connect<K extends keyof Clipboard.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Clipboard.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Clipboard.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Clipboard.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Clipboard.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Clipboard.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5050,7 +5372,7 @@ declare module 'gi://Gdk?version=4.0' {
                 mime_types: string[],
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[Gio.InputStream | null, string]>;
+            ): globalThis.Promise<[Gio.InputStream | null, string]>;
             /**
              * Asynchronously requests an input stream to read the `clipboard'`s
              * contents from.
@@ -5084,7 +5406,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream | null, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream | null, string]> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5101,7 +5423,7 @@ declare module 'gi://Gdk?version=4.0' {
              * need more control over the operation.
              * @param cancellable optional `GCancellable` object
              */
-            read_text_async(cancellable?: Gio.Cancellable | null): Promise<string | null>;
+            read_text_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<string | null>;
             /**
              * Asynchronously request the `clipboard` contents converted to a string.
              *
@@ -5124,7 +5446,7 @@ declare module 'gi://Gdk?version=4.0' {
             read_text_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<string | null> | void;
+            ): globalThis.Promise<string | null> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5141,7 +5463,7 @@ declare module 'gi://Gdk?version=4.0' {
              * need more control over the operation.
              * @param cancellable optional `GCancellable` object, %NULL to ignore.
              */
-            read_texture_async(cancellable?: Gio.Cancellable | null): Promise<Texture | null>;
+            read_texture_async(cancellable?: Gio.Cancellable | null): globalThis.Promise<Texture | null>;
             /**
              * Asynchronously request the `clipboard` contents converted to a `GdkPixbuf`.
              *
@@ -5167,7 +5489,7 @@ declare module 'gi://Gdk?version=4.0' {
             read_texture_async(
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<Texture | null> | void;
+            ): globalThis.Promise<Texture | null> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5191,7 +5513,7 @@ declare module 'gi://Gdk?version=4.0' {
                 type: GObject.GType,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GObject.Value>;
+            ): globalThis.Promise<GObject.Value>;
             /**
              * Asynchronously request the `clipboard` contents converted to the given
              * `type`.
@@ -5227,7 +5549,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GObject.Value> | void;
+            ): globalThis.Promise<GObject.Value> | void;
             /**
              * Finishes an asynchronous clipboard read.
              *
@@ -5276,7 +5598,7 @@ declare module 'gi://Gdk?version=4.0' {
              * @param io_priority the I/O priority of the request
              * @param cancellable optional `GCancellable` object
              */
-            store_async(io_priority: number, cancellable?: Gio.Cancellable | null): Promise<boolean>;
+            store_async(io_priority: number, cancellable?: Gio.Cancellable | null): globalThis.Promise<boolean>;
             /**
              * Asynchronously instructs the `clipboard` to store its contents remotely.
              *
@@ -5320,7 +5642,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an asynchronous clipboard store.
              *
@@ -5331,15 +5653,17 @@ declare module 'gi://Gdk?version=4.0' {
             store_finish(result: Gio.AsyncResult): boolean;
         }
 
-        module ContentDeserializer {
+        namespace ContentDeserializer {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncResult.ConstructorProps {}
         }
 
         /**
-         * A `GdkContentDeserializer` is used to deserialize content received via
-         * inter-application data transfers.
+         * Deserializes content received via inter-application data transfers.
          *
          * The `GdkContentDeserializer` transforms serialized content that is
          * identified by a mime type into an object identified by a GType.
@@ -5353,11 +5677,40 @@ declare module 'gi://Gdk?version=4.0' {
         class ContentDeserializer extends GObject.Object implements Gio.AsyncResult {
             static $gtype: GObject.GType<ContentDeserializer>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContentDeserializer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContentDeserializer.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ContentDeserializer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentDeserializer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContentDeserializer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentDeserializer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContentDeserializer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContentDeserializer.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5584,7 +5937,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -5712,7 +6079,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -5862,18 +6234,39 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module ContentProvider {
-            // Signal callback interfaces
-
-            interface ContentChanged {
-                (): void;
+        namespace ContentProvider {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'content-changed': () => void;
+                'notify::formats': (pspec: GObject.ParamSpec) => void;
+                'notify::storable-formats': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -5886,8 +6279,8 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkContentProvider` is used to provide content for the clipboard or
-         * for drag-and-drop operations in a number of formats.
+         * Provides content for the clipboard or for drag-and-drop operations
+         * in a number of formats.
          *
          * To create a `GdkContentProvider`, use [ctor`Gdk`.ContentProvider.new_for_value]
          * or [ctor`Gdk`.ContentProvider.new_for_bytes].
@@ -5914,6 +6307,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get storableFormats(): ContentFormats;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContentProvider.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContentProvider.ConstructorProps>, ...args: any[]);
@@ -5928,12 +6330,23 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'content-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'content-changed', callback: (_source: this) => void): number;
-            emit(signal: 'content-changed'): void;
+            connect<K extends keyof ContentProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentProvider.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContentProvider.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentProvider.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContentProvider.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContentProvider.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -6047,7 +6460,7 @@ declare module 'gi://Gdk?version=4.0' {
                 stream: Gio.OutputStream,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Asynchronously writes the contents of `provider` to `stream` in the given
              * `mime_type`.
@@ -6091,7 +6504,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes an asynchronous write operation.
              *
@@ -6102,15 +6515,17 @@ declare module 'gi://Gdk?version=4.0' {
             write_mime_type_finish(result: Gio.AsyncResult): boolean;
         }
 
-        module ContentSerializer {
+        namespace ContentSerializer {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, Gio.AsyncResult.ConstructorProps {}
         }
 
         /**
-         * A `GdkContentSerializer` is used to serialize content for
-         * inter-application data transfers.
+         * Serializes content for inter-application data transfers.
          *
          * The `GdkContentSerializer` transforms an object that is identified
          * by a GType into a serialized form (i.e. a byte stream) that is
@@ -6125,11 +6540,40 @@ declare module 'gi://Gdk?version=4.0' {
         class ContentSerializer extends GObject.Object implements Gio.AsyncResult {
             static $gtype: GObject.GType<ContentSerializer>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ContentSerializer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ContentSerializer.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ContentSerializer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentSerializer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ContentSerializer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ContentSerializer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ContentSerializer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ContentSerializer.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6356,7 +6800,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -6484,7 +6942,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -6634,11 +7097,36 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
+        }
+
+        namespace CrossingEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -6650,6 +7138,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CrossingEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CrossingEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CrossingEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CrossingEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CrossingEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CrossingEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6670,7 +7176,16 @@ declare module 'gi://Gdk?version=4.0' {
             get_mode(): CrossingMode;
         }
 
-        module Cursor {
+        namespace Cursor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::fallback': (pspec: GObject.ParamSpec) => void;
+                'notify::hotspot-x': (pspec: GObject.ParamSpec) => void;
+                'notify::hotspot-y': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::texture': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6685,7 +7200,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkCursor` is used to create and destroy cursors.
+         * Used to create and destroy cursors.
          *
          * Cursors are immutable objects, so once you created them, there is no way
          * to modify them later. You should create a new cursor when you want to change
@@ -6758,6 +7273,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get texture(): Texture;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Cursor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Cursor.ConstructorProps>, ...args: any[]);
@@ -6774,6 +7298,24 @@ declare module 'gi://Gdk?version=4.0' {
                 hotspot_y: number,
                 fallback?: Cursor | null,
             ): Cursor;
+
+            // Signals
+
+            connect<K extends keyof Cursor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Cursor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Cursor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Cursor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Cursor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Cursor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6826,6 +7368,11 @@ declare module 'gi://Gdk?version=4.0' {
             get_texture(): Texture | null;
         }
 
+        namespace DNDEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to drag and drop operations.
          */
@@ -6836,6 +7383,24 @@ declare module 'gi://Gdk?version=4.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof DNDEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DNDEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DNDEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DNDEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DNDEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DNDEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
@@ -6843,6 +7408,11 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the drop
              */
             get_drop(): Drop | null;
+        }
+
+        namespace DeleteEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -6854,22 +7424,56 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DeleteEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeleteEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeleteEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeleteEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeleteEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeleteEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module Device {
-            // Signal callback interfaces
-
-            interface Changed {
-                (): void;
-            }
-
-            interface ToolChanged {
-                (tool: DeviceTool): void;
+        namespace Device {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                changed: () => void;
+                'tool-changed': (arg0: DeviceTool) => void;
+                'notify::active-layout-index': (pspec: GObject.ParamSpec) => void;
+                'notify::caps-lock-state': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::has-bidi-layouts': (pspec: GObject.ParamSpec) => void;
+                'notify::has-cursor': (pspec: GObject.ParamSpec) => void;
+                'notify::layout-names': (pspec: GObject.ParamSpec) => void;
+                'notify::modifier-state': (pspec: GObject.ParamSpec) => void;
+                'notify::n-axes': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::num-lock-state': (pspec: GObject.ParamSpec) => void;
+                'notify::num-touches': (pspec: GObject.ParamSpec) => void;
+                'notify::product-id': (pspec: GObject.ParamSpec) => void;
+                'notify::scroll-lock-state': (pspec: GObject.ParamSpec) => void;
+                'notify::seat': (pspec: GObject.ParamSpec) => void;
+                'notify::source': (pspec: GObject.ParamSpec) => void;
+                'notify::tool': (pspec: GObject.ParamSpec) => void;
+                'notify::vendor-id': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
+                active_layout_index: number;
+                activeLayoutIndex: number;
                 caps_lock_state: boolean;
                 capsLockState: boolean;
                 direction: Pango.Direction;
@@ -6878,6 +7482,8 @@ declare module 'gi://Gdk?version=4.0' {
                 hasBidiLayouts: boolean;
                 has_cursor: boolean;
                 hasCursor: boolean;
+                layout_names: string[];
+                layoutNames: string[];
                 modifier_state: ModifierType;
                 modifierState: ModifierType;
                 n_axes: number;
@@ -6900,8 +7506,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDevice` object represents an input device, such
-         * as a keyboard, a mouse, or a touchpad.
+         * Represents an input device, such as a keyboard, mouse or touchpad.
          *
          * See the [class`Gdk`.Seat] documentation for more information
          * about the various kinds of devices, and their relationships.
@@ -6911,6 +7516,22 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Properties
 
+            /**
+             * The index of the keyboard active layout of a `GdkDevice`.
+             *
+             * Will be -1 if there is no valid active layout.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get active_layout_index(): number;
+            /**
+             * The index of the keyboard active layout of a `GdkDevice`.
+             *
+             * Will be -1 if there is no valid active layout.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get activeLayoutIndex(): number;
             /**
              * Whether Caps Lock is on.
              *
@@ -6953,6 +7574,18 @@ declare module 'gi://Gdk?version=4.0' {
              * Whether the device is represented by a cursor on the screen.
              */
             get hasCursor(): boolean;
+            /**
+             * The names of the keyboard layouts of a `GdkDevice`.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get layout_names(): string[];
+            /**
+             * The names of the keyboard layouts of a `GdkDevice`.
+             *
+             * This is only relevant for keyboard devices.
+             */
+            get layoutNames(): string[];
             /**
              * The current modifier state of the device.
              *
@@ -7053,6 +7686,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get vendorId(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Device.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Device.ConstructorProps>, ...args: any[]);
@@ -7061,18 +7703,34 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'changed', callback: (_source: this) => void): number;
-            emit(signal: 'changed'): void;
-            connect(signal: 'tool-changed', callback: (_source: this, tool: DeviceTool) => void): number;
-            connect_after(signal: 'tool-changed', callback: (_source: this, tool: DeviceTool) => void): number;
-            emit(signal: 'tool-changed', tool: DeviceTool): void;
+            connect<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Device.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Device.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Device.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
+            /**
+             * Retrieves the index of the active layout of the keyboard.
+             *
+             * If there is no valid active layout for the `GdkDevice`, this function will
+             * return -1;
+             *
+             * This is only relevant for keyboard devices.
+             * @returns The layout index of the active layout or -1.
+             */
+            get_active_layout_index(): number;
             /**
              * Retrieves whether the Caps Lock modifier of the keyboard is locked.
              *
@@ -7108,6 +7766,13 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns %TRUE if the pointer follows device motion
              */
             get_has_cursor(): boolean;
+            /**
+             * Retrieves the names of the layouts of the keyboard.
+             *
+             * This is only relevant for keyboard devices.
+             * @returns %NULL-terminated array of strings of layouts,
+             */
+            get_layout_names(): string[] | null;
             /**
              * Retrieves the current modifier state of the keyboard.
              *
@@ -7209,7 +7874,15 @@ declare module 'gi://Gdk?version=4.0' {
             get_vendor_id(): string | null;
         }
 
-        module DeviceTool {
+        namespace DeviceTool {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::axes': (pspec: GObject.ParamSpec) => void;
+                'notify::hardware-id': (pspec: GObject.ParamSpec) => void;
+                'notify::serial': (pspec: GObject.ParamSpec) => void;
+                'notify::tool-type': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7255,11 +7928,38 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get toolType(): DeviceToolType;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DeviceTool.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DeviceTool.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DeviceTool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceTool.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DeviceTool.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DeviceTool.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DeviceTool.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DeviceTool.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7298,27 +7998,19 @@ declare module 'gi://Gdk?version=4.0' {
             get_tool_type(): DeviceToolType;
         }
 
-        module Display {
-            // Signal callback interfaces
-
-            interface Closed {
-                (is_error: boolean): void;
-            }
-
-            interface Opened {
-                (): void;
-            }
-
-            interface SeatAdded {
-                (seat: Seat): void;
-            }
-
-            interface SeatRemoved {
-                (seat: Seat): void;
-            }
-
-            interface SettingChanged {
-                (setting: string): void;
+        namespace Display {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                closed: (arg0: boolean) => void;
+                opened: () => void;
+                'seat-added': (arg0: Seat) => void;
+                'seat-removed': (arg0: Seat) => void;
+                'setting-changed': (arg0: string) => void;
+                'notify::composited': (pspec: GObject.ParamSpec) => void;
+                'notify::dmabuf-formats': (pspec: GObject.ParamSpec) => void;
+                'notify::input-shapes': (pspec: GObject.ParamSpec) => void;
+                'notify::rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::shadow-width': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -7336,7 +8028,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkDisplay` objects are the GDK representation of a workstation.
+         * A representation of a workstation.
          *
          * Their purpose are two-fold:
          *
@@ -7389,6 +8081,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get shadowWidth(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Display.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Display.ConstructorProps>, ...args: any[]);
@@ -7397,24 +8098,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'closed', callback: (_source: this, is_error: boolean) => void): number;
-            connect_after(signal: 'closed', callback: (_source: this, is_error: boolean) => void): number;
-            emit(signal: 'closed', is_error: boolean): void;
-            connect(signal: 'opened', callback: (_source: this) => void): number;
-            connect_after(signal: 'opened', callback: (_source: this) => void): number;
-            emit(signal: 'opened'): void;
-            connect(signal: 'seat-added', callback: (_source: this, seat: Seat) => void): number;
-            connect_after(signal: 'seat-added', callback: (_source: this, seat: Seat) => void): number;
-            emit(signal: 'seat-added', seat: Seat): void;
-            connect(signal: 'seat-removed', callback: (_source: this, seat: Seat) => void): number;
-            connect_after(signal: 'seat-removed', callback: (_source: this, seat: Seat) => void): number;
-            emit(signal: 'seat-removed', seat: Seat): void;
-            connect(signal: 'setting-changed', callback: (_source: this, setting: string) => void): number;
-            connect_after(signal: 'setting-changed', callback: (_source: this, setting: string) => void): number;
-            emit(signal: 'setting-changed', setting: string): void;
+            connect<K extends keyof Display.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Display.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Display.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Display.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Display.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Display.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -7725,11 +8423,11 @@ declare module 'gi://Gdk?version=4.0' {
             ): [boolean, number, number, number, ModifierType | null];
         }
 
-        module DisplayManager {
-            // Signal callback interfaces
-
-            interface DisplayOpened {
-                (display: Display): void;
+        namespace DisplayManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'display-opened': (arg0: Display) => void;
+                'notify::default-display': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -7741,8 +8439,9 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A singleton object that offers notification when displays appear or
-         * disappear.
+         * Offers notification when displays appear or disappear.
+         *
+         * `GdkDisplayManager` is a singleton object.
          *
          * You can use [func`Gdk`.DisplayManager.get] to obtain the `GdkDisplayManager`
          * singleton, but that should be rarely necessary. Typically, initializing
@@ -7800,6 +8499,15 @@ declare module 'gi://Gdk?version=4.0' {
             get defaultDisplay(): Display;
             set defaultDisplay(val: Display);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DisplayManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DisplayManager.ConstructorProps>, ...args: any[]);
@@ -7808,12 +8516,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'display-opened', callback: (_source: this, display: Display) => void): number;
-            connect_after(signal: 'display-opened', callback: (_source: this, display: Display) => void): number;
-            emit(signal: 'display-opened', display: Display): void;
+            connect<K extends keyof DisplayManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DisplayManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DisplayManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DisplayManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DisplayManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DisplayManager.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -7855,7 +8572,14 @@ declare module 'gi://Gdk?version=4.0' {
             set_default_display(display: Display): void;
         }
 
-        module DmabufTexture {
+        namespace DmabufTexture {
+            // Signal signatures
+            interface SignalSignatures extends Texture.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -7876,11 +8600,38 @@ declare module 'gi://Gdk?version=4.0' {
         class DmabufTexture extends Texture implements Paintable, Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<DmabufTexture>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DmabufTexture.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DmabufTexture.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DmabufTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmabufTexture.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DmabufTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmabufTexture.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DmabufTexture.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DmabufTexture.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -8161,7 +8912,10 @@ declare module 'gi://Gdk?version=4.0' {
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            load_async(
+                size: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<[Gio.InputStream, string]>;
             /**
              * Loads an icon asynchronously. To finish this function, see
              * g_loadable_icon_load_finish(). For the synchronous, blocking
@@ -8187,7 +8941,7 @@ declare module 'gi://Gdk?version=4.0' {
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -8336,7 +9090,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -8464,7 +9232,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -8614,14 +9387,48 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module DmabufTextureBuilder {
+        namespace DmabufTextureBuilder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::fourcc': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::modifier': (pspec: GObject.ParamSpec) => void;
+                'notify::n-planes': (pspec: GObject.ParamSpec) => void;
+                'notify::premultiplied': (pspec: GObject.ParamSpec) => void;
+                'notify::update-region': (pspec: GObject.ParamSpec) => void;
+                'notify::update-texture': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -8643,8 +9450,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkDmabufTextureBuilder` is a builder used to construct [class`Gdk`.Texture]
-         * objects from DMA buffers.
+         * Constructs [class`Gdk`.Texture] objects from DMA buffers.
          *
          * DMA buffers are commonly called **_dma-bufs_**.
          *
@@ -8760,12 +9566,12 @@ declare module 'gi://Gdk?version=4.0' {
             get premultiplied(): boolean;
             set premultiplied(val: boolean);
             /**
-             * The update region for [property`Gdk`.GLTextureBuilder:update-texture].
+             * The update region for [property`Gdk`.DmabufTextureBuilder:update-texture].
              */
             get update_region(): cairo.Region;
             set update_region(val: cairo.Region);
             /**
-             * The update region for [property`Gdk`.GLTextureBuilder:update-texture].
+             * The update region for [property`Gdk`.DmabufTextureBuilder:update-texture].
              */
             get updateRegion(): cairo.Region;
             set updateRegion(val: cairo.Region);
@@ -8785,6 +9591,15 @@ declare module 'gi://Gdk?version=4.0' {
             get width(): number;
             set width(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DmabufTextureBuilder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DmabufTextureBuilder.ConstructorProps>, ...args: any[]);
@@ -8792,6 +9607,26 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
 
             static ['new'](): DmabufTextureBuilder;
+
+            // Signals
+
+            connect<K extends keyof DmabufTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmabufTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DmabufTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DmabufTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DmabufTextureBuilder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DmabufTextureBuilder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -8922,14 +9757,14 @@ declare module 'gi://Gdk?version=4.0' {
              *
              * The format is specified as a fourcc code.
              *
-             * The format must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The format must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param fourcc the texture's format or 0 to unset
              */
             set_fourcc(fourcc: number): void;
             /**
              * Sets the height of the texture.
              *
-             * The height must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The height must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param height the texture's height or 0 to unset
              */
             set_height(height: number): void;
@@ -8960,7 +9795,7 @@ declare module 'gi://Gdk?version=4.0' {
             /**
              * Sets the stride for a plane.
              *
-             * The stride must be set for all planes before calling [method`Gdk`.GLTextureBuilder.build].
+             * The stride must be set for all planes before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param plane the plane to set the stride for
              * @param stride the stride value
              */
@@ -8988,25 +9823,25 @@ declare module 'gi://Gdk?version=4.0' {
             /**
              * Sets the width of the texture.
              *
-             * The width must be set before calling [method`Gdk`.GLTextureBuilder.build].
+             * The width must be set before calling [method`Gdk`.DmabufTextureBuilder.build].
              * @param width The texture's width or 0 to unset
              */
             set_width(width: number): void;
         }
 
-        module Drag {
-            // Signal callback interfaces
-
-            interface Cancel {
-                (reason: DragCancelReason): void;
-            }
-
-            interface DndFinished {
-                (): void;
-            }
-
-            interface DropPerformed {
-                (): void;
+        namespace Drag {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                cancel: (arg0: DragCancelReason) => void;
+                'dnd-finished': () => void;
+                'drop-performed': () => void;
+                'notify::actions': (pspec: GObject.ParamSpec) => void;
+                'notify::content': (pspec: GObject.ParamSpec) => void;
+                'notify::device': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::formats': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-action': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -9024,7 +9859,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDrag` object represents the source of an ongoing DND operation.
+         * Represents the source of an ongoing DND operation.
          *
          * A `GdkDrag` is created when a drag is started, and stays alive for duration of
          * the DND operation. After a drag has been started with [func`Gdk`.Drag.begin],
@@ -9076,6 +9911,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get surface(): Surface;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Drag.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Drag.ConstructorProps>, ...args: any[]);
@@ -9084,18 +9928,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'cancel', callback: (_source: this, reason: DragCancelReason) => void): number;
-            connect_after(signal: 'cancel', callback: (_source: this, reason: DragCancelReason) => void): number;
-            emit(signal: 'cancel', reason: DragCancelReason): void;
-            connect(signal: 'dnd-finished', callback: (_source: this) => void): number;
-            connect_after(signal: 'dnd-finished', callback: (_source: this) => void): number;
-            emit(signal: 'dnd-finished'): void;
-            connect(signal: 'drop-performed', callback: (_source: this) => void): number;
-            connect_after(signal: 'drop-performed', callback: (_source: this) => void): number;
-            emit(signal: 'drop-performed'): void;
+            connect<K extends keyof Drag.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Drag.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Drag.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Drag.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Drag.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Drag.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -9204,7 +10051,13 @@ declare module 'gi://Gdk?version=4.0' {
             set_hotspot(hot_x: number, hot_y: number): void;
         }
 
-        module DrawContext {
+        namespace DrawContext {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9238,11 +10091,38 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get surface(): Surface;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: DrawContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<DrawContext.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof DrawContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DrawContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof DrawContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, DrawContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof DrawContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<DrawContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9318,7 +10198,17 @@ declare module 'gi://Gdk?version=4.0' {
             is_in_frame(): boolean;
         }
 
-        module Drop {
+        namespace Drop {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::actions': (pspec: GObject.ParamSpec) => void;
+                'notify::device': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::drag': (pspec: GObject.ParamSpec) => void;
+                'notify::formats': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -9332,7 +10222,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkDrop` object represents the target of an ongoing DND operation.
+         * Represents the target of an ongoing DND operation.
          *
          * Possible drop sites get informed about the status of the ongoing drag
          * operation with events of type %GDK_DRAG_ENTER, %GDK_DRAG_LEAVE,
@@ -9377,11 +10267,38 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get surface(): Surface;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Drop.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Drop.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Drop.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Drop.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Drop.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Drop.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Drop.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Drop.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9451,7 +10368,7 @@ declare module 'gi://Gdk?version=4.0' {
                 mime_types: string[],
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[Gio.InputStream | null, string]>;
+            ): globalThis.Promise<[Gio.InputStream | null, string]>;
             /**
              * Asynchronously read the dropped data from a `GdkDrop`
              * in a format that complies with one of the mime types.
@@ -9479,7 +10396,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream | null, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream | null, string]> | void;
             /**
              * Finishes an async drop read operation.
              *
@@ -9508,7 +10425,7 @@ declare module 'gi://Gdk?version=4.0' {
                 type: GObject.GType,
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<GObject.Value>;
+            ): globalThis.Promise<GObject.Value>;
             /**
              * Asynchronously request the drag operation's contents converted
              * to the given `type`.
@@ -9544,7 +10461,7 @@ declare module 'gi://Gdk?version=4.0' {
                 io_priority: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<GObject.Value> | void;
+            ): globalThis.Promise<GObject.Value> | void;
             /**
              * Finishes an async drop read.
              *
@@ -9573,13 +10490,19 @@ declare module 'gi://Gdk?version=4.0' {
             status(actions: DragAction | null, preferred: DragAction | null): void;
         }
 
+        namespace Event {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
-         * `GdkEvent`s are immutable data structures, created by GDK to
-         * represent windowing system events.
+         * Represents windowing system events.
          *
          * In GTK applications the events are handled automatically by toplevel
          * widgets and passed on to the event controllers of appropriate widgets,
          * so using `GdkEvent` and its related API is rarely needed.
+         *
+         * `GdkEvent` structs are immutable.
          */
         abstract class Event {
             static $gtype: GObject.GType<Event>;
@@ -9587,6 +10510,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Event.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Event.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Event.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Event.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Event.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Event.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9754,6 +10695,11 @@ declare module 'gi://Gdk?version=4.0' {
             unref(): void;
         }
 
+        namespace FocusEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to a keyboard focus change.
          */
@@ -9763,6 +10709,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FocusEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FocusEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FocusEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FocusEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FocusEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FocusEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9774,35 +10738,16 @@ declare module 'gi://Gdk?version=4.0' {
             get_in(): boolean;
         }
 
-        module FrameClock {
-            // Signal callback interfaces
-
-            interface AfterPaint {
-                (): void;
-            }
-
-            interface BeforePaint {
-                (): void;
-            }
-
-            interface FlushEvents {
-                (): void;
-            }
-
-            interface Layout {
-                (): void;
-            }
-
-            interface Paint {
-                (): void;
-            }
-
-            interface ResumeEvents {
-                (): void;
-            }
-
-            interface Update {
-                (): void;
+        namespace FrameClock {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'after-paint': () => void;
+                'before-paint': () => void;
+                'flush-events': () => void;
+                layout: () => void;
+                paint: () => void;
+                'resume-events': () => void;
+                update: () => void;
             }
 
             // Constructor properties interface
@@ -9811,8 +10756,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkFrameClock` tells the application when to update and repaint
-         * a surface.
+         * Tells the application when to update and repaint a surface.
          *
          * This may be synced to the vertical refresh rate of the monitor, for example.
          * Even when the frame clock uses a simple timer rather than a hardware-based
@@ -9848,6 +10792,15 @@ declare module 'gi://Gdk?version=4.0' {
         abstract class FrameClock extends GObject.Object {
             static $gtype: GObject.GType<FrameClock>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FrameClock.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<FrameClock.ConstructorProps>, ...args: any[]);
@@ -9856,30 +10809,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'after-paint', callback: (_source: this) => void): number;
-            connect_after(signal: 'after-paint', callback: (_source: this) => void): number;
-            emit(signal: 'after-paint'): void;
-            connect(signal: 'before-paint', callback: (_source: this) => void): number;
-            connect_after(signal: 'before-paint', callback: (_source: this) => void): number;
-            emit(signal: 'before-paint'): void;
-            connect(signal: 'flush-events', callback: (_source: this) => void): number;
-            connect_after(signal: 'flush-events', callback: (_source: this) => void): number;
-            emit(signal: 'flush-events'): void;
-            connect(signal: 'layout', callback: (_source: this) => void): number;
-            connect_after(signal: 'layout', callback: (_source: this) => void): number;
-            emit(signal: 'layout'): void;
-            connect(signal: 'paint', callback: (_source: this) => void): number;
-            connect_after(signal: 'paint', callback: (_source: this) => void): number;
-            emit(signal: 'paint'): void;
-            connect(signal: 'resume-events', callback: (_source: this) => void): number;
-            connect_after(signal: 'resume-events', callback: (_source: this) => void): number;
-            emit(signal: 'resume-events'): void;
-            connect(signal: 'update', callback: (_source: this) => void): number;
-            connect_after(signal: 'update', callback: (_source: this) => void): number;
-            emit(signal: 'update'): void;
+            connect<K extends keyof FrameClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FrameClock.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FrameClock.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FrameClock.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FrameClock.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FrameClock.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -9978,7 +10922,16 @@ declare module 'gi://Gdk?version=4.0' {
             request_phase(phase: FrameClockPhase | null): void;
         }
 
-        module GLContext {
+        namespace GLContext {
+            // Signal signatures
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+                'notify::allowed-apis': (pspec: GObject.ParamSpec) => void;
+                'notify::api': (pspec: GObject.ParamSpec) => void;
+                'notify::shared-context': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends DrawContext.ConstructorProps {
@@ -9991,8 +10944,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkGLContext` is an object representing a platform-specific
-         * OpenGL draw context.
+         * Represents a platform-specific OpenGL draw context.
          *
          * `GdkGLContext`s are created for a surface using
          * [method`Gdk`.Surface.create_gl_context], and the context will match
@@ -10075,11 +11027,38 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get sharedContext(): GLContext;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GLContext.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GLContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -10277,7 +11256,14 @@ declare module 'gi://Gdk?version=4.0' {
             set_use_es(use_es: number): void;
         }
 
-        module GLTexture {
+        namespace GLTexture {
+            // Signal signatures
+            interface SignalSignatures extends Texture.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -10288,10 +11274,19 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A GdkTexture representing a GL texture object.
+         * A `GdkTexture` representing a GL texture object.
          */
         class GLTexture extends Texture implements Paintable, Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<GLTexture>;
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLTexture.SignalSignatures;
 
             // Constructors
 
@@ -10300,6 +11295,24 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
 
             static ['new'](context: GLContext, id: number, width: number, height: number, data?: any | null): GLTexture;
+
+            // Signals
+
+            connect<K extends keyof GLTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLTexture.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLTexture.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLTexture.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLTexture.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -10591,7 +11604,10 @@ declare module 'gi://Gdk?version=4.0' {
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            load_async(
+                size: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<[Gio.InputStream, string]>;
             /**
              * Loads an icon asynchronously. To finish this function, see
              * g_loadable_icon_load_finish(). For the synchronous, blocking
@@ -10617,7 +11633,7 @@ declare module 'gi://Gdk?version=4.0' {
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -10766,7 +11782,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -10894,7 +11924,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -11044,14 +12079,48 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module GLTextureBuilder {
+        namespace GLTextureBuilder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::context': (pspec: GObject.ParamSpec) => void;
+                'notify::format': (pspec: GObject.ParamSpec) => void;
+                'notify::has-mipmap': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::sync': (pspec: GObject.ParamSpec) => void;
+                'notify::update-region': (pspec: GObject.ParamSpec) => void;
+                'notify::update-texture': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -11073,8 +12142,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkGLTextureBuilder` is a builder used to construct [class`Gdk`.Texture] objects from
-         * GL textures.
+         * Constructs [class`Gdk`.Texture] objects from GL textures.
          *
          * The operation is quite simple: Create a texture builder, set all the necessary
          * properties - keep in mind that the properties [property`Gdk`.GLTextureBuilder:context],
@@ -11163,6 +12231,15 @@ declare module 'gi://Gdk?version=4.0' {
             get width(): number;
             set width(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GLTextureBuilder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GLTextureBuilder.ConstructorProps>, ...args: any[]);
@@ -11170,6 +12247,26 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
 
             static ['new'](): GLTextureBuilder;
+
+            // Signals
+
+            connect<K extends keyof GLTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GLTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GLTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GLTextureBuilder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GLTextureBuilder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11349,6 +12446,11 @@ declare module 'gi://Gdk?version=4.0' {
             set_width(width: number): void;
         }
 
+        namespace GrabBrokenEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to a broken windowing system grab.
          */
@@ -11358,6 +12460,26 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GrabBrokenEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GrabBrokenEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GrabBrokenEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GrabBrokenEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GrabBrokenEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GrabBrokenEvent.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11373,6 +12495,11 @@ declare module 'gi://Gdk?version=4.0' {
             get_implicit(): boolean;
         }
 
+        namespace KeyEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to a key-based device.
          */
@@ -11382,6 +12509,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof KeyEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, KeyEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof KeyEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, KeyEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof KeyEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<KeyEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -11439,7 +12584,14 @@ declare module 'gi://Gdk?version=4.0' {
             matches(keyval: number, modifiers: ModifierType | null): KeyMatch;
         }
 
-        module MemoryTexture {
+        namespace MemoryTexture {
+            // Signal signatures
+            interface SignalSignatures extends Texture.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -11455,6 +12607,15 @@ declare module 'gi://Gdk?version=4.0' {
         class MemoryTexture extends Texture implements Paintable, Gio.Icon, Gio.LoadableIcon {
             static $gtype: GObject.GType<MemoryTexture>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MemoryTexture.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MemoryTexture.ConstructorProps>, ...args: any[]);
@@ -11468,6 +12629,24 @@ declare module 'gi://Gdk?version=4.0' {
                 bytes: GLib.Bytes | Uint8Array,
                 stride: number,
             ): MemoryTexture;
+
+            // Signals
+
+            connect<K extends keyof MemoryTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MemoryTexture.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MemoryTexture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MemoryTexture.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MemoryTexture.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MemoryTexture.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -11748,7 +12927,10 @@ declare module 'gi://Gdk?version=4.0' {
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            load_async(
+                size: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<[Gio.InputStream, string]>;
             /**
              * Loads an icon asynchronously. To finish this function, see
              * g_loadable_icon_load_finish(). For the synchronous, blocking
@@ -11774,7 +12956,7 @@ declare module 'gi://Gdk?version=4.0' {
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -11923,7 +13105,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -12051,7 +13247,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -12201,14 +13402,46 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module MemoryTextureBuilder {
+        namespace MemoryTextureBuilder {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::bytes': (pspec: GObject.ParamSpec) => void;
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::format': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::stride': (pspec: GObject.ParamSpec) => void;
+                'notify::update-region': (pspec: GObject.ParamSpec) => void;
+                'notify::update-texture': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -12227,8 +13460,8 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkMemoryTextureBuilder` is a builder used to construct [class`Gdk`.Texture] objects
-         * from system memory provided via [struct`GLib`.Bytes].
+         * Constructs [class`Gdk`.Texture] objects from system memory provided
+         * via [struct`GLib`.Bytes].
          *
          * The operation is quite simple: Create a texture builder, set all the necessary
          * properties - keep in mind that the properties [property`Gdk`.MemoryTextureBuilder:bytes],
@@ -12303,6 +13536,15 @@ declare module 'gi://Gdk?version=4.0' {
             get width(): number;
             set width(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MemoryTextureBuilder.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MemoryTextureBuilder.ConstructorProps>, ...args: any[]);
@@ -12310,6 +13552,26 @@ declare module 'gi://Gdk?version=4.0' {
             _init(...args: any[]): void;
 
             static ['new'](): MemoryTextureBuilder;
+
+            // Signals
+
+            connect<K extends keyof MemoryTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MemoryTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MemoryTextureBuilder.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MemoryTextureBuilder.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MemoryTextureBuilder.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MemoryTextureBuilder.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12383,7 +13645,7 @@ declare module 'gi://Gdk?version=4.0' {
              * what colorstates are, this is probably the right thing.
              * @param color_state The colorstate describing the data
              */
-            set_color_state(color_state?: ColorState | null): void;
+            set_color_state(color_state: ColorState): void;
             /**
              * Sets the format of the bytes.
              *
@@ -12436,11 +13698,23 @@ declare module 'gi://Gdk?version=4.0' {
             set_width(width: number): void;
         }
 
-        module Monitor {
-            // Signal callback interfaces
-
-            interface Invalidate {
-                (): void;
+        namespace Monitor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                invalidate: () => void;
+                'notify::connector': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::geometry': (pspec: GObject.ParamSpec) => void;
+                'notify::height-mm': (pspec: GObject.ParamSpec) => void;
+                'notify::manufacturer': (pspec: GObject.ParamSpec) => void;
+                'notify::model': (pspec: GObject.ParamSpec) => void;
+                'notify::refresh-rate': (pspec: GObject.ParamSpec) => void;
+                'notify::scale': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::subpixel-layout': (pspec: GObject.ParamSpec) => void;
+                'notify::valid': (pspec: GObject.ParamSpec) => void;
+                'notify::width-mm': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -12468,8 +13742,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkMonitor` objects represent the individual outputs that are
-         * associated with a `GdkDisplay`.
+         * Represents the individual outputs that are associated with a `GdkDisplay`.
          *
          * `GdkDisplay` keeps a `GListModel` to enumerate and monitor
          * monitors with [method`Gdk`.Display.get_monitors]. You can use
@@ -12560,6 +13833,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get widthMm(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Monitor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Monitor.ConstructorProps>, ...args: any[]);
@@ -12568,12 +13850,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'invalidate', callback: (_source: this) => void): number;
-            connect_after(signal: 'invalidate', callback: (_source: this) => void): number;
-            emit(signal: 'invalidate'): void;
+            connect<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Monitor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12680,6 +13971,11 @@ declare module 'gi://Gdk?version=4.0' {
             is_valid(): boolean;
         }
 
+        namespace MotionEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to a pointer or touch device motion.
          */
@@ -12689,6 +13985,29 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof MotionEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MotionEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MotionEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MotionEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MotionEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MotionEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace PadEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -12700,6 +14019,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof PadEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PadEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PadEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PadEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PadEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PadEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12719,6 +14056,11 @@ declare module 'gi://Gdk?version=4.0' {
             get_group_mode(): [number, number];
         }
 
+        namespace ProximityEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
+        }
+
         /**
          * An event related to the proximity of a tool to a device.
          */
@@ -12728,6 +14070,29 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ProximityEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ProximityEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ProximityEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ProximityEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ProximityEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ProximityEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace ScrollEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -12739,6 +14104,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ScrollEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScrollEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ScrollEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ScrollEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ScrollEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ScrollEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12780,23 +14163,14 @@ declare module 'gi://Gdk?version=4.0' {
             is_stop(): boolean;
         }
 
-        module Seat {
-            // Signal callback interfaces
-
-            interface DeviceAdded {
-                (device: Device): void;
-            }
-
-            interface DeviceRemoved {
-                (device: Device): void;
-            }
-
-            interface ToolAdded {
-                (tool: DeviceTool): void;
-            }
-
-            interface ToolRemoved {
-                (tool: DeviceTool): void;
+        namespace Seat {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'device-added': (arg0: Device) => void;
+                'device-removed': (arg0: Device) => void;
+                'tool-added': (arg0: DeviceTool) => void;
+                'tool-removed': (arg0: DeviceTool) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -12807,8 +14181,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkSeat` object represents a collection of input devices
-         * that belong to a user.
+         * Represents a collection of input devices that belong to a user.
          */
         abstract class Seat extends GObject.Object {
             static $gtype: GObject.GType<Seat>;
@@ -12820,6 +14193,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get display(): Display;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Seat.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Seat.ConstructorProps>, ...args: any[]);
@@ -12828,21 +14210,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'device-added', callback: (_source: this, device: Device) => void): number;
-            connect_after(signal: 'device-added', callback: (_source: this, device: Device) => void): number;
-            emit(signal: 'device-added', device: Device): void;
-            connect(signal: 'device-removed', callback: (_source: this, device: Device) => void): number;
-            connect_after(signal: 'device-removed', callback: (_source: this, device: Device) => void): number;
-            emit(signal: 'device-removed', device: Device): void;
-            connect(signal: 'tool-added', callback: (_source: this, tool: DeviceTool) => void): number;
-            connect_after(signal: 'tool-added', callback: (_source: this, tool: DeviceTool) => void): number;
-            emit(signal: 'tool-added', tool: DeviceTool): void;
-            connect(signal: 'tool-removed', callback: (_source: this, tool: DeviceTool) => void): number;
-            connect_after(signal: 'tool-removed', callback: (_source: this, tool: DeviceTool) => void): number;
-            emit(signal: 'tool-removed', tool: DeviceTool): void;
+            connect<K extends keyof Seat.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Seat.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Seat.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Seat.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Seat.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Seat.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -12879,7 +14261,10 @@ declare module 'gi://Gdk?version=4.0' {
             get_tools(): DeviceTool[];
         }
 
-        module Snapshot {
+        namespace Snapshot {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -12893,34 +14278,56 @@ declare module 'gi://Gdk?version=4.0' {
         abstract class Snapshot extends GObject.Object {
             static $gtype: GObject.GType<Snapshot>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Snapshot.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Snapshot.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Snapshot.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Snapshot.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Snapshot.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Snapshot.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Snapshot.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Snapshot.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module Surface {
-            // Signal callback interfaces
-
-            interface EnterMonitor {
-                (monitor: Monitor): void;
-            }
-
-            interface Event {
-                (event: Event): boolean;
-            }
-
-            interface Layout {
-                (width: number, height: number): void;
-            }
-
-            interface LeaveMonitor {
-                (monitor: Monitor): void;
-            }
-
-            interface Render {
-                (region: cairo.Region): boolean;
+        namespace Surface {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'enter-monitor': (arg0: Monitor) => void;
+                event: (arg0: Event) => boolean | void;
+                layout: (arg0: number, arg1: number) => void;
+                'leave-monitor': (arg0: Monitor) => void;
+                render: (arg0: cairo.Region) => boolean | void;
+                'notify::cursor': (pspec: GObject.ParamSpec) => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::frame-clock': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::mapped': (pspec: GObject.ParamSpec) => void;
+                'notify::scale': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -12940,7 +14347,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkSurface` is a rectangular region on the screen.
+         * Represents a rectangular region on the screen.
          *
          * It’s a low-level object, used to implement high-level objects
          * such as [GtkWindow](../gtk4/class.Window.html).
@@ -13003,6 +14410,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get width(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Surface.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Surface.ConstructorProps>, ...args: any[]);
@@ -13015,24 +14431,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'enter-monitor', callback: (_source: this, monitor: Monitor) => void): number;
-            connect_after(signal: 'enter-monitor', callback: (_source: this, monitor: Monitor) => void): number;
-            emit(signal: 'enter-monitor', monitor: Monitor): void;
-            connect(signal: 'event', callback: (_source: this, event: Event) => boolean): number;
-            connect_after(signal: 'event', callback: (_source: this, event: Event) => boolean): number;
-            emit(signal: 'event', event: Event): void;
-            connect(signal: 'layout', callback: (_source: this, width: number, height: number) => void): number;
-            connect_after(signal: 'layout', callback: (_source: this, width: number, height: number) => void): number;
-            emit(signal: 'layout', width: number, height: number): void;
-            connect(signal: 'leave-monitor', callback: (_source: this, monitor: Monitor) => void): number;
-            connect_after(signal: 'leave-monitor', callback: (_source: this, monitor: Monitor) => void): number;
-            emit(signal: 'leave-monitor', monitor: Monitor): void;
-            connect(signal: 'render', callback: (_source: this, region: cairo.Region) => boolean): number;
-            connect_after(signal: 'render', callback: (_source: this, region: cairo.Region) => boolean): number;
-            emit(signal: 'render', region: cairo.Region): void;
+            connect<K extends keyof Surface.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Surface.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Surface.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Surface.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Surface.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Surface.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -13298,7 +14711,14 @@ declare module 'gi://Gdk?version=4.0' {
             translate_coordinates(to: Surface, x: number, y: number): [boolean, number, number];
         }
 
-        module Texture {
+        namespace Texture {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::color-state': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -13314,7 +14734,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkTexture` is the basic element used to refer to pixel data.
+         * Refers to pixel data in various forms.
          *
          * It is primarily meant for pixel data that will not change over
          * multiple frames, and will be used for a long time.
@@ -13363,6 +14783,15 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get width(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Texture.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Texture.ConstructorProps>, ...args: any[]);
@@ -13378,6 +14807,24 @@ declare module 'gi://Gdk?version=4.0' {
             static new_from_filename(path: string): Texture;
 
             static new_from_resource(resource_path: string): Texture;
+
+            // Signals
+
+            connect<K extends keyof Texture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Texture.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Texture.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Texture.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Texture.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Texture.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -13770,7 +15217,10 @@ declare module 'gi://Gdk?version=4.0' {
              * @param size an integer.
              * @param cancellable optional #GCancellable object, %NULL to ignore.
              */
-            load_async(size: number, cancellable?: Gio.Cancellable | null): Promise<[Gio.InputStream, string]>;
+            load_async(
+                size: number,
+                cancellable?: Gio.Cancellable | null,
+            ): globalThis.Promise<[Gio.InputStream, string]>;
             /**
              * Loads an icon asynchronously. To finish this function, see
              * g_loadable_icon_load_finish(). For the synchronous, blocking
@@ -13796,7 +15246,7 @@ declare module 'gi://Gdk?version=4.0' {
                 size: number,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gio.InputStream, string]> | void;
+            ): globalThis.Promise<[Gio.InputStream, string]> | void;
             /**
              * Finishes an asynchronous icon load started in g_loadable_icon_load_async().
              * @param res a #GAsyncResult.
@@ -13945,7 +15395,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -14073,7 +15537,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -14223,11 +15692,36 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
+        }
+
+        namespace TouchEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -14240,6 +15734,24 @@ declare module 'gi://Gdk?version=4.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof TouchEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TouchEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TouchEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TouchEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TouchEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TouchEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
@@ -14247,6 +15759,11 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns %TRUE if @event is emulating
              */
             get_emulating_pointer(): boolean;
+        }
+
+        namespace TouchpadEvent {
+            // Signal signatures
+            interface SignalSignatures extends Event.SignalSignatures {}
         }
 
         /**
@@ -14263,6 +15780,24 @@ declare module 'gi://Gdk?version=4.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TouchpadEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TouchpadEvent.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TouchpadEvent.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TouchpadEvent.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TouchpadEvent.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TouchpadEvent.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -14292,11 +15827,12 @@ declare module 'gi://Gdk?version=4.0' {
             get_pinch_scale(): number;
         }
 
-        module VulkanContext {
-            // Signal callback interfaces
-
-            interface ImagesUpdated {
-                (): void;
+        namespace VulkanContext {
+            // Signal signatures
+            interface SignalSignatures extends DrawContext.SignalSignatures {
+                'images-updated': () => void;
+                'notify::display': (pspec: GObject.ParamSpec) => void;
+                'notify::surface': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -14305,8 +15841,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkVulkanContext` is an object representing the platform-specific
-         * Vulkan draw context.
+         * Represents the platform-specific Vulkan draw context.
          *
          * `GdkVulkanContext`s are created for a surface using
          * [method`Gdk`.Surface.create_vulkan_context], and the context will match
@@ -14318,6 +15853,15 @@ declare module 'gi://Gdk?version=4.0' {
         abstract class VulkanContext extends DrawContext implements Gio.Initable {
             static $gtype: GObject.GType<VulkanContext>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: VulkanContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<VulkanContext.ConstructorProps>, ...args: any[]);
@@ -14326,12 +15870,21 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'images-updated', callback: (_source: this) => void): number;
-            connect_after(signal: 'images-updated', callback: (_source: this) => void): number;
-            emit(signal: 'images-updated'): void;
+            connect<K extends keyof VulkanContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VulkanContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VulkanContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VulkanContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VulkanContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited methods
             /**
@@ -14353,7 +15906,7 @@ declare module 'gi://Gdk?version=4.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -14396,7 +15949,7 @@ declare module 'gi://Gdk?version=4.0' {
              * If the object is not initialized, or initialization returns with an
              * error, then all operations on the object except g_object_ref() and
              * g_object_unref() are considered to be invalid, and have undefined
-             * behaviour. See the [introduction][ginitable] for more details.
+             * behaviour. See the [description][iface`Gio`.Initable#description] for more details.
              *
              * Callers should not assume that a class which implements #GInitable can be
              * initialized multiple times, unless the class explicitly documents itself as
@@ -14536,7 +16089,21 @@ declare module 'gi://Gdk?version=4.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -14664,7 +16231,12 @@ declare module 'gi://Gdk?version=4.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -14814,17 +16386,36 @@ declare module 'gi://Gdk?version=4.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         type CicpParamsClass = typeof CicpParams;
         /**
-         * A `GdkColorState` object provides the information to interpret
-         * colors and pixels in a variety of ways.
+         * Provides information to interpret colors and pixels in a variety of ways.
          *
          * They are also known as
          * [*color spaces*](https://en.wikipedia.org/wiki/Color_space).
@@ -14843,6 +16434,19 @@ declare module 'gi://Gdk?version=4.0' {
 
             // Static methods
 
+            /**
+             * Returns the color state object representing the oklab color space.
+             *
+             * This is a perceptually uniform color state.
+             */
+            static get_oklab(): ColorState;
+            /**
+             * Returns the color state object representing the oklch color space.
+             *
+             * This is the polar variant of oklab, in which the hue is encoded as
+             * a polar coordinate.
+             */
+            static get_oklch(): ColorState;
             /**
              * Returns the color state object representing the linear rec2100 color space.
              *
@@ -14927,8 +16531,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkContentFormats` structure is used to advertise and negotiate the
-         * format of content.
+         * Used to advertise and negotiate the format of content.
          *
          * You will encounter `GdkContentFormats` when interacting with objects
          * controlling operations that pass data between different widgets, window
@@ -15018,6 +16621,11 @@ declare module 'gi://Gdk?version=4.0' {
              */
             get_mime_types(): string[] | null;
             /**
+             * Returns whether the content formats contain any formats.
+             * @returns true if @formats contains no mime types and no GTypes
+             */
+            is_empty(): boolean;
+            /**
              * Checks if `first` and `second` have any matching formats.
              * @param second the `GdkContentFormats` to intersect with
              * @returns %TRUE if a matching format was found.
@@ -15104,8 +16712,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkContentFormatsBuilder` is an auxiliary struct used to create
-         * new `GdkContentFormats`, and should not be kept around.
+         * Creates `GdkContentFormats` objects.
          */
         class ContentFormatsBuilder {
             static $gtype: GObject.GType<ContentFormatsBuilder>;
@@ -15163,8 +16770,7 @@ declare module 'gi://Gdk?version=4.0' {
         type ContentProviderClass = typeof ContentProvider;
         type DevicePadInterface = typeof DevicePad;
         /**
-         * The `GdkDmabufFormats` struct provides information about
-         * supported DMA buffer formats.
+         * Provides information about supported DMA buffer formats.
          *
          * You can query whether a given format is supported with
          * [method`Gdk`.DmabufFormats.contains] and you can iterate
@@ -15241,8 +16847,7 @@ declare module 'gi://Gdk?version=4.0' {
         type DmabufTextureClass = typeof DmabufTexture;
         type DragSurfaceInterface = typeof DragSurface;
         /**
-         * The `GdkDragSurfaceSize` struct contains information that is useful
-         * to compute the size of a drag surface.
+         * Contains information that is useful to compute the size of a drag surface.
          */
         abstract class DragSurfaceSize {
             static $gtype: GObject.GType<DragSurfaceSize>;
@@ -15262,8 +16867,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * `GdkEventSequence` is an opaque type representing a sequence
-         * of related touch events.
+         * An opaque type representing a sequence of related events.
          */
         abstract class EventSequence {
             static $gtype: GObject.GType<EventSequence>;
@@ -15309,8 +16913,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkFrameTimings` object holds timing information for a single frame
-         * of the application’s displays.
+         * Holds timing information for a single frame of the application’s displays.
          *
          * To retrieve `GdkFrameTimings` objects, use [method`Gdk`.FrameClock.get_timings]
          * or [method`Gdk`.FrameClock.get_current_timings]. The information in
@@ -15406,7 +17009,7 @@ declare module 'gi://Gdk?version=4.0' {
         type GLTextureBuilderClass = typeof GLTextureBuilder;
         type GLTextureClass = typeof GLTexture;
         /**
-         * A `GdkKeymapKey` is a hardware key that can be mapped to a keyval.
+         * Represents a hardware key that can be mapped to a keyval.
          */
         class KeymapKey {
             static $gtype: GObject.GType<KeymapKey>;
@@ -15435,8 +17038,8 @@ declare module 'gi://Gdk?version=4.0' {
         type PaintableInterface = typeof Paintable;
         type PopupInterface = typeof Popup;
         /**
-         * The `GdkPopupLayout` struct contains information that is
-         * necessary position a [iface`Gdk`.Popup] relative to its parent.
+         * Contains information that is necessary position a [iface`Gdk`.Popup]
+         * relative to its parent.
          *
          * The positioning requires a negotiation with the windowing system,
          * since it depends on external constraints, such as the position of
@@ -15576,8 +17179,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkRGBA` is used to represent a color, in a way that is compatible
-         * with cairo’s notion of color.
+         * Represents a color, in a way that is compatible with cairo’s notion of color.
          *
          * `GdkRGBA` is a convenient way to pass colors around. It’s based on
          * cairo’s way to deal with colors and mirrors its behavior. All values
@@ -15693,7 +17295,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkRectangle` data type for representing rectangles.
+         * Represents a rectangle.
          *
          * `GdkRectangle` is identical to `cairo_rectangle_t`. Together with Cairo’s
          * `cairo_region_t` data type, these are the central types for representing
@@ -15776,8 +17378,7 @@ declare module 'gi://Gdk?version=4.0' {
         type SurfaceClass = typeof Surface;
         type TextureClass = typeof Texture;
         /**
-         * The `GdkTextureDownloader` is used to download the contents of a
-         * [class`Gdk`.Texture].
+         * Used to download the contents of a [class`Gdk`.Texture].
          *
          * It is intended to be created as a short-term object for a single download,
          * but can be used for multiple downloads of different textures or with different
@@ -15865,7 +17466,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * A `GdkTimeCoord` stores a single event in a motion history.
+         * Stores a single event in a motion history.
          *
          * To check whether an axis is present, check whether the corresponding
          * flag from the [flags`Gdk`.AxisFlags] enumeration is set in the `flags`
@@ -15888,8 +17489,8 @@ declare module 'gi://Gdk?version=4.0' {
 
         type ToplevelInterface = typeof Toplevel;
         /**
-         * The `GdkToplevelLayout` struct contains information that
-         * is necessary to present a sovereign window on screen.
+         * Contains information that is necessary to present a sovereign
+         * window on screen.
          *
          * The `GdkToplevelLayout` struct is necessary for using
          * [method`Gdk`.Toplevel.present].
@@ -15978,8 +17579,7 @@ declare module 'gi://Gdk?version=4.0' {
         }
 
         /**
-         * The `GdkToplevelSize` struct contains information that is useful
-         * to compute the size of a toplevel.
+         * Contains information that is useful to compute the size of a toplevel.
          */
         abstract class ToplevelSize {
             static $gtype: GObject.GType<ToplevelSize>;
@@ -16042,7 +17642,7 @@ declare module 'gi://Gdk?version=4.0' {
             set_size(width: number, height: number): void;
         }
 
-        module DevicePad {
+        namespace DevicePad {
             // Constructor properties interface
 
             interface ConstructorProps extends Device.ConstructorProps {}
@@ -16091,7 +17691,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): DevicePad; // This allows `obj instanceof DevicePad`
         };
 
-        module DragSurface {
+        namespace DragSurface {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {}
@@ -16117,7 +17717,90 @@ declare module 'gi://Gdk?version=4.0' {
             new (): DragSurface; // This allows `obj instanceof DragSurface`
         };
 
-        module Paintable {
+        namespace Paintable {
+            /**
+             * Interface for implementing Paintable.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets an immutable paintable for the current contents displayed by `paintable`.
+                 *
+                 * This is useful when you want to retain the current state of an animation,
+                 * for example to take a screenshot of a running animation.
+                 *
+                 * If the `paintable` is already immutable, it will return itself.
+                 */
+                vfunc_get_current_image(): Paintable;
+                /**
+                 * Get flags for the paintable.
+                 *
+                 * This is oftentimes useful for optimizations.
+                 *
+                 * See [flags`Gdk`.PaintableFlags] for the flags and what they mean.
+                 */
+                vfunc_get_flags(): PaintableFlags;
+                /**
+                 * Gets the preferred aspect ratio the `paintable` would like to be displayed at.
+                 *
+                 * The aspect ratio is the width divided by the height, so a value of 0.5
+                 * means that the `paintable` prefers to be displayed twice as high as it
+                 * is wide. Consumers of this interface can use this to preserve aspect
+                 * ratio when displaying the paintable.
+                 *
+                 * This is a purely informational value and does not in any way limit the
+                 * values that may be passed to [method`Gdk`.Paintable.snapshot].
+                 *
+                 * Usually when a `paintable` returns nonzero values from
+                 * [method`Gdk`.Paintable.get_intrinsic_width] and
+                 * [method`Gdk`.Paintable.get_intrinsic_height] the aspect ratio
+                 * should conform to those values, though that is not required.
+                 *
+                 * If the `paintable` does not have a preferred aspect ratio,
+                 * it returns 0. Negative values are never returned.
+                 */
+                vfunc_get_intrinsic_aspect_ratio(): number;
+                /**
+                 * Gets the preferred height the `paintable` would like to be displayed at.
+                 *
+                 * Consumers of this interface can use this to reserve enough space to draw
+                 * the paintable.
+                 *
+                 * This is a purely informational value and does not in any way limit the
+                 * values that may be passed to [method`Gdk`.Paintable.snapshot].
+                 *
+                 * If the `paintable` does not have a preferred height, it returns 0.
+                 * Negative values are never returned.
+                 */
+                vfunc_get_intrinsic_height(): number;
+                /**
+                 * Gets the preferred width the `paintable` would like to be displayed at.
+                 *
+                 * Consumers of this interface can use this to reserve enough space to draw
+                 * the paintable.
+                 *
+                 * This is a purely informational value and does not in any way limit the
+                 * values that may be passed to [method`Gdk`.Paintable.snapshot].
+                 *
+                 * If the `paintable` does not have a preferred width, it returns 0.
+                 * Negative values are never returned.
+                 */
+                vfunc_get_intrinsic_width(): number;
+                /**
+                 * Snapshots the given paintable with the given `width` and `height`.
+                 *
+                 * The paintable is drawn at the current (0,0) offset of the `snapshot`.
+                 * If `width` and `height` are not larger than zero, this function will
+                 * do nothing.
+                 * @param snapshot a `GdkSnapshot` to snapshot to
+                 * @param width width to snapshot in
+                 * @param height height to snapshot in
+                 */
+                vfunc_snapshot(snapshot: Snapshot, width: number, height: number): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -16140,7 +17823,7 @@ declare module 'gi://Gdk?version=4.0' {
              */
             new_empty(intrinsic_width: number, intrinsic_height: number): Paintable;
         }
-        interface Paintable extends GObject.Object {
+        interface Paintable extends GObject.Object, Paintable.Interface {
             // Methods
 
             /**
@@ -16270,90 +17953,13 @@ declare module 'gi://Gdk?version=4.0' {
              * @param height height to snapshot in
              */
             snapshot(snapshot: Snapshot, width: number, height: number): void;
-
-            // Virtual methods
-
-            /**
-             * Gets an immutable paintable for the current contents displayed by `paintable`.
-             *
-             * This is useful when you want to retain the current state of an animation,
-             * for example to take a screenshot of a running animation.
-             *
-             * If the `paintable` is already immutable, it will return itself.
-             */
-            vfunc_get_current_image(): Paintable;
-            /**
-             * Get flags for the paintable.
-             *
-             * This is oftentimes useful for optimizations.
-             *
-             * See [flags`Gdk`.PaintableFlags] for the flags and what they mean.
-             */
-            vfunc_get_flags(): PaintableFlags;
-            /**
-             * Gets the preferred aspect ratio the `paintable` would like to be displayed at.
-             *
-             * The aspect ratio is the width divided by the height, so a value of 0.5
-             * means that the `paintable` prefers to be displayed twice as high as it
-             * is wide. Consumers of this interface can use this to preserve aspect
-             * ratio when displaying the paintable.
-             *
-             * This is a purely informational value and does not in any way limit the
-             * values that may be passed to [method`Gdk`.Paintable.snapshot].
-             *
-             * Usually when a `paintable` returns nonzero values from
-             * [method`Gdk`.Paintable.get_intrinsic_width] and
-             * [method`Gdk`.Paintable.get_intrinsic_height] the aspect ratio
-             * should conform to those values, though that is not required.
-             *
-             * If the `paintable` does not have a preferred aspect ratio,
-             * it returns 0. Negative values are never returned.
-             */
-            vfunc_get_intrinsic_aspect_ratio(): number;
-            /**
-             * Gets the preferred height the `paintable` would like to be displayed at.
-             *
-             * Consumers of this interface can use this to reserve enough space to draw
-             * the paintable.
-             *
-             * This is a purely informational value and does not in any way limit the
-             * values that may be passed to [method`Gdk`.Paintable.snapshot].
-             *
-             * If the `paintable` does not have a preferred height, it returns 0.
-             * Negative values are never returned.
-             */
-            vfunc_get_intrinsic_height(): number;
-            /**
-             * Gets the preferred width the `paintable` would like to be displayed at.
-             *
-             * Consumers of this interface can use this to reserve enough space to draw
-             * the paintable.
-             *
-             * This is a purely informational value and does not in any way limit the
-             * values that may be passed to [method`Gdk`.Paintable.snapshot].
-             *
-             * If the `paintable` does not have a preferred width, it returns 0.
-             * Negative values are never returned.
-             */
-            vfunc_get_intrinsic_width(): number;
-            /**
-             * Snapshots the given paintable with the given `width` and `height`.
-             *
-             * The paintable is drawn at the current (0,0) offset of the `snapshot`.
-             * If `width` and `height` are not larger than zero, this function will
-             * do nothing.
-             * @param snapshot a `GdkSnapshot` to snapshot to
-             * @param width width to snapshot in
-             * @param height height to snapshot in
-             */
-            vfunc_snapshot(snapshot: Snapshot, width: number, height: number): void;
         }
 
         export const Paintable: PaintableNamespace & {
             new (): Paintable; // This allows `obj instanceof Paintable`
         };
 
-        module Popup {
+        namespace Popup {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {
@@ -16444,7 +18050,7 @@ declare module 'gi://Gdk?version=4.0' {
             new (): Popup; // This allows `obj instanceof Popup`
         };
 
-        module Toplevel {
+        namespace Toplevel {
             // Constructor properties interface
 
             interface ConstructorProps extends Surface.ConstructorProps {

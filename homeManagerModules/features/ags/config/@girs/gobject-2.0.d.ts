@@ -14,9 +14,11 @@ declare module 'gi://GObject?version=2.0' {
     import type GLib from 'gi://GLib?version=2.0';
 
     export namespace GObject {
-        // A few things here are inspired by gi.ts
-        // See https://gitlab.gnome.org/ewlsh/gi.ts/-/blob/master/packages/lib/src/generators/dts/gobject.ts
-        // Copyright Evan Welsh
+        /**
+         * Obtain the parameters of a function type in a tuple.
+         * Note: This is a copy of the Parameters type from the TypeScript standard library to avoid name conflicts, as some GIR types define `Parameters` as a namespace.
+         */
+        export type GjsParameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
 
         // __type__ forces all GTypes to not match structurally.
         export type GType<T = unknown> = {
@@ -46,6 +48,79 @@ declare module 'gi://GObject?version=2.0' {
             Requires?: Object[];
         }
 
+        export type Property<K extends ParamSpec> = K extends ParamSpec<infer T> ? T : any;
+
+        // Advanced type inference for GObject class registration
+        // String conversion utilities for property names
+        type SnakeToUnderscoreCase<S extends string> = S extends `${infer T}-${infer U}`
+            ? `${T}_${SnakeToUnderscoreCase<U>}`
+            : S extends `${infer T}`
+              ? `${T}`
+              : never;
+
+        type SnakeToCamelCase<S extends string> = S extends `${infer T}-${infer U}`
+            ? `${Lowercase<T>}${SnakeToPascalCase<U>}`
+            : S extends `${infer T}`
+              ? `${Lowercase<T>}`
+              : SnakeToPascalCase<S>;
+
+        type SnakeToPascalCase<S extends string> = string extends S
+            ? string
+            : S extends `${infer T}-${infer U}`
+              ? `${Capitalize<Lowercase<T>>}${SnakeToPascalCase<U>}`
+              : S extends `${infer T}`
+                ? `${Capitalize<Lowercase<T>>}`
+                : never;
+
+        type SnakeToCamel<T> = { [P in keyof T as P extends string ? SnakeToCamelCase<P> : P]: T[P] };
+        type SnakeToUnderscore<T> = { [P in keyof T as P extends string ? SnakeToUnderscoreCase<P> : P]: T[P] };
+
+        // Advanced utility types for class registration
+        type UnionToIntersection<T> = (T extends any ? (x: T) => any : never) extends (x: infer R) => any ? R : never;
+
+        type IFaces<Interfaces extends { $gtype: GType<any> }[]> = {
+            [key in keyof Interfaces]: Interfaces[key] extends { $gtype: GType<infer I> } ? I : never;
+        };
+
+        export type Properties<Prototype extends {}, Properties extends { [key: string]: ParamSpec }> = Omit<
+            {
+                [key in keyof Properties | keyof Prototype]: key extends keyof Prototype
+                    ? never
+                    : key extends keyof Properties
+                      ? Property<Properties[key]>
+                      : never;
+            },
+            keyof Prototype
+        >;
+
+        export type RegisteredPrototype<
+            P extends {},
+            Props extends { [key: string]: ParamSpec },
+            Interfaces extends any[],
+        > = Properties<P, SnakeToCamel<Props> & SnakeToUnderscore<Props>> & UnionToIntersection<Interfaces[number]> & P;
+
+        type Ctor = new (...a: any[]) => object;
+        type Init = { _init(...args: any[]): void };
+
+        export type RegisteredClass<
+            T extends Ctor,
+            Props extends { [key: string]: ParamSpec },
+            Interfaces extends { $gtype: GType<any> }[],
+        > = T extends { prototype: infer P extends {} }
+            ? {
+                  $gtype: GType<RegisteredClass<T, Props, IFaces<Interfaces>>>;
+                  new (
+                      ...args: P extends Init ? Parameters<P['_init']> : [void]
+                  ): RegisteredPrototype<P, Props, IFaces<Interfaces>>;
+                  prototype: RegisteredPrototype<P, Props, IFaces<Interfaces>>;
+              }
+            : never;
+
+        export type SignalDefinitionType = {
+            param_types?: readonly GType[];
+            [key: string]: any;
+        };
+
         // Correctly types interface checks.
         export function type_is_a<T extends Object>(obj: Object, is_a_type: { $gtype: GType<T> }): obj is T;
 
@@ -55,6 +130,11 @@ declare module 'gi://GObject?version=2.0' {
             _construct: (params: any, ...otherArgs: any[]) => any;
             _init: (params: any) => void;
             $gtype?: GType<T>;
+        }
+
+        export namespace Object {
+            // Interface for virtual method implementations
+            export interface Interface extends GObject.Interface {}
         }
 
         /**
@@ -104,6 +184,7 @@ declare module 'gi://GObject?version=2.0' {
         export let TYPE_UINT: GType<number>;
         export let TYPE_INT64: GType<number>;
         export let TYPE_UINT64: GType<number>;
+        export let TYPE_FLOAT: GType<number>;
 
         // fake enum for signal accumulators, keep in sync with gi/object.c
         export enum AccumulatorType {
@@ -230,12 +311,26 @@ declare module 'gi://GObject?version=2.0' {
         export function signal_handlers_disconnect_by_func(instance: Object, func: (...args: any[]) => any): number;
         export function signal_handlers_disconnect_by_data(): void;
 
-        export type Property<K extends ParamSpec> = K extends ParamSpec<infer T> ? T : any;
+        // Helper types for type-safe signal handling
+        export interface SignalSignatures {
+            /** Fallback for dynamic signals and type compatibility */
+            [signal: string]: (...args: any[]) => any;
+        }
+
+        /**
+         * Helper to prepend the emitter (`source`) to an existing callback type.
+         */
+        export type SignalCallback<Emitter, Fn> = Fn extends (...args: infer P) => infer R
+            ? (source: Emitter, ...args: P) => R
+            : never;
 
         // TODO: What about the generated class Closure
         export type TClosure<R = any, P = any> = (...args: P[]) => R;
 
         type ObjectConstructor = { new (...args: any[]): Object };
+
+        // Standard registerClass overloads
+        export function registerClass<T extends ObjectConstructor>(cls: T): T;
 
         export function registerClass<
             T extends ObjectConstructor,
@@ -249,7 +344,36 @@ declare module 'gi://GObject?version=2.0' {
             },
         >(options: MetaInfo<Props, Interfaces, Sigs>, cls: T): T;
 
-        export function registerClass<T extends ObjectConstructor>(cls: T): T;
+        // Enhanced registerClass overloads with advanced type inference
+
+        export function registerClass<P extends {}, T extends new (...args: any[]) => P>(
+            klass: T,
+        ): RegisteredClass<T, {}, []>;
+
+        export function registerClass<
+            T extends Ctor,
+            Props extends { [key: string]: ParamSpec },
+            Interfaces extends { $gtype: GType }[],
+            Sigs extends {
+                [key: string]: {
+                    param_types?: readonly GType[];
+                    [key: string]: any;
+                };
+            },
+        >(
+            options: {
+                GTypeName?: string;
+                GTypeFlags?: TypeFlags;
+                Properties?: Props;
+                Signals?: Sigs;
+                Implements?: Interfaces;
+                CssName?: string;
+                Template?: string;
+                Children?: string[];
+                InternalChildren?: string[];
+            },
+            klass: T,
+        ): RegisteredClass<T, Props, Interfaces>;
 
         /**
          * GObject-2.0
@@ -859,10 +983,10 @@ declare module 'gi://GObject?version=2.0' {
          * generate a my_enum_get_type() function from a usual C enumeration
          * definition  than to write one yourself using g_enum_register_static().
          * @param name A nul-terminated string used as the name of the new type.
-         * @param const_static_values An array of #GEnumValue structs for the possible  enumeration values. The array is terminated by a struct with all  members being 0. GObject keeps a reference to the data, so it cannot  be stack-allocated.
+         * @param const_static_values An array of  #GEnumValue structs for the possible enumeration values. The array is  terminated by a struct with all members being 0. GObject keeps a  reference to the data, so it cannot be stack-allocated.
          * @returns The new type identifier.
          */
-        function enum_register_static(name: string, const_static_values: EnumValue): GType;
+        function enum_register_static(name: string, const_static_values: EnumValue[]): GType;
         /**
          * Pretty-prints `value` in the form of the enum’s name.
          *
@@ -909,10 +1033,10 @@ declare module 'gi://GObject?version=2.0' {
          * generate a my_flags_get_type() function from a usual C enumeration
          * definition than to write one yourself using g_flags_register_static().
          * @param name A nul-terminated string used as the name of the new type.
-         * @param const_static_values An array of #GFlagsValue structs for the possible  flags values. The array is terminated by a struct with all members being 0.  GObject keeps a reference to the data, so it cannot be stack-allocated.
+         * @param const_static_values An array of  #GFlagsValue structs for the possible flags values. The array is  terminated by a struct with all members being 0. GObject keeps a  reference to the data, so it cannot be stack-allocated.
          * @returns The new type identifier.
          */
-        function flags_register_static(name: string, const_static_values: FlagsValue): GType;
+        function flags_register_static(name: string, const_static_values: FlagsValue[]): GType;
         /**
          * Pretty-prints `value` in the form of the flag names separated by ` | ` and
          * sorted. Any extra bits will be shown at the end as a hexadecimal number.
@@ -1337,7 +1461,7 @@ declare module 'gi://GObject?version=2.0' {
             name: string,
             nick: string | null,
             blurb: string | null,
-            default_value: number,
+            default_value: string,
             flags: ParamFlags | null,
         ): ParamSpec;
         /**
@@ -1519,8 +1643,13 @@ declare module 'gi://GObject?version=2.0' {
          * If `closure` is a floating reference (see g_closure_sink()), this function
          * takes ownership of `closure`.
          *
-         * This function cannot fail. If the given signal doesn’t exist, a critical
-         * warning is emitted.
+         * This function cannot fail. If the given signal name doesn’t exist,
+         * a critical warning is emitted. No validation is performed on the
+         * ‘detail’ string when specified in `detailed_signal,` other than a
+         * non-empty check.
+         *
+         * Refer to the [signals documentation](signals.html) for more
+         * details.
          * @param instance the instance to connect to.
          * @param detailed_signal a string of the form "signal-name::detail".
          * @param closure the closure to connect.
@@ -1539,8 +1668,13 @@ declare module 'gi://GObject?version=2.0' {
          * If `closure` is a floating reference (see g_closure_sink()), this function
          * takes ownership of `closure`.
          *
-         * This function cannot fail. If the given signal doesn’t exist, a critical
-         * warning is emitted.
+         * This function cannot fail. If the given signal name doesn’t exist,
+         * a critical warning is emitted. No validation is performed on the
+         * ‘detail’ string when specified in `detailed_signal,` other than a
+         * non-empty check.
+         *
+         * Refer to the [signals documentation](signals.html) for more
+         * details.
          * @param instance the instance to connect to.
          * @param signal_id the id of the signal.
          * @param detail the detail.
@@ -1985,35 +2119,68 @@ declare module 'gi://GObject?version=2.0' {
         function type_children(type: GType): GType[];
         function type_class_adjust_private_offset(g_class: any | null, private_size_or_offset: number): void;
         /**
-         * This function is essentially the same as g_type_class_ref(),
-         * except that the classes reference count isn't incremented.
+         * Retrieves the type class of the given `type`.
+         *
+         * This function will create the class on demand if it does not exist
+         * already.
+         *
+         * If you don't want to create the class, use g_type_class_peek() instead.
+         * @param type type ID of a classed type
+         * @returns the class structure   for the type
+         */
+        function type_class_get(type: GType): TypeClass;
+        /**
+         * Retrieves the class for a give type.
+         *
+         * This function is essentially the same as g_type_class_get(),
+         * except that the class may have not been instantiated yet.
+         *
          * As a consequence, this function may return %NULL if the class
          * of the type passed in does not currently exist (hasn't been
          * referenced before).
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID or %NULL if the class does not     currently exist
+         * @returns the   #GTypeClass structure for the given type ID or %NULL if the class   does not currently exist
          */
-        function type_class_peek(type: GType): TypeClass;
+        function type_class_peek(type: GType): TypeClass | null;
         /**
          * A more efficient version of g_type_class_peek() which works only for
          * static types.
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID or %NULL if the class does not     currently exist or is dynamically loaded
+         * @returns the   #GTypeClass structure for the given type ID or %NULL if the class   does not currently exist or is dynamically loaded
          */
-        function type_class_peek_static(type: GType): TypeClass;
+        function type_class_peek_static(type: GType): TypeClass | null;
         /**
          * Increments the reference count of the class structure belonging to
-         * `type`. This function will demand-create the class if it doesn't
-         * exist already.
+         * `type`.
+         *
+         * This function will demand-create the class if it doesn't exist already.
          * @param type type ID of a classed type
-         * @returns the #GTypeClass     structure for the given type ID
+         * @returns the #GTypeClass   structure for the given type ID
          */
         function type_class_ref(type: GType): TypeClass;
+        /**
+         * Returns the default interface vtable for the given `g_type`.
+         *
+         * If the type is not currently in use, then the default vtable
+         * for the type will be created and initialized by calling
+         * the base interface init and default vtable init functions for
+         * the type (the `base_init` and `class_init` members of #GTypeInfo).
+         *
+         * If you don't want to create the interface vtable, you should use
+         * g_type_default_interface_peek() instead.
+         *
+         * Calling g_type_default_interface_get() is useful when you
+         * want to make sure that signals and properties for an interface
+         * have been installed.
+         * @param g_type an interface type
+         * @returns the default   vtable for the interface.
+         */
+        function type_default_interface_get(g_type: GType): TypeInterface;
         /**
          * If the interface type `g_type` is currently in use, returns its
          * default interface vtable.
          * @param g_type an interface type
-         * @returns the default     vtable for the interface, or %NULL if the type is not currently     in use
+         * @returns the default   vtable for the interface, or %NULL if the type is not currently   in use
          */
         function type_default_interface_peek(g_type: GType): TypeInterface;
         /**
@@ -2028,15 +2195,16 @@ declare module 'gi://GObject?version=2.0' {
          * want to make sure that signals and properties for an interface
          * have been installed.
          * @param g_type an interface type
-         * @returns the default     vtable for the interface; call g_type_default_interface_unref()     when you are done using the interface.
+         * @returns the default   vtable for the interface; call g_type_default_interface_unref()   when you are done using the interface.
          */
         function type_default_interface_ref(g_type: GType): TypeInterface;
         /**
          * Decrements the reference count for the type corresponding to the
-         * interface default vtable `g_iface`. If the type is dynamic, then
-         * when no one is using the interface and all references have
-         * been released, the finalize function for the interface's default
-         * vtable (the `class_finalize` member of #GTypeInfo) will be called.
+         * interface default vtable `g_iface`.
+         *
+         * If the type is dynamic, then when no one is using the interface and all
+         * references have been released, the finalize function for the interface's
+         * default vtable (the `class_finalize` member of #GTypeInfo) will be called.
          * @param g_iface the default vtable     structure for an interface, as returned by g_type_default_interface_ref()
          */
         function type_default_interface_unref(g_iface: TypeInterface): void;
@@ -2184,9 +2352,9 @@ declare module 'gi://GObject?version=2.0' {
          * passed in class conforms.
          * @param instance_class a #GTypeClass structure
          * @param iface_type an interface ID which this class conforms to
-         * @returns the #GTypeInterface     structure of @iface_type if implemented by @instance_class, %NULL     otherwise
+         * @returns the #GTypeInterface   structure of @iface_type if implemented by @instance_class, %NULL   otherwise
          */
-        function type_interface_peek(instance_class: TypeClass, iface_type: GType): TypeInterface;
+        function type_interface_peek(instance_class: TypeClass, iface_type: GType): TypeInterface | null;
         /**
          * Returns the prerequisites of an interfaces type.
          * @param interface_type an interface type
@@ -2210,11 +2378,12 @@ declare module 'gi://GObject?version=2.0' {
          */
         function type_is_a(type: GType, is_a_type: GType): boolean;
         /**
-         * Get the unique name that is assigned to a type ID.  Note that this
-         * function (like all other GType API) cannot cope with invalid type
-         * IDs. %G_TYPE_INVALID may be passed to this function, as may be any
-         * other validly registered type ID, but randomized type IDs should
-         * not be passed in and will most likely lead to a crash.
+         * Get the unique name that is assigned to a type ID.
+         *
+         * Note that this function (like all other GType API) cannot cope with
+         * invalid type IDs. %G_TYPE_INVALID may be passed to this function, as
+         * may be any other validly registered type ID, but randomized type IDs
+         * should not be passed in and will most likely lead to a crash.
          * @param type type to return name for
          * @returns static type name or %NULL
          */
@@ -2609,11 +2778,13 @@ declare module 'gi://GObject?version=2.0' {
              */
             READWRITE,
             /**
-             * the parameter will be set upon object construction
+             * the parameter will be set upon object construction.
+             *   See [vfunc`Object`.constructed] for more details
              */
             CONSTRUCT,
             /**
-             * the parameter can only be set upon object construction
+             * the parameter can only be set upon object construction.
+             *   See [vfunc`Object`.constructed] for more details
              */
             CONSTRUCT_ONLY,
             /**
@@ -2710,20 +2881,23 @@ declare module 'gi://GObject?version=2.0' {
              */
             NO_HOOKS,
             /**
-             * Varargs signal emission will always collect the
-             *   arguments, even if there are no signal handlers connected.  Since 2.30.
+             * Varargs signal emission will always collect the arguments, even if there
+             * are no signal handlers connected.
              */
             MUST_COLLECT,
             /**
-             * The signal is deprecated and will be removed
-             *   in a future version. A warning will be generated if it is connected while
-             *   running with G_ENABLE_DIAGNOSTIC=1.  Since 2.32.
+             * The signal is deprecated and will be removed in a future version.
+             *
+             * A warning will be generated if it is connected while running with
+             * `G_ENABLE_DIAGNOSTIC=1`.
              */
             DEPRECATED,
             /**
-             * Only used in #GSignalAccumulator accumulator
-             *   functions for the #GSignalInvocationHint::run_type field to mark the first
-             *   call to the accumulator function for a signal emission.  Since 2.68.
+             * The signal accumulator was invoked for the first time.
+             *
+             * This flag is only used in [callback`GObject`.SignalAccumulator][accumulator functions]
+             * for the `run_type` field of the [struct`GObject`.SignalInvocationHint], to
+             * mark the first call to the accumulator function for a signal emission.
              */
             ACCUMULATOR_FIRST_RUN,
         }
@@ -2879,7 +3053,16 @@ declare module 'gi://GObject?version=2.0' {
              */
             DEEP_DERIVABLE,
         }
-        module Binding {
+        namespace Binding {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::flags': (pspec: ParamSpec) => void;
+                'notify::source': (pspec: ParamSpec) => void;
+                'notify::source-property': (pspec: ParamSpec) => void;
+                'notify::target': (pspec: ParamSpec) => void;
+                'notify::target-property': (pspec: ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -3020,11 +3203,38 @@ declare module 'gi://GObject?version=2.0' {
              */
             get targetProperty(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Binding.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Binding.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Binding.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, Binding.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Binding.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, Binding.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Binding.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<Binding.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3105,7 +3315,12 @@ declare module 'gi://GObject?version=2.0' {
             unbind(): void;
         }
 
-        module BindingGroup {
+        namespace BindingGroup {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::source': (pspec: ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {
@@ -3133,6 +3348,15 @@ declare module 'gi://GObject?version=2.0' {
             get source(): Object;
             set source(val: Object);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: BindingGroup.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<BindingGroup.ConstructorProps>, ...args: any[]);
@@ -3140,6 +3364,24 @@ declare module 'gi://GObject?version=2.0' {
             _init(...args: any[]): void;
 
             static ['new'](): BindingGroup;
+
+            // Signals
+
+            connect<K extends keyof BindingGroup.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, BindingGroup.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BindingGroup.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, BindingGroup.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BindingGroup.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<BindingGroup.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3220,7 +3462,10 @@ declare module 'gi://GObject?version=2.0' {
             set_source(source?: Object | null): void;
         }
 
-        module InitiallyUnowned {
+        namespace InitiallyUnowned {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -3235,18 +3480,44 @@ declare module 'gi://GObject?version=2.0' {
         class InitiallyUnowned extends Object {
             static $gtype: GType<InitiallyUnowned>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: InitiallyUnowned.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<InitiallyUnowned.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof InitiallyUnowned.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, InitiallyUnowned.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof InitiallyUnowned.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, InitiallyUnowned.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof InitiallyUnowned.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<InitiallyUnowned.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module Object {
-            // Signal callback interfaces
-
-            interface Notify {
-                (pspec: ParamSpec): void;
+        namespace Object {
+            // Signal signatures
+            interface SignalSignatures {
+                notify: (arg0: ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -3281,6 +3552,15 @@ declare module 'gi://GObject?version=2.0' {
         class Object {
             static $gtype: GType<Object>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Object.SignalSignatures;
+
             // Constructors
 
             _init(...args: any[]): void;
@@ -3289,12 +3569,21 @@ declare module 'gi://GObject?version=2.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'notify', callback: (_source: this, pspec: ParamSpec) => void): number;
-            connect_after(signal: 'notify', callback: (_source: this, pspec: ParamSpec) => void): number;
-            emit(signal: 'notify', pspec: ParamSpec): void;
+            connect<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, Object.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<Object.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -3526,8 +3815,8 @@ declare module 'gi://GObject?version=2.0' {
                 target: Object,
                 target_property: string,
                 flags: BindingFlags | null,
-                transform_to: Closure,
-                transform_from: Closure,
+                transform_to: Closure | null,
+                transform_from: Closure | null,
             ): Binding;
             /**
              * This function is intended for #GObject implementations to re-enforce
@@ -3554,7 +3843,21 @@ declare module 'gi://GObject?version=2.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -3682,7 +3985,12 @@ declare module 'gi://GObject?version=2.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -3767,26 +4075,41 @@ declare module 'gi://GObject?version=2.0' {
              * @param closure #GClosure to watch
              */
             watch_closure(closure: Closure): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
+        }
+
+        namespace ParamSpec {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
         }
 
         /**
-         * `GParamSpec` encapsulates the metadata required to specify parameters, such as `GObject` properties.
-         *
-         * ## Parameter names
-         *
-         * A property name consists of one or more segments consisting of ASCII letters
-         * and digits, separated by either the `-` or `_` character. The first
-         * character of a property name must be a letter. These are the same rules as
-         * for signal naming (see [func`GObject`.signal_new]).
-         *
-         * When creating and looking up a `GParamSpec`, either separator can be
-         * used, but they cannot be mixed. Using `-` is considerably more
-         * efficient, and is the ‘canonical form’. Using `_` is discouraged.
+         * A GObject parameter specification that defines property characteristics.
+         * See https://gjs.guide/guides/gobject/basics.html#properties for more details.
          */
         abstract class ParamSpec<A = unknown> {
             static $gtype: GType<ParamSpec>;
@@ -3802,6 +4125,24 @@ declare module 'gi://GObject?version=2.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof ParamSpec.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, ParamSpec.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ParamSpec.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, ParamSpec.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ParamSpec.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<ParamSpec.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Static methods
 
             /**
@@ -3814,140 +4155,301 @@ declare module 'gi://GObject?version=2.0' {
              * @param name the canonical name of the property
              */
             static is_valid_name(name: string): boolean;
+            /**
+             * Creates a new GParamSpecChar instance specifying a G_TYPE_CHAR property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static ['char'](
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUChar instance specifying a G_TYPE_UCHAR property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static uchar(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecInt instance specifying a G_TYPE_INT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static int(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUInt instance specifying a G_TYPE_UINT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static uint(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecLong instance specifying a G_TYPE_LONG property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static long(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecULong instance specifying a G_TYPE_ULONG property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static ulong(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecInt64 instance specifying a G_TYPE_INT64 property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static int64(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecUInt64 instance specifying a G_TYPE_UINT64 property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static uint64(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecFloat instance specifying a G_TYPE_FLOAT property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static float(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecBoolean instance specifying a G_TYPE_BOOLEAN property. In many cases, it may be more appropriate to use an enum with g_param_spec_enum(), both to improve code clarity by using explicitly named values, and to allow for more values to be added in future without breaking API.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param defaultValue The default value for this property (optional)
+             */
             static ['boolean'](
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
-                defaultValue: boolean,
+                defaultValue?: boolean,
             ): ParamSpec<boolean>;
+            /**
+             * Creates a new GParamSpecEnum instance specifying a G_TYPE_ENUM property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param enumType The GType for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static ['enum']<T>(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 enumType: GType<T> | { $gtype: GType<T> },
-                defaultValue: any,
+                defaultValue?: any,
             ): ParamSpec<T>;
+            /**
+             * Creates a new GParamSpecDouble instance specifying a G_TYPE_DOUBLE property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param minimum The minimum value for this property
+             * @param maximum The maximum value for this property
+             * @param defaultValue The default value for this property (optional)
+             */
             static double(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 minimum: number,
                 maximum: number,
-                defaultValue: number,
+                defaultValue?: number,
             ): ParamSpec<number>;
+            /**
+             * Creates a new GParamSpecString instance specifying a G_TYPE_STRING property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param defaultValue The default value for this property (optional, defaults to null if not provided)
+             */
             static string(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
-                defaultValue: string,
+                defaultValue?: string | null,
             ): ParamSpec<string>;
+            /**
+             * Creates a new GParamSpecBoxed instance specifying a G_TYPE_BOXED derived property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param boxedType The GType for this property
+             */
             static boxed<T>(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 boxedType: GType<T> | { $gtype: GType<T> },
             ): ParamSpec<T>;
+            /**
+             * Creates a new GParamSpecObject instance specifying a property holding object references.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param objectType The GType of the object (optional)
+             */
             static object<T>(
                 name: string,
-                nick: string,
-                blurb: string,
-                flags: string,
-                objectType: GType<T> | { $gtype: GType<T> },
+                nick: string | null,
+                blurb: string | null,
+                flags: ParamFlags | number,
+                objectType?: GType<T> | { $gtype: GType<T> },
             ): ParamSpec<T>;
+            /**
+             * Creates a new GParamSpecParam instance specifying a G_TYPE_PARAM property.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             * @param paramType The GType for this property
+             */
             static param(
                 name: string,
-                nick: string,
-                blurb: string,
+                nick: string | null,
+                blurb: string | null,
                 flags: ParamFlags | number,
                 paramType: any,
             ): ParamSpec;
-            static jsobject<T>(name: string, nick: string, blurb: string, flags: any): ParamSpec<T>;
+            /**
+             * Creates a new ParamSpec instance for JavaScript object properties.
+             * @param name The name of the property
+             * @param nick A human readable name for the property (can be null)
+             * @param blurb A longer description of the property (can be null)
+             * @param flags The flags for this property (e.g. READABLE, WRITABLE)
+             */
+            static jsobject<T>(
+                name: string,
+                nick: string | null,
+                blurb: string | null,
+                flags: ParamFlags | number,
+            ): ParamSpec<T>;
 
             // Virtual methods
 
@@ -4064,18 +4566,22 @@ declare module 'gi://GObject?version=2.0' {
              * @returns the user data pointer set, or %NULL
              */
             steal_qdata(quark: GLib.Quark): any | null;
+            /**
+             * Registers a property override for a property introduced in a parent class or inherited interface.
+             * @param name The name of the property to override
+             * @param oclass The object class or type that contains the property to override
+             */
             override(name: string, oclass: Object | Function | GType): void;
+            __type__(arg: never): A;
         }
 
-        module SignalGroup {
-            // Signal callback interfaces
-
-            interface Bind {
-                (instance: Object): void;
-            }
-
-            interface Unbind {
-                (): void;
+        namespace SignalGroup {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                bind: (arg0: Object) => void;
+                unbind: () => void;
+                'notify::target': (pspec: ParamSpec) => void;
+                'notify::target-type': (pspec: ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -4127,6 +4633,15 @@ declare module 'gi://GObject?version=2.0' {
              */
             get targetType(): GType;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SignalGroup.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SignalGroup.ConstructorProps>, ...args: any[]);
@@ -4137,15 +4652,21 @@ declare module 'gi://GObject?version=2.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'bind', callback: (_source: this, instance: Object) => void): number;
-            connect_after(signal: 'bind', callback: (_source: this, instance: Object) => void): number;
-            emit(signal: 'bind', instance: Object): void;
-            connect(signal: 'unbind', callback: (_source: this) => void): number;
-            connect_after(signal: 'unbind', callback: (_source: this) => void): number;
-            emit(signal: 'unbind'): void;
+            connect<K extends keyof SignalGroup.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, SignalGroup.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SignalGroup.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, SignalGroup.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SignalGroup.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<SignalGroup.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4218,7 +4739,10 @@ declare module 'gi://GObject?version=2.0' {
             unblock(): void;
         }
 
-        module TypeModule {
+        namespace TypeModule {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, TypePlugin.ConstructorProps {}
@@ -4260,6 +4784,15 @@ declare module 'gi://GObject?version=2.0' {
         abstract class TypeModule extends Object implements TypePlugin {
             static $gtype: GType<TypeModule>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: TypeModule.SignalSignatures;
+
             // Fields
 
             use_count: number;
@@ -4272,6 +4805,24 @@ declare module 'gi://GObject?version=2.0' {
             constructor(properties?: Partial<TypeModule.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TypeModule.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, TypeModule.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TypeModule.SignalSignatures>(
+                signal: K,
+                callback: SignalCallback<this, TypeModule.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TypeModule.SignalSignatures>(
+                signal: K,
+                ...args: GjsParameters<TypeModule.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4516,7 +5067,21 @@ declare module 'gi://GObject?version=2.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -4644,7 +5209,12 @@ declare module 'gi://GObject?version=2.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -4794,11 +5364,31 @@ declare module 'gi://GObject?version=2.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: Value | any, pspec: ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         /**
@@ -5531,24 +6121,38 @@ declare module 'gi://GObject?version=2.0' {
 
             static adjust_private_offset(g_class: any | null, private_size_or_offset: number): void;
             /**
-             * This function is essentially the same as g_type_class_ref(),
-             * except that the classes reference count isn't incremented.
+             * Retrieves the type class of the given `type`.
+             *
+             * This function will create the class on demand if it does not exist
+             * already.
+             *
+             * If you don't want to create the class, use g_type_class_peek() instead.
+             * @param type type ID of a classed type
+             */
+            static get(type: GType): TypeClass;
+            /**
+             * Retrieves the class for a give type.
+             *
+             * This function is essentially the same as g_type_class_get(),
+             * except that the class may have not been instantiated yet.
+             *
              * As a consequence, this function may return %NULL if the class
              * of the type passed in does not currently exist (hasn't been
              * referenced before).
              * @param type type ID of a classed type
              */
-            static peek(type: GType): TypeClass;
+            static peek(type: GType): TypeClass | null;
             /**
              * A more efficient version of g_type_class_peek() which works only for
              * static types.
              * @param type type ID of a classed type
              */
-            static peek_static(type: GType): TypeClass;
+            static peek_static(type: GType): TypeClass | null;
             /**
              * Increments the reference count of the class structure belonging to
-             * `type`. This function will demand-create the class if it doesn't
-             * exist already.
+             * `type`.
+             *
+             * This function will demand-create the class if it doesn't exist already.
              * @param type type ID of a classed type
              */
             static ref(type: GType): TypeClass;
@@ -5625,19 +6229,22 @@ declare module 'gi://GObject?version=2.0' {
             add_private(private_size: number): void;
             get_private(private_type: GType): any | null;
             /**
+             * Retrieves the class structure of the immediate parent type of the
+             * class passed in.
+             *
              * This is a convenience function often needed in class initializers.
-             * It returns the class structure of the immediate parent type of the
-             * class passed in.  Since derived classes hold a reference count on
-             * their parent classes as long as they are instantiated, the returned
-             * class will always exist.
+             *
+             * Since derived classes hold a reference on their parent classes as
+             * long as they are instantiated, the returned class will always exist.
              *
              * This function is essentially equivalent to:
              * g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
-             * @returns the parent class     of @g_class
+             * @returns the parent class   of @g_class
              */
             peek_parent(): TypeClass;
             /**
              * Decrements the reference count of the class structure being passed in.
+             *
              * Once the last reference count of a class has been released, classes
              * may be finalized by the type system, so further dereferencing of a
              * class pointer after g_type_class_unref() are invalid.
@@ -5754,7 +6361,7 @@ declare module 'gi://GObject?version=2.0' {
              * @param instance_class a #GTypeClass structure
              * @param iface_type an interface ID which this class conforms to
              */
-            static peek(instance_class: TypeClass, iface_type: GType): TypeInterface;
+            static peek(instance_class: TypeClass, iface_type: GType): TypeInterface | null;
             /**
              * Returns the prerequisites of an interfaces type.
              * @param interface_type an interface type
@@ -5765,12 +6372,13 @@ declare module 'gi://GObject?version=2.0' {
 
             /**
              * Returns the corresponding #GTypeInterface structure of the parent type
-             * of the instance type to which `g_iface` belongs. This is useful when
-             * deriving the implementation of an interface from the parent type and
-             * then possibly overriding some methods.
-             * @returns the     corresponding #GTypeInterface structure of the parent type of the     instance type to which @g_iface belongs, or %NULL if the parent     type doesn't conform to the interface
+             * of the instance type to which `g_iface` belongs.
+             *
+             * This is useful when deriving the implementation of an interface from the
+             * parent type and then possibly overriding some methods.
+             * @returns the   corresponding #GTypeInterface structure of the parent type of the   instance type to which @g_iface belongs, or %NULL if the parent   type doesn't conform to the interface
              */
-            peek_parent(): TypeInterface;
+            peek_parent(): TypeInterface | null;
         }
 
         type TypeModuleClass = typeof TypeModule;
@@ -5814,6 +6422,15 @@ declare module 'gi://GObject?version=2.0' {
         }
 
         /**
+         * - `'i'`: Integers, passed as `collect_values[].v_int`
+         *   - `'l'`: Longs, passed as `collect_values[].v_long`
+         *   - `'d'`: Doubles, passed as `collect_values[].v_double`
+         *   - `'p'`: Pointers, passed as `collect_values[].v_pointer`
+         *
+         *   It should be noted that for variable argument list construction,
+         *   ANSI C promotes every type smaller than an integer to an int, and
+         *   floats to doubles. So for collection of short int or char, `'i'`
+         *   needs to be used, and for collection of floats `'d'`.
          * The #GTypeValueTable provides the functions required by the #GValue
          * implementation, to serve as a container for values of a type.
          */
@@ -6460,7 +7077,7 @@ declare module 'gi://GObject?version=2.0' {
             _init(...args: any[]): void;
         }
 
-        module TypePlugin {
+        namespace TypePlugin {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}

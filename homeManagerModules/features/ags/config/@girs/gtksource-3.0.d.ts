@@ -2,6 +2,7 @@
 /// <reference path="./xlib-2.0.d.ts" />
 /// <reference path="./gdk-3.0.d.ts" />
 /// <reference path="./cairo-1.0.d.ts" />
+/// <reference path="./cairo.d.ts" />
 /// <reference path="./gobject-2.0.d.ts" />
 /// <reference path="./glib-2.0.d.ts" />
 /// <reference path="./pango-1.0.d.ts" />
@@ -26,7 +27,7 @@ declare module 'gi://GtkSource?version=3.0' {
     import type Gtk from 'gi://Gtk?version=3.0';
     import type xlib from 'gi://xlib?version=2.0';
     import type Gdk from 'gi://Gdk?version=3.0';
-    import type cairo from 'gi://cairo?version=1.0';
+    import type cairo from 'cairo';
     import type GObject from 'gi://GObject?version=2.0';
     import type GLib from 'gi://GLib?version=2.0';
     import type Pango from 'gi://Pango?version=1.0';
@@ -599,27 +600,29 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             ALL,
         }
-        module Buffer {
-            // Signal callback interfaces
-
-            interface BracketMatched {
-                (iter: Gtk.TextIter | null, state: BracketMatchType): void;
-            }
-
-            interface HighlightUpdated {
-                (start: Gtk.TextIter, end: Gtk.TextIter): void;
-            }
-
-            interface Redo {
-                (): void;
-            }
-
-            interface SourceMarkUpdated {
-                (mark: Gtk.TextMark): void;
-            }
-
-            interface Undo {
-                (): void;
+        namespace Buffer {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.TextBuffer.SignalSignatures {
+                'bracket-matched': (arg0: Gtk.TextIter | null, arg1: BracketMatchType) => void;
+                'highlight-updated': (arg0: Gtk.TextIter, arg1: Gtk.TextIter) => void;
+                redo: () => void;
+                'source-mark-updated': (arg0: Gtk.TextMark) => void;
+                undo: () => void;
+                'notify::can-redo': (pspec: GObject.ParamSpec) => void;
+                'notify::can-undo': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight-matching-brackets': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight-syntax': (pspec: GObject.ParamSpec) => void;
+                'notify::implicit-trailing-newline': (pspec: GObject.ParamSpec) => void;
+                'notify::language': (pspec: GObject.ParamSpec) => void;
+                'notify::max-undo-levels': (pspec: GObject.ParamSpec) => void;
+                'notify::style-scheme': (pspec: GObject.ParamSpec) => void;
+                'notify::undo-manager': (pspec: GObject.ParamSpec) => void;
+                'notify::copy-target-list': (pspec: GObject.ParamSpec) => void;
+                'notify::cursor-position': (pspec: GObject.ParamSpec) => void;
+                'notify::has-selection': (pspec: GObject.ParamSpec) => void;
+                'notify::paste-target-list': (pspec: GObject.ParamSpec) => void;
+                'notify::tag-table': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -719,6 +722,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get undoManager(): UndoManager;
             set undoManager(val: UndoManager);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Buffer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Buffer.ConstructorProps>, ...args: any[]);
@@ -731,36 +743,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'bracket-matched',
-                callback: (_source: this, iter: Gtk.TextIter | null, state: BracketMatchType) => void,
+            connect<K extends keyof Buffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Buffer.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'bracket-matched',
-                callback: (_source: this, iter: Gtk.TextIter | null, state: BracketMatchType) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Buffer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Buffer.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'bracket-matched', iter: Gtk.TextIter | null, state: BracketMatchType): void;
-            connect(
-                signal: 'highlight-updated',
-                callback: (_source: this, start: Gtk.TextIter, end: Gtk.TextIter) => void,
-            ): number;
-            connect_after(
-                signal: 'highlight-updated',
-                callback: (_source: this, start: Gtk.TextIter, end: Gtk.TextIter) => void,
-            ): number;
-            emit(signal: 'highlight-updated', start: Gtk.TextIter, end: Gtk.TextIter): void;
-            connect(signal: 'redo', callback: (_source: this) => void): number;
-            connect_after(signal: 'redo', callback: (_source: this) => void): number;
-            emit(signal: 'redo'): void;
-            connect(signal: 'source-mark-updated', callback: (_source: this, mark: Gtk.TextMark) => void): number;
-            connect_after(signal: 'source-mark-updated', callback: (_source: this, mark: Gtk.TextMark) => void): number;
-            emit(signal: 'source-mark-updated', mark: Gtk.TextMark): void;
-            connect(signal: 'undo', callback: (_source: this) => void): number;
-            connect_after(signal: 'undo', callback: (_source: this) => void): number;
-            emit(signal: 'undo'): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Buffer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Buffer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1081,31 +1078,24 @@ declare module 'gi://GtkSource?version=3.0' {
             undo(): void;
         }
 
-        module Completion {
-            // Signal callback interfaces
-
-            interface ActivateProposal {
-                (): void;
-            }
-
-            interface Hide {
-                (): void;
-            }
-
-            interface MoveCursor {
-                (step: Gtk.ScrollStep, num: number): void;
-            }
-
-            interface MovePage {
-                (step: Gtk.ScrollStep, num: number): void;
-            }
-
-            interface PopulateContext {
-                (context: CompletionContext): void;
-            }
-
-            interface Show {
-                (): void;
+        namespace Completion {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'activate-proposal': () => void;
+                hide: () => void;
+                'move-cursor': (arg0: Gtk.ScrollStep, arg1: number) => void;
+                'move-page': (arg0: Gtk.ScrollStep, arg1: number) => void;
+                'populate-context': (arg0: CompletionContext) => void;
+                show: () => void;
+                'notify::accelerators': (pspec: GObject.ParamSpec) => void;
+                'notify::auto-complete-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::proposal-page-size': (pspec: GObject.ParamSpec) => void;
+                'notify::provider-page-size': (pspec: GObject.ParamSpec) => void;
+                'notify::remember-info-visibility': (pspec: GObject.ParamSpec) => void;
+                'notify::select-on-show': (pspec: GObject.ParamSpec) => void;
+                'notify::show-headers': (pspec: GObject.ParamSpec) => void;
+                'notify::show-icons': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1245,6 +1235,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get view(): View;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Completion.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Completion.ConstructorProps>, ...args: any[]);
@@ -1253,39 +1252,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'activate-proposal', callback: (_source: this) => void): number;
-            connect_after(signal: 'activate-proposal', callback: (_source: this) => void): number;
-            emit(signal: 'activate-proposal'): void;
-            connect(signal: 'hide', callback: (_source: this) => void): number;
-            connect_after(signal: 'hide', callback: (_source: this) => void): number;
-            emit(signal: 'hide'): void;
-            connect(
-                signal: 'move-cursor',
-                callback: (_source: this, step: Gtk.ScrollStep, num: number) => void,
+            connect<K extends keyof Completion.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Completion.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'move-cursor',
-                callback: (_source: this, step: Gtk.ScrollStep, num: number) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Completion.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Completion.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'move-cursor', step: Gtk.ScrollStep, num: number): void;
-            connect(signal: 'move-page', callback: (_source: this, step: Gtk.ScrollStep, num: number) => void): number;
-            connect_after(
-                signal: 'move-page',
-                callback: (_source: this, step: Gtk.ScrollStep, num: number) => void,
-            ): number;
-            emit(signal: 'move-page', step: Gtk.ScrollStep, num: number): void;
-            connect(signal: 'populate-context', callback: (_source: this, context: CompletionContext) => void): number;
-            connect_after(
-                signal: 'populate-context',
-                callback: (_source: this, context: CompletionContext) => void,
-            ): number;
-            emit(signal: 'populate-context', context: CompletionContext): void;
-            connect(signal: 'show', callback: (_source: this) => void): number;
-            connect_after(signal: 'show', callback: (_source: this) => void): number;
-            emit(signal: 'show'): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Completion.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Completion.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -1688,7 +1669,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -1816,7 +1811,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -1966,18 +1966,40 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module CompletionContext {
-            // Signal callback interfaces
-
-            interface Cancelled {
-                (): void;
+        namespace CompletionContext {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                cancelled: () => void;
+                'notify::activation': (pspec: GObject.ParamSpec) => void;
+                'notify::completion': (pspec: GObject.ParamSpec) => void;
+                'notify::iter': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -2009,6 +2031,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get iter(): Gtk.TextIter;
             set iter(val: Gtk.TextIter);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CompletionContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CompletionContext.ConstructorProps>, ...args: any[]);
@@ -2017,12 +2048,23 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'cancelled', callback: (_source: this) => void): number;
-            connect_after(signal: 'cancelled', callback: (_source: this) => void): number;
-            emit(signal: 'cancelled'): void;
+            connect<K extends keyof CompletionContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CompletionContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CompletionContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CompletionContext.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2059,11 +2101,85 @@ declare module 'gi://GtkSource?version=3.0' {
             get_iter(): [boolean, Gtk.TextIter];
         }
 
-        module CompletionInfo {
-            // Signal callback interfaces
-
-            interface BeforeShow {
-                (): void;
+        namespace CompletionInfo {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.Window.SignalSignatures {
+                'before-show': () => void;
+                'notify::accept-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::application': (pspec: GObject.ParamSpec) => void;
+                'notify::attached-to': (pspec: GObject.ParamSpec) => void;
+                'notify::decorated': (pspec: GObject.ParamSpec) => void;
+                'notify::default-height': (pspec: GObject.ParamSpec) => void;
+                'notify::default-width': (pspec: GObject.ParamSpec) => void;
+                'notify::deletable': (pspec: GObject.ParamSpec) => void;
+                'notify::destroy-with-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-map': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-visible': (pspec: GObject.ParamSpec) => void;
+                'notify::gravity': (pspec: GObject.ParamSpec) => void;
+                'notify::has-resize-grip': (pspec: GObject.ParamSpec) => void;
+                'notify::has-toplevel-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::hide-titlebar-when-maximized': (pspec: GObject.ParamSpec) => void;
+                'notify::icon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-name': (pspec: GObject.ParamSpec) => void;
+                'notify::is-active': (pspec: GObject.ParamSpec) => void;
+                'notify::is-maximized': (pspec: GObject.ParamSpec) => void;
+                'notify::mnemonics-visible': (pspec: GObject.ParamSpec) => void;
+                'notify::modal': (pspec: GObject.ParamSpec) => void;
+                'notify::resizable': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-grip-visible': (pspec: GObject.ParamSpec) => void;
+                'notify::role': (pspec: GObject.ParamSpec) => void;
+                'notify::screen': (pspec: GObject.ParamSpec) => void;
+                'notify::skip-pager-hint': (pspec: GObject.ParamSpec) => void;
+                'notify::skip-taskbar-hint': (pspec: GObject.ParamSpec) => void;
+                'notify::startup-id': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::transient-for': (pspec: GObject.ParamSpec) => void;
+                'notify::type': (pspec: GObject.ParamSpec) => void;
+                'notify::type-hint': (pspec: GObject.ParamSpec) => void;
+                'notify::urgency-hint': (pspec: GObject.ParamSpec) => void;
+                'notify::window-position': (pspec: GObject.ParamSpec) => void;
+                'notify::border-width': (pspec: GObject.ParamSpec) => void;
+                'notify::child': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::app-paintable': (pspec: GObject.ParamSpec) => void;
+                'notify::can-default': (pspec: GObject.ParamSpec) => void;
+                'notify::can-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::composite-child': (pspec: GObject.ParamSpec) => void;
+                'notify::double-buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::events': (pspec: GObject.ParamSpec) => void;
+                'notify::expand': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-click': (pspec: GObject.ParamSpec) => void;
+                'notify::halign': (pspec: GObject.ParamSpec) => void;
+                'notify::has-default': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::has-tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::height-request': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::is-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::margin': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-end': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-left': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-right': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-start': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-top': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::opacity': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::receives-default': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-markup': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-text': (pspec: GObject.ParamSpec) => void;
+                'notify::valign': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::width-request': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -2077,6 +2193,15 @@ declare module 'gi://GtkSource?version=3.0' {
         class CompletionInfo extends Gtk.Window implements Atk.ImplementorIface, Gtk.Buildable {
             static $gtype: GObject.GType<CompletionInfo>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CompletionInfo.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CompletionInfo.ConstructorProps>, ...args: any[]);
@@ -2087,12 +2212,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'before-show', callback: (_source: this) => void): number;
-            connect_after(signal: 'before-show', callback: (_source: this) => void): number;
-            emit(signal: 'before-show'): void;
+            connect<K extends keyof CompletionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CompletionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CompletionInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CompletionInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2240,7 +2374,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -2368,7 +2516,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -2518,14 +2671,45 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module CompletionItem {
+        namespace CompletionItem {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::gicon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-name': (pspec: GObject.ParamSpec) => void;
+                'notify::info': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::markup': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, CompletionProposal.ConstructorProps {
@@ -2586,6 +2770,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get text(): string;
             set text(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CompletionItem.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CompletionItem.ConstructorProps>, ...args: any[]);
@@ -2612,6 +2805,24 @@ declare module 'gi://GtkSource?version=3.0' {
                 icon?: GdkPixbuf.Pixbuf | null,
                 info?: string | null,
             ): CompletionItem;
+
+            // Signals
+
+            connect<K extends keyof CompletionItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionItem.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CompletionItem.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionItem.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CompletionItem.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CompletionItem.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2878,7 +3089,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -3006,7 +3231,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -3156,14 +3386,46 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module CompletionWords {
+        namespace CompletionWords {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::activation': (pspec: GObject.ParamSpec) => void;
+                'notify::icon': (pspec: GObject.ParamSpec) => void;
+                'notify::interactive-delay': (pspec: GObject.ParamSpec) => void;
+                'notify::minimum-word-size': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::priority': (pspec: GObject.ParamSpec) => void;
+                'notify::proposals-batch-size': (pspec: GObject.ParamSpec) => void;
+                'notify::scan-batch-size': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps, CompletionProvider.ConstructorProps {
@@ -3215,6 +3477,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get scanBatchSize(): number;
             set scanBatchSize(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: CompletionWords.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<CompletionWords.ConstructorProps>, ...args: any[]);
@@ -3222,6 +3493,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](name?: string | null, icon?: GdkPixbuf.Pixbuf | null): CompletionWords;
+
+            // Signals
+
+            connect<K extends keyof CompletionWords.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionWords.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CompletionWords.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CompletionWords.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CompletionWords.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CompletionWords.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3585,7 +3876,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -3713,7 +4018,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -3863,14 +4173,43 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module File {
+        namespace File {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::compression-type': (pspec: GObject.ParamSpec) => void;
+                'notify::encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::newline-type': (pspec: GObject.ParamSpec) => void;
+                'notify::read-only': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -3927,6 +4266,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get readOnly(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: File.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<File.ConstructorProps>, ...args: any[]);
@@ -3934,6 +4282,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): File;
+
+            // Signals
+
+            connect<K extends keyof File.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, File.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof File.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, File.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof File.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<File.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -3998,7 +4364,15 @@ declare module 'gi://GtkSource?version=3.0' {
             set_location(location?: Gio.File | null): void;
         }
 
-        module FileLoader {
+        namespace FileLoader {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::file': (pspec: GObject.ParamSpec) => void;
+                'notify::input-stream': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4042,6 +4416,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get location(): Gio.File;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FileLoader.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<FileLoader.ConstructorProps>, ...args: any[]);
@@ -4051,6 +4434,24 @@ declare module 'gi://GtkSource?version=3.0' {
             static ['new'](buffer: Buffer, file: File): FileLoader;
 
             static new_from_stream(buffer: Buffer, file: File, stream: Gio.InputStream): FileLoader;
+
+            // Signals
+
+            connect<K extends keyof FileLoader.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FileLoader.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FileLoader.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FileLoader.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FileLoader.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FileLoader.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4075,7 +4476,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 cancellable?: Gio.Cancellable | null,
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Loads asynchronously the file or input stream contents into the
              * #GtkSourceBuffer. See the #GAsyncResult documentation to know how to use this
@@ -4109,7 +4510,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes a file loading started with gtk_source_file_loader_load_async().
              *
@@ -4137,7 +4538,18 @@ declare module 'gi://GtkSource?version=3.0' {
             set_candidate_encodings(candidate_encodings: Encoding[]): void;
         }
 
-        module FileSaver {
+        namespace FileSaver {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::compression-type': (pspec: GObject.ParamSpec) => void;
+                'notify::encoding': (pspec: GObject.ParamSpec) => void;
+                'notify::file': (pspec: GObject.ParamSpec) => void;
+                'notify::flags': (pspec: GObject.ParamSpec) => void;
+                'notify::location': (pspec: GObject.ParamSpec) => void;
+                'notify::newline-type': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4204,6 +4616,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get newlineType(): NewlineType;
             set newlineType(val: NewlineType);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: FileSaver.SignalSignatures;
+
             // Fields
 
             object: GObject.Object;
@@ -4217,6 +4638,24 @@ declare module 'gi://GtkSource?version=3.0' {
             static ['new'](buffer: Buffer, file: File): FileSaver;
 
             static new_with_target(buffer: Buffer, file: File, target_location: Gio.File): FileSaver;
+
+            // Signals
+
+            connect<K extends keyof FileSaver.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FileSaver.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FileSaver.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FileSaver.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FileSaver.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FileSaver.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4240,7 +4679,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 cancellable?: Gio.Cancellable | null,
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
-            ): Promise<boolean>;
+            ): globalThis.Promise<boolean>;
             /**
              * Saves asynchronously the buffer into the file. See the #GAsyncResult
              * documentation to know how to use this function.
@@ -4272,7 +4711,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 progress_callback?: Gio.FileProgressCallback | null,
                 progress_callback_notify?: GLib.DestroyNotify | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<boolean> | void;
+            ): globalThis.Promise<boolean> | void;
             /**
              * Finishes a file saving started with gtk_source_file_saver_save_async().
              *
@@ -4307,7 +4746,15 @@ declare module 'gi://GtkSource?version=3.0' {
             set_newline_type(newline_type: NewlineType | null): void;
         }
 
-        module Gutter {
+        namespace Gutter {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::window-type': (pspec: GObject.ParamSpec) => void;
+                'notify::xpad': (pspec: GObject.ParamSpec) => void;
+                'notify::ypad': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -4347,11 +4794,38 @@ declare module 'gi://GtkSource?version=3.0' {
             get ypad(): number;
             set ypad(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Gutter.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Gutter.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Gutter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Gutter.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Gutter.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Gutter.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Gutter.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Gutter.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4399,27 +4873,31 @@ declare module 'gi://GtkSource?version=3.0' {
             set_padding(xpad: number, ypad: number): void;
         }
 
-        module GutterRenderer {
-            // Signal callback interfaces
-
-            interface Activate {
-                (iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event): void;
-            }
-
-            interface QueryActivatable {
-                (iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event): boolean;
-            }
-
-            interface QueryData {
-                (start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState): void;
-            }
-
-            interface QueryTooltip {
-                (iter: Gtk.TextIter, area: Gdk.Rectangle, x: number, y: number, tooltip: Gtk.Tooltip): boolean;
-            }
-
-            interface QueueDraw {
-                (): void;
+        namespace GutterRenderer {
+            // Signal signatures
+            interface SignalSignatures extends GObject.InitiallyUnowned.SignalSignatures {
+                activate: (arg0: Gtk.TextIter, arg1: Gdk.Rectangle, arg2: Gdk.Event) => void;
+                'query-activatable': (arg0: Gtk.TextIter, arg1: Gdk.Rectangle, arg2: Gdk.Event) => boolean | void;
+                'query-data': (arg0: Gtk.TextIter, arg1: Gtk.TextIter, arg2: GutterRendererState) => void;
+                'query-tooltip': (
+                    arg0: Gtk.TextIter,
+                    arg1: Gdk.Rectangle,
+                    arg2: number,
+                    arg3: number,
+                    arg4: Gtk.Tooltip,
+                ) => boolean | void;
+                'queue-draw': () => void;
+                'notify::alignment-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::background-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::window-type': (pspec: GObject.ParamSpec) => void;
+                'notify::xalign': (pspec: GObject.ParamSpec) => void;
+                'notify::xpad': (pspec: GObject.ParamSpec) => void;
+                'notify::yalign': (pspec: GObject.ParamSpec) => void;
+                'notify::ypad': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -4518,6 +4996,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get ypad(): number;
             set ypad(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GutterRenderer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GutterRenderer.ConstructorProps>, ...args: any[]);
@@ -4526,69 +5013,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(
-                signal: 'activate',
-                callback: (_source: this, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => void,
+            connect<K extends keyof GutterRenderer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRenderer.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'activate',
-                callback: (_source: this, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GutterRenderer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRenderer.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'activate', iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event): void;
-            connect(
-                signal: 'query-activatable',
-                callback: (_source: this, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => boolean,
-            ): number;
-            connect_after(
-                signal: 'query-activatable',
-                callback: (_source: this, iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event) => boolean,
-            ): number;
-            emit(signal: 'query-activatable', iter: Gtk.TextIter, area: Gdk.Rectangle, event: Gdk.Event): void;
-            connect(
-                signal: 'query-data',
-                callback: (_source: this, start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState) => void,
-            ): number;
-            connect_after(
-                signal: 'query-data',
-                callback: (_source: this, start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState) => void,
-            ): number;
-            emit(signal: 'query-data', start: Gtk.TextIter, end: Gtk.TextIter, state: GutterRendererState): void;
-            connect(
-                signal: 'query-tooltip',
-                callback: (
-                    _source: this,
-                    iter: Gtk.TextIter,
-                    area: Gdk.Rectangle,
-                    x: number,
-                    y: number,
-                    tooltip: Gtk.Tooltip,
-                ) => boolean,
-            ): number;
-            connect_after(
-                signal: 'query-tooltip',
-                callback: (
-                    _source: this,
-                    iter: Gtk.TextIter,
-                    area: Gdk.Rectangle,
-                    x: number,
-                    y: number,
-                    tooltip: Gtk.Tooltip,
-                ) => boolean,
-            ): number;
-            emit(
-                signal: 'query-tooltip',
-                iter: Gtk.TextIter,
-                area: Gdk.Rectangle,
-                x: number,
-                y: number,
-                tooltip: Gtk.Tooltip,
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GutterRenderer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GutterRenderer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
             ): void;
-            connect(signal: 'queue-draw', callback: (_source: this) => void): number;
-            connect_after(signal: 'queue-draw', callback: (_source: this) => void): number;
-            emit(signal: 'queue-draw'): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -4889,7 +5328,26 @@ declare module 'gi://GtkSource?version=3.0' {
             set_visible(visible: boolean): void;
         }
 
-        module GutterRendererPixbuf {
+        namespace GutterRendererPixbuf {
+            // Signal signatures
+            interface SignalSignatures extends GutterRenderer.SignalSignatures {
+                'notify::gicon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-name': (pspec: GObject.ParamSpec) => void;
+                'notify::pixbuf': (pspec: GObject.ParamSpec) => void;
+                'notify::stock-id': (pspec: GObject.ParamSpec) => void;
+                'notify::alignment-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::background-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::window-type': (pspec: GObject.ParamSpec) => void;
+                'notify::xalign': (pspec: GObject.ParamSpec) => void;
+                'notify::xpad': (pspec: GObject.ParamSpec) => void;
+                'notify::yalign': (pspec: GObject.ParamSpec) => void;
+                'notify::ypad': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GutterRenderer.ConstructorProps {
@@ -4926,6 +5384,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get stockId(): string;
             set stockId(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GutterRendererPixbuf.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GutterRendererPixbuf.ConstructorProps>, ...args: any[]);
@@ -4933,6 +5400,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): GutterRendererPixbuf;
+
+            // Signals
+
+            connect<K extends keyof GutterRendererPixbuf.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRendererPixbuf.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GutterRendererPixbuf.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRendererPixbuf.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GutterRendererPixbuf.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GutterRendererPixbuf.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4954,7 +5441,24 @@ declare module 'gi://GtkSource?version=3.0' {
             set_stock_id(stock_id?: string | null): void;
         }
 
-        module GutterRendererText {
+        namespace GutterRendererText {
+            // Signal signatures
+            interface SignalSignatures extends GutterRenderer.SignalSignatures {
+                'notify::markup': (pspec: GObject.ParamSpec) => void;
+                'notify::text': (pspec: GObject.ParamSpec) => void;
+                'notify::alignment-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::background-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::window-type': (pspec: GObject.ParamSpec) => void;
+                'notify::xalign': (pspec: GObject.ParamSpec) => void;
+                'notify::xpad': (pspec: GObject.ParamSpec) => void;
+                'notify::yalign': (pspec: GObject.ParamSpec) => void;
+                'notify::ypad': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GutterRenderer.ConstructorProps {
@@ -4973,6 +5477,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get text(): string;
             set text(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GutterRendererText.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GutterRendererText.ConstructorProps>, ...args: any[]);
@@ -4980,6 +5493,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): GutterRendererText;
+
+            // Signals
+
+            connect<K extends keyof GutterRendererText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRendererText.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GutterRendererText.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GutterRendererText.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GutterRendererText.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GutterRendererText.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -4999,7 +5532,15 @@ declare module 'gi://GtkSource?version=3.0' {
             set_text(text: string, length: number): void;
         }
 
-        module Language {
+        namespace Language {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::section': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5020,11 +5561,38 @@ declare module 'gi://GtkSource?version=3.0' {
             get name(): string;
             get section(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Language.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Language.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Language.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Language.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Language.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Language.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Language.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Language.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5092,7 +5660,13 @@ declare module 'gi://GtkSource?version=3.0' {
             get_style_name(style_id: string): string | null;
         }
 
-        module LanguageManager {
+        namespace LanguageManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::language-ids': (pspec: GObject.ParamSpec) => void;
+                'notify::search-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -5115,6 +5689,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get searchPath(): string[];
             set searchPath(val: string[]);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: LanguageManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<LanguageManager.ConstructorProps>, ...args: any[]);
@@ -5122,6 +5705,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): LanguageManager;
+
+            // Signals
+
+            connect<K extends keyof LanguageManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LanguageManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof LanguageManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, LanguageManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof LanguageManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<LanguageManager.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -5205,7 +5808,92 @@ declare module 'gi://GtkSource?version=3.0' {
             set_search_path(dirs?: string[] | null): void;
         }
 
-        module Map {
+        namespace Map {
+            // Signal signatures
+            interface SignalSignatures extends View.SignalSignatures {
+                'notify::font-desc': (pspec: GObject.ParamSpec) => void;
+                'notify::view': (pspec: GObject.ParamSpec) => void;
+                'notify::auto-indent': (pspec: GObject.ParamSpec) => void;
+                'notify::background-pattern': (pspec: GObject.ParamSpec) => void;
+                'notify::completion': (pspec: GObject.ParamSpec) => void;
+                'notify::draw-spaces': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight-current-line': (pspec: GObject.ParamSpec) => void;
+                'notify::indent-on-tab': (pspec: GObject.ParamSpec) => void;
+                'notify::indent-width': (pspec: GObject.ParamSpec) => void;
+                'notify::insert-spaces-instead-of-tabs': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin-position': (pspec: GObject.ParamSpec) => void;
+                'notify::show-line-marks': (pspec: GObject.ParamSpec) => void;
+                'notify::show-line-numbers': (pspec: GObject.ParamSpec) => void;
+                'notify::show-right-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::smart-backspace': (pspec: GObject.ParamSpec) => void;
+                'notify::smart-home-end': (pspec: GObject.ParamSpec) => void;
+                'notify::space-drawer': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-width': (pspec: GObject.ParamSpec) => void;
+                'notify::accepts-tab': (pspec: GObject.ParamSpec) => void;
+                'notify::bottom-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::cursor-visible': (pspec: GObject.ParamSpec) => void;
+                'notify::editable': (pspec: GObject.ParamSpec) => void;
+                'notify::im-module': (pspec: GObject.ParamSpec) => void;
+                'notify::indent': (pspec: GObject.ParamSpec) => void;
+                'notify::input-hints': (pspec: GObject.ParamSpec) => void;
+                'notify::input-purpose': (pspec: GObject.ParamSpec) => void;
+                'notify::justification': (pspec: GObject.ParamSpec) => void;
+                'notify::left-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::monospace': (pspec: GObject.ParamSpec) => void;
+                'notify::overwrite': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-above-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-below-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-inside-wrap': (pspec: GObject.ParamSpec) => void;
+                'notify::populate-all': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::tabs': (pspec: GObject.ParamSpec) => void;
+                'notify::top-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::border-width': (pspec: GObject.ParamSpec) => void;
+                'notify::child': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::app-paintable': (pspec: GObject.ParamSpec) => void;
+                'notify::can-default': (pspec: GObject.ParamSpec) => void;
+                'notify::can-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::composite-child': (pspec: GObject.ParamSpec) => void;
+                'notify::double-buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::events': (pspec: GObject.ParamSpec) => void;
+                'notify::expand': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-click': (pspec: GObject.ParamSpec) => void;
+                'notify::halign': (pspec: GObject.ParamSpec) => void;
+                'notify::has-default': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::has-tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::height-request': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::is-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::margin': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-end': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-left': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-right': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-start': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-top': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::opacity': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::receives-default': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-markup': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-text': (pspec: GObject.ParamSpec) => void;
+                'notify::valign': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::width-request': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -5231,6 +5919,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get view(): View;
             set view(val: View);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Map.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Map.ConstructorProps>, ...args: any[]);
@@ -5238,6 +5935,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Map;
+
+            // Signals
+
+            connect<K extends keyof Map.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Map.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Map.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Map.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Map.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Map.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5370,7 +6085,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -5498,7 +6227,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -5648,14 +6382,41 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module Mark {
+        namespace Mark {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.TextMark.SignalSignatures {
+                'notify::category': (pspec: GObject.ParamSpec) => void;
+                'notify::left-gravity': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.TextMark.ConstructorProps {
@@ -5674,6 +6435,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get category(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Mark.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Mark.ConstructorProps>, ...args: any[]);
@@ -5684,6 +6454,24 @@ declare module 'gi://GtkSource?version=3.0' {
             // Conflicted with Gtk.TextMark.new
 
             static ['new'](...args: never[]): any;
+
+            // Signals
+
+            connect<K extends keyof Mark.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Mark.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Mark.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Mark.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Mark.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Mark.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5712,15 +6500,16 @@ declare module 'gi://GtkSource?version=3.0' {
             prev(category: string): Mark | null;
         }
 
-        module MarkAttributes {
-            // Signal callback interfaces
-
-            interface QueryTooltipMarkup {
-                (mark: Mark): string;
-            }
-
-            interface QueryTooltipText {
-                (mark: Mark): string;
+        namespace MarkAttributes {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'query-tooltip-markup': (arg0: Mark) => string;
+                'query-tooltip-text': (arg0: Mark) => string;
+                'notify::background': (pspec: GObject.ParamSpec) => void;
+                'notify::gicon': (pspec: GObject.ParamSpec) => void;
+                'notify::icon-name': (pspec: GObject.ParamSpec) => void;
+                'notify::pixbuf': (pspec: GObject.ParamSpec) => void;
+                'notify::stock-id': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -5777,6 +6566,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get stockId(): string;
             set stockId(val: string);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: MarkAttributes.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<MarkAttributes.ConstructorProps>, ...args: any[]);
@@ -5787,15 +6585,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'query-tooltip-markup', callback: (_source: this, mark: Mark) => string): number;
-            connect_after(signal: 'query-tooltip-markup', callback: (_source: this, mark: Mark) => string): number;
-            emit(signal: 'query-tooltip-markup', mark: Mark): void;
-            connect(signal: 'query-tooltip-text', callback: (_source: this, mark: Mark) => string): number;
-            connect_after(signal: 'query-tooltip-text', callback: (_source: this, mark: Mark) => string): number;
-            emit(signal: 'query-tooltip-text', mark: Mark): void;
+            connect<K extends keyof MarkAttributes.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MarkAttributes.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof MarkAttributes.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, MarkAttributes.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof MarkAttributes.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<MarkAttributes.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -5882,7 +6686,23 @@ declare module 'gi://GtkSource?version=3.0' {
             set_stock_id(stock_id: string): void;
         }
 
-        module PrintCompositor {
+        namespace PrintCompositor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::body-font-name': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::footer-font-name': (pspec: GObject.ParamSpec) => void;
+                'notify::header-font-name': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight-syntax': (pspec: GObject.ParamSpec) => void;
+                'notify::line-numbers-font-name': (pspec: GObject.ParamSpec) => void;
+                'notify::n-pages': (pspec: GObject.ParamSpec) => void;
+                'notify::print-footer': (pspec: GObject.ParamSpec) => void;
+                'notify::print-header': (pspec: GObject.ParamSpec) => void;
+                'notify::print-line-numbers': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-width': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-mode': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6150,6 +6970,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get wrapMode(): Gtk.WrapMode;
             set wrapMode(val: Gtk.WrapMode);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: PrintCompositor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<PrintCompositor.ConstructorProps>, ...args: any[]);
@@ -6159,6 +6988,26 @@ declare module 'gi://GtkSource?version=3.0' {
             static ['new'](buffer: Buffer): PrintCompositor;
 
             static new_from_view(view: View): PrintCompositor;
+
+            // Signals
+
+            connect<K extends keyof PrintCompositor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PrintCompositor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PrintCompositor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PrintCompositor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PrintCompositor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PrintCompositor.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6557,7 +7406,12 @@ declare module 'gi://GtkSource?version=3.0' {
             set_wrap_mode(wrap_mode: Gtk.WrapMode | null): void;
         }
 
-        module Region {
+        namespace Region {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6576,6 +7430,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get buffer(): Gtk.TextBuffer;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Region.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Region.ConstructorProps>, ...args: any[]);
@@ -6583,6 +7446,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](buffer: Gtk.TextBuffer): Region;
+
+            // Signals
+
+            connect<K extends keyof Region.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Region.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Region.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Region.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Region.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Region.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6650,7 +7531,17 @@ declare module 'gi://GtkSource?version=3.0' {
             to_string(): string | null;
         }
 
-        module SearchContext {
+        namespace SearchContext {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight': (pspec: GObject.ParamSpec) => void;
+                'notify::match-style': (pspec: GObject.ParamSpec) => void;
+                'notify::occurrences-count': (pspec: GObject.ParamSpec) => void;
+                'notify::regex-error': (pspec: GObject.ParamSpec) => void;
+                'notify::settings': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6722,6 +7613,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get settings(): SearchSettings;
             set settings(val: SearchSettings);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SearchContext.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SearchContext.ConstructorProps>, ...args: any[]);
@@ -6729,6 +7629,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](buffer: Buffer, settings?: SearchSettings | null): SearchContext;
+
+            // Signals
+
+            connect<K extends keyof SearchContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SearchContext.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SearchContext.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SearchContext.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SearchContext.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SearchContext.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6775,7 +7693,7 @@ declare module 'gi://GtkSource?version=3.0' {
             backward_async(
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null]>;
+            ): globalThis.Promise<[Gtk.TextIter | null, Gtk.TextIter | null]>;
             /**
              * The asynchronous version of gtk_source_search_context_backward2().
              *
@@ -6815,7 +7733,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null]> | void;
+            ): globalThis.Promise<[Gtk.TextIter | null, Gtk.TextIter | null]> | void;
             /**
              * Finishes a backward search started with
              * gtk_source_search_context_backward_async().
@@ -6876,7 +7794,7 @@ declare module 'gi://GtkSource?version=3.0' {
             forward_async(
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
-            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null]>;
+            ): globalThis.Promise<[Gtk.TextIter | null, Gtk.TextIter | null]>;
             /**
              * The asynchronous version of gtk_source_search_context_forward2().
              *
@@ -6916,7 +7834,7 @@ declare module 'gi://GtkSource?version=3.0' {
                 iter: Gtk.TextIter,
                 cancellable?: Gio.Cancellable | null,
                 callback?: Gio.AsyncReadyCallback<this> | null,
-            ): Promise<[Gtk.TextIter | null, Gtk.TextIter | null]> | void;
+            ): globalThis.Promise<[Gtk.TextIter | null, Gtk.TextIter | null]> | void;
             /**
              * Finishes a forward search started with
              * gtk_source_search_context_forward_async().
@@ -7040,7 +7958,16 @@ declare module 'gi://GtkSource?version=3.0' {
             set_settings(settings?: SearchSettings | null): void;
         }
 
-        module SearchSettings {
+        namespace SearchSettings {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::at-word-boundaries': (pspec: GObject.ParamSpec) => void;
+                'notify::case-sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::regex-enabled': (pspec: GObject.ParamSpec) => void;
+                'notify::search-text': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-around': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7125,6 +8052,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get wrapAround(): boolean;
             set wrapAround(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SearchSettings.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SearchSettings.ConstructorProps>, ...args: any[]);
@@ -7132,6 +8068,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): SearchSettings;
+
+            // Signals
+
+            connect<K extends keyof SearchSettings.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SearchSettings.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SearchSettings.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SearchSettings.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SearchSettings.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SearchSettings.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7191,7 +8145,13 @@ declare module 'gi://GtkSource?version=3.0' {
             set_wrap_around(wrap_around: boolean): void;
         }
 
-        module SpaceDrawer {
+        namespace SpaceDrawer {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::enable-matrix': (pspec: GObject.ParamSpec) => void;
+                'notify::matrix': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7234,6 +8194,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get matrix(): GLib.Variant;
             set matrix(val: GLib.Variant);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: SpaceDrawer.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<SpaceDrawer.ConstructorProps>, ...args: any[]);
@@ -7241,6 +8210,24 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): SpaceDrawer;
+
+            // Signals
+
+            connect<K extends keyof SpaceDrawer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SpaceDrawer.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SpaceDrawer.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SpaceDrawer.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SpaceDrawer.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SpaceDrawer.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7307,7 +8294,30 @@ declare module 'gi://GtkSource?version=3.0' {
             set_types_for_locations(locations: SpaceLocationFlags | null, types: SpaceTypeFlags | null): void;
         }
 
-        module Style {
+        namespace Style {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::background': (pspec: GObject.ParamSpec) => void;
+                'notify::background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::bold': (pspec: GObject.ParamSpec) => void;
+                'notify::bold-set': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground-set': (pspec: GObject.ParamSpec) => void;
+                'notify::italic': (pspec: GObject.ParamSpec) => void;
+                'notify::italic-set': (pspec: GObject.ParamSpec) => void;
+                'notify::line-background': (pspec: GObject.ParamSpec) => void;
+                'notify::line-background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::pango-underline': (pspec: GObject.ParamSpec) => void;
+                'notify::scale': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-set': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough-set': (pspec: GObject.ParamSpec) => void;
+                'notify::underline': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-color': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-color-set': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-set': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7382,11 +8392,38 @@ declare module 'gi://GtkSource?version=3.0' {
             get underline_set(): boolean;
             get underlineSet(): boolean;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Style.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Style.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Style.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Style.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Style.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Style.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Style.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Style.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7409,7 +8446,15 @@ declare module 'gi://GtkSource?version=3.0' {
             copy(): Style;
         }
 
-        module StyleScheme {
+        namespace StyleScheme {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::filename': (pspec: GObject.ParamSpec) => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -7443,6 +8488,15 @@ declare module 'gi://GtkSource?version=3.0' {
              */
             get name(): string;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StyleScheme.SignalSignatures;
+
             // Fields
 
             base: GObject.Object;
@@ -7452,6 +8506,24 @@ declare module 'gi://GtkSource?version=3.0' {
             constructor(properties?: Partial<StyleScheme.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof StyleScheme.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleScheme.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StyleScheme.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleScheme.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StyleScheme.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StyleScheme.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7463,7 +8535,67 @@ declare module 'gi://GtkSource?version=3.0' {
             get_style(style_id: string): Style | null;
         }
 
-        module StyleSchemeChooserButton {
+        namespace StyleSchemeChooserButton {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.Button.SignalSignatures {
+                'notify::always-show-image': (pspec: GObject.ParamSpec) => void;
+                'notify::image': (pspec: GObject.ParamSpec) => void;
+                'notify::image-position': (pspec: GObject.ParamSpec) => void;
+                'notify::label': (pspec: GObject.ParamSpec) => void;
+                'notify::relief': (pspec: GObject.ParamSpec) => void;
+                'notify::use-stock': (pspec: GObject.ParamSpec) => void;
+                'notify::use-underline': (pspec: GObject.ParamSpec) => void;
+                'notify::xalign': (pspec: GObject.ParamSpec) => void;
+                'notify::yalign': (pspec: GObject.ParamSpec) => void;
+                'notify::border-width': (pspec: GObject.ParamSpec) => void;
+                'notify::child': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::app-paintable': (pspec: GObject.ParamSpec) => void;
+                'notify::can-default': (pspec: GObject.ParamSpec) => void;
+                'notify::can-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::composite-child': (pspec: GObject.ParamSpec) => void;
+                'notify::double-buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::events': (pspec: GObject.ParamSpec) => void;
+                'notify::expand': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-click': (pspec: GObject.ParamSpec) => void;
+                'notify::halign': (pspec: GObject.ParamSpec) => void;
+                'notify::has-default': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::has-tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::height-request': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::is-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::margin': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-end': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-left': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-right': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-start': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-top': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::opacity': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::receives-default': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-markup': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-text': (pspec: GObject.ParamSpec) => void;
+                'notify::valign': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::width-request': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+                'notify::action-name': (pspec: GObject.ParamSpec) => void;
+                'notify::action-target': (pspec: GObject.ParamSpec) => void;
+                'notify::related-action': (pspec: GObject.ParamSpec) => void;
+                'notify::use-action-appearance': (pspec: GObject.ParamSpec) => void;
+                'notify::style-scheme': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -7481,6 +8613,15 @@ declare module 'gi://GtkSource?version=3.0' {
         {
             static $gtype: GObject.GType<StyleSchemeChooserButton>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StyleSchemeChooserButton.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<StyleSchemeChooserButton.ConstructorProps>, ...args: any[]);
@@ -7488,6 +8629,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): StyleSchemeChooserButton;
+
+            // Signals
+
+            connect<K extends keyof StyleSchemeChooserButton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeChooserButton.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StyleSchemeChooserButton.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeChooserButton.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StyleSchemeChooserButton.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StyleSchemeChooserButton.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             get action_name(): string;
@@ -8245,7 +9406,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -8373,7 +9548,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -8523,11 +9703,31 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
             /**
              * For widgets that can be “activated” (buttons, menu items, etc.)
              * this function activates them. Activation is what happens when you
@@ -12004,7 +13204,54 @@ declare module 'gi://GtkSource?version=3.0' {
             vfunc_window_state_event(event: Gdk.EventWindowState): boolean;
         }
 
-        module StyleSchemeChooserWidget {
+        namespace StyleSchemeChooserWidget {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.Bin.SignalSignatures {
+                'notify::border-width': (pspec: GObject.ParamSpec) => void;
+                'notify::child': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::app-paintable': (pspec: GObject.ParamSpec) => void;
+                'notify::can-default': (pspec: GObject.ParamSpec) => void;
+                'notify::can-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::composite-child': (pspec: GObject.ParamSpec) => void;
+                'notify::double-buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::events': (pspec: GObject.ParamSpec) => void;
+                'notify::expand': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-click': (pspec: GObject.ParamSpec) => void;
+                'notify::halign': (pspec: GObject.ParamSpec) => void;
+                'notify::has-default': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::has-tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::height-request': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::is-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::margin': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-end': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-left': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-right': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-start': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-top': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::opacity': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::receives-default': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-markup': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-text': (pspec: GObject.ParamSpec) => void;
+                'notify::valign': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::width-request': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+                'notify::style-scheme': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -12020,6 +13267,15 @@ declare module 'gi://GtkSource?version=3.0' {
         {
             static $gtype: GObject.GType<StyleSchemeChooserWidget>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StyleSchemeChooserWidget.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<StyleSchemeChooserWidget.ConstructorProps>, ...args: any[]);
@@ -12027,6 +13283,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): StyleSchemeChooserWidget;
+
+            // Signals
+
+            connect<K extends keyof StyleSchemeChooserWidget.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeChooserWidget.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StyleSchemeChooserWidget.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeChooserWidget.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StyleSchemeChooserWidget.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StyleSchemeChooserWidget.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             /**
@@ -12181,7 +13457,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -12309,7 +13599,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -12459,14 +13754,40 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module StyleSchemeManager {
+        namespace StyleSchemeManager {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::scheme-ids': (pspec: GObject.ParamSpec) => void;
+                'notify::search-path': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -12489,6 +13810,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get searchPath(): string[];
             set searchPath(val: string[]);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StyleSchemeManager.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<StyleSchemeManager.ConstructorProps>, ...args: any[]);
@@ -12496,6 +13826,26 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): StyleSchemeManager;
+
+            // Signals
+
+            connect<K extends keyof StyleSchemeManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeManager.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StyleSchemeManager.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StyleSchemeManager.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StyleSchemeManager.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StyleSchemeManager.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -12552,7 +13902,87 @@ declare module 'gi://GtkSource?version=3.0' {
             set_search_path(path?: string[] | null): void;
         }
 
-        module Tag {
+        namespace Tag {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.TextTag.SignalSignatures {
+                'notify::draw-spaces': (pspec: GObject.ParamSpec) => void;
+                'notify::draw-spaces-set': (pspec: GObject.ParamSpec) => void;
+                'notify::accumulative-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::background': (pspec: GObject.ParamSpec) => void;
+                'notify::background-full-height': (pspec: GObject.ParamSpec) => void;
+                'notify::background-full-height-set': (pspec: GObject.ParamSpec) => void;
+                'notify::background-gdk': (pspec: GObject.ParamSpec) => void;
+                'notify::background-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::direction': (pspec: GObject.ParamSpec) => void;
+                'notify::editable': (pspec: GObject.ParamSpec) => void;
+                'notify::editable-set': (pspec: GObject.ParamSpec) => void;
+                'notify::fallback': (pspec: GObject.ParamSpec) => void;
+                'notify::fallback-set': (pspec: GObject.ParamSpec) => void;
+                'notify::family': (pspec: GObject.ParamSpec) => void;
+                'notify::family-set': (pspec: GObject.ParamSpec) => void;
+                'notify::font': (pspec: GObject.ParamSpec) => void;
+                'notify::font-desc': (pspec: GObject.ParamSpec) => void;
+                'notify::font-features': (pspec: GObject.ParamSpec) => void;
+                'notify::font-features-set': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground-gdk': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::foreground-set': (pspec: GObject.ParamSpec) => void;
+                'notify::indent': (pspec: GObject.ParamSpec) => void;
+                'notify::indent-set': (pspec: GObject.ParamSpec) => void;
+                'notify::invisible': (pspec: GObject.ParamSpec) => void;
+                'notify::invisible-set': (pspec: GObject.ParamSpec) => void;
+                'notify::justification': (pspec: GObject.ParamSpec) => void;
+                'notify::justification-set': (pspec: GObject.ParamSpec) => void;
+                'notify::language': (pspec: GObject.ParamSpec) => void;
+                'notify::language-set': (pspec: GObject.ParamSpec) => void;
+                'notify::left-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::left-margin-set': (pspec: GObject.ParamSpec) => void;
+                'notify::letter-spacing': (pspec: GObject.ParamSpec) => void;
+                'notify::letter-spacing-set': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::paragraph-background': (pspec: GObject.ParamSpec) => void;
+                'notify::paragraph-background-gdk': (pspec: GObject.ParamSpec) => void;
+                'notify::paragraph-background-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::paragraph-background-set': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-above-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-above-lines-set': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-below-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-below-lines-set': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-inside-wrap': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-inside-wrap-set': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin-set': (pspec: GObject.ParamSpec) => void;
+                'notify::rise': (pspec: GObject.ParamSpec) => void;
+                'notify::rise-set': (pspec: GObject.ParamSpec) => void;
+                'notify::scale': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-set': (pspec: GObject.ParamSpec) => void;
+                'notify::size': (pspec: GObject.ParamSpec) => void;
+                'notify::size-points': (pspec: GObject.ParamSpec) => void;
+                'notify::size-set': (pspec: GObject.ParamSpec) => void;
+                'notify::stretch': (pspec: GObject.ParamSpec) => void;
+                'notify::stretch-set': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough-rgba-set': (pspec: GObject.ParamSpec) => void;
+                'notify::strikethrough-set': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::style-set': (pspec: GObject.ParamSpec) => void;
+                'notify::tabs': (pspec: GObject.ParamSpec) => void;
+                'notify::tabs-set': (pspec: GObject.ParamSpec) => void;
+                'notify::underline': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-rgba': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-rgba-set': (pspec: GObject.ParamSpec) => void;
+                'notify::underline-set': (pspec: GObject.ParamSpec) => void;
+                'notify::variant': (pspec: GObject.ParamSpec) => void;
+                'notify::variant-set': (pspec: GObject.ParamSpec) => void;
+                'notify::weight': (pspec: GObject.ParamSpec) => void;
+                'notify::weight-set': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-mode-set': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Gtk.TextTag.ConstructorProps {
@@ -12601,6 +14031,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get drawSpacesSet(): boolean;
             set drawSpacesSet(val: boolean);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Tag.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Tag.ConstructorProps>, ...args: any[]);
@@ -12608,53 +14047,123 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](name?: string | null): Tag;
+
+            // Signals
+
+            connect<K extends keyof Tag.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Tag.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Tag.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Tag.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Tag.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Tag.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module View {
-            // Signal callback interfaces
-
-            interface ChangeCase {
-                (case_type: ChangeCaseType): void;
-            }
-
-            interface ChangeNumber {
-                (count: number): void;
-            }
-
-            interface JoinLines {
-                (): void;
-            }
-
-            interface LineMarkActivated {
-                (iter: Gtk.TextIter, event: Gdk.Event): void;
-            }
-
-            interface MoveLines {
-                (copy: boolean, count: number): void;
-            }
-
-            interface MoveToMatchingBracket {
-                (extend_selection: boolean): void;
-            }
-
-            interface MoveWords {
-                (count: number): void;
-            }
-
-            interface Redo {
-                (): void;
-            }
-
-            interface ShowCompletion {
-                (): void;
-            }
-
-            interface SmartHomeEnd {
-                (iter: Gtk.TextIter, count: number): void;
-            }
-
-            interface Undo {
-                (): void;
+        namespace View {
+            // Signal signatures
+            interface SignalSignatures extends Gtk.TextView.SignalSignatures {
+                'change-case': (arg0: ChangeCaseType) => void;
+                'change-number': (arg0: number) => void;
+                'join-lines': () => void;
+                'line-mark-activated': (arg0: Gtk.TextIter, arg1: Gdk.Event) => void;
+                'move-lines': (arg0: boolean, arg1: number) => void;
+                'move-to-matching-bracket': (arg0: boolean) => void;
+                'move-words': (arg0: number) => void;
+                redo: () => void;
+                'show-completion': () => void;
+                'smart-home-end': (arg0: Gtk.TextIter, arg1: number) => void;
+                undo: () => void;
+                'notify::auto-indent': (pspec: GObject.ParamSpec) => void;
+                'notify::background-pattern': (pspec: GObject.ParamSpec) => void;
+                'notify::completion': (pspec: GObject.ParamSpec) => void;
+                'notify::draw-spaces': (pspec: GObject.ParamSpec) => void;
+                'notify::highlight-current-line': (pspec: GObject.ParamSpec) => void;
+                'notify::indent-on-tab': (pspec: GObject.ParamSpec) => void;
+                'notify::indent-width': (pspec: GObject.ParamSpec) => void;
+                'notify::insert-spaces-instead-of-tabs': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin-position': (pspec: GObject.ParamSpec) => void;
+                'notify::show-line-marks': (pspec: GObject.ParamSpec) => void;
+                'notify::show-line-numbers': (pspec: GObject.ParamSpec) => void;
+                'notify::show-right-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::smart-backspace': (pspec: GObject.ParamSpec) => void;
+                'notify::smart-home-end': (pspec: GObject.ParamSpec) => void;
+                'notify::space-drawer': (pspec: GObject.ParamSpec) => void;
+                'notify::tab-width': (pspec: GObject.ParamSpec) => void;
+                'notify::accepts-tab': (pspec: GObject.ParamSpec) => void;
+                'notify::bottom-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::buffer': (pspec: GObject.ParamSpec) => void;
+                'notify::cursor-visible': (pspec: GObject.ParamSpec) => void;
+                'notify::editable': (pspec: GObject.ParamSpec) => void;
+                'notify::im-module': (pspec: GObject.ParamSpec) => void;
+                'notify::indent': (pspec: GObject.ParamSpec) => void;
+                'notify::input-hints': (pspec: GObject.ParamSpec) => void;
+                'notify::input-purpose': (pspec: GObject.ParamSpec) => void;
+                'notify::justification': (pspec: GObject.ParamSpec) => void;
+                'notify::left-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::monospace': (pspec: GObject.ParamSpec) => void;
+                'notify::overwrite': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-above-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-below-lines': (pspec: GObject.ParamSpec) => void;
+                'notify::pixels-inside-wrap': (pspec: GObject.ParamSpec) => void;
+                'notify::populate-all': (pspec: GObject.ParamSpec) => void;
+                'notify::right-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::tabs': (pspec: GObject.ParamSpec) => void;
+                'notify::top-margin': (pspec: GObject.ParamSpec) => void;
+                'notify::wrap-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::border-width': (pspec: GObject.ParamSpec) => void;
+                'notify::child': (pspec: GObject.ParamSpec) => void;
+                'notify::resize-mode': (pspec: GObject.ParamSpec) => void;
+                'notify::app-paintable': (pspec: GObject.ParamSpec) => void;
+                'notify::can-default': (pspec: GObject.ParamSpec) => void;
+                'notify::can-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::composite-child': (pspec: GObject.ParamSpec) => void;
+                'notify::double-buffered': (pspec: GObject.ParamSpec) => void;
+                'notify::events': (pspec: GObject.ParamSpec) => void;
+                'notify::expand': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-on-click': (pspec: GObject.ParamSpec) => void;
+                'notify::halign': (pspec: GObject.ParamSpec) => void;
+                'notify::has-default': (pspec: GObject.ParamSpec) => void;
+                'notify::has-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::has-tooltip': (pspec: GObject.ParamSpec) => void;
+                'notify::height-request': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::hexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::is-focus': (pspec: GObject.ParamSpec) => void;
+                'notify::margin': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-end': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-left': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-right': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-start': (pspec: GObject.ParamSpec) => void;
+                'notify::margin-top': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::no-show-all': (pspec: GObject.ParamSpec) => void;
+                'notify::opacity': (pspec: GObject.ParamSpec) => void;
+                'notify::parent': (pspec: GObject.ParamSpec) => void;
+                'notify::receives-default': (pspec: GObject.ParamSpec) => void;
+                'notify::scale-factor': (pspec: GObject.ParamSpec) => void;
+                'notify::sensitive': (pspec: GObject.ParamSpec) => void;
+                'notify::style': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-markup': (pspec: GObject.ParamSpec) => void;
+                'notify::tooltip-text': (pspec: GObject.ParamSpec) => void;
+                'notify::valign': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand': (pspec: GObject.ParamSpec) => void;
+                'notify::vexpand-set': (pspec: GObject.ParamSpec) => void;
+                'notify::visible': (pspec: GObject.ParamSpec) => void;
+                'notify::width-request': (pspec: GObject.ParamSpec) => void;
+                'notify::window': (pspec: GObject.ParamSpec) => void;
+                'notify::hadjustment': (pspec: GObject.ParamSpec) => void;
+                'notify::hscroll-policy': (pspec: GObject.ParamSpec) => void;
+                'notify::vadjustment': (pspec: GObject.ParamSpec) => void;
+                'notify::vscroll-policy': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -12838,6 +14347,15 @@ declare module 'gi://GtkSource?version=3.0' {
             get tabWidth(): number;
             set tabWidth(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: View.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<View.ConstructorProps>, ...args: any[]);
@@ -12850,63 +14368,21 @@ declare module 'gi://GtkSource?version=3.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'change-case', callback: (_source: this, case_type: ChangeCaseType) => void): number;
-            connect_after(signal: 'change-case', callback: (_source: this, case_type: ChangeCaseType) => void): number;
-            emit(signal: 'change-case', case_type: ChangeCaseType): void;
-            connect(signal: 'change-number', callback: (_source: this, count: number) => void): number;
-            connect_after(signal: 'change-number', callback: (_source: this, count: number) => void): number;
-            emit(signal: 'change-number', count: number): void;
-            connect(signal: 'join-lines', callback: (_source: this) => void): number;
-            connect_after(signal: 'join-lines', callback: (_source: this) => void): number;
-            emit(signal: 'join-lines'): void;
-            connect(
-                signal: 'line-mark-activated',
-                callback: (_source: this, iter: Gtk.TextIter, event: Gdk.Event) => void,
+            connect<K extends keyof View.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, View.SignalSignatures[K]>,
             ): number;
-            connect_after(
-                signal: 'line-mark-activated',
-                callback: (_source: this, iter: Gtk.TextIter, event: Gdk.Event) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof View.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, View.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'line-mark-activated', iter: Gtk.TextIter, event: Gdk.Event): void;
-            connect(signal: 'move-lines', callback: (_source: this, copy: boolean, count: number) => void): number;
-            connect_after(
-                signal: 'move-lines',
-                callback: (_source: this, copy: boolean, count: number) => void,
-            ): number;
-            emit(signal: 'move-lines', copy: boolean, count: number): void;
-            connect(
-                signal: 'move-to-matching-bracket',
-                callback: (_source: this, extend_selection: boolean) => void,
-            ): number;
-            connect_after(
-                signal: 'move-to-matching-bracket',
-                callback: (_source: this, extend_selection: boolean) => void,
-            ): number;
-            emit(signal: 'move-to-matching-bracket', extend_selection: boolean): void;
-            connect(signal: 'move-words', callback: (_source: this, count: number) => void): number;
-            connect_after(signal: 'move-words', callback: (_source: this, count: number) => void): number;
-            emit(signal: 'move-words', count: number): void;
-            connect(signal: 'redo', callback: (_source: this) => void): number;
-            connect_after(signal: 'redo', callback: (_source: this) => void): number;
-            emit(signal: 'redo'): void;
-            connect(signal: 'show-completion', callback: (_source: this) => void): number;
-            connect_after(signal: 'show-completion', callback: (_source: this) => void): number;
-            emit(signal: 'show-completion'): void;
-            connect(
-                signal: 'smart-home-end',
-                callback: (_source: this, iter: Gtk.TextIter, count: number) => void,
-            ): number;
-            connect_after(
-                signal: 'smart-home-end',
-                callback: (_source: this, iter: Gtk.TextIter, count: number) => void,
-            ): number;
-            emit(signal: 'smart-home-end', iter: Gtk.TextIter, count: number): void;
-            connect(signal: 'undo', callback: (_source: this) => void): number;
-            connect_after(signal: 'undo', callback: (_source: this) => void): number;
-            emit(signal: 'undo'): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof View.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<View.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -13384,7 +14860,21 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -13512,7 +15002,12 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -13662,11 +15157,31 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
         type BufferClass = typeof Buffer;
@@ -13981,7 +15496,76 @@ declare module 'gi://GtkSource?version=3.0' {
             _init(...args: any[]): void;
         }
 
-        module CompletionProposal {
+        namespace CompletionProposal {
+            /**
+             * Interface for implementing CompletionProposal.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Emits the "changed" signal on `proposal`. This should be called by
+                 * implementations whenever the name, icon or info of the proposal has
+                 * changed.
+                 */
+                vfunc_changed(): void;
+                /**
+                 * Get whether two proposal objects are the same.  This is used to (together
+                 * with gtk_source_completion_proposal_hash()) to match proposals in the
+                 * completion model. By default, it uses direct equality (g_direct_equal()).
+                 * @param other a #GtkSourceCompletionProposal.
+                 */
+                vfunc_equal(other: CompletionProposal): boolean;
+                /**
+                 * Gets the #GIcon for the icon of `proposal`.
+                 */
+                vfunc_get_gicon(): Gio.Icon | null;
+                /**
+                 * Gets the #GdkPixbuf for the icon of `proposal`.
+                 */
+                vfunc_get_icon(): GdkPixbuf.Pixbuf | null;
+                /**
+                 * Gets the icon name of `proposal`.
+                 */
+                vfunc_get_icon_name(): string | null;
+                /**
+                 * Gets extra information associated to the proposal. This information will be
+                 * used to present the user with extra, detailed information about the
+                 * selected proposal. The returned string must be freed with g_free().
+                 */
+                vfunc_get_info(): string | null;
+                /**
+                 * Gets the label of `proposal`. The label is shown in the list of proposals as
+                 * plain text. If you need any markup (such as bold or italic text), you have
+                 * to implement gtk_source_completion_proposal_get_markup(). The returned string
+                 * must be freed with g_free().
+                 */
+                vfunc_get_label(): string;
+                /**
+                 * Gets the label of `proposal` with markup. The label is shown in the list of
+                 * proposals and may contain markup. This will be used instead of
+                 * gtk_source_completion_proposal_get_label() if implemented. The returned string
+                 * must be freed with g_free().
+                 */
+                vfunc_get_markup(): string;
+                /**
+                 * Gets the text of `proposal`. The text that is inserted into
+                 * the text buffer when the proposal is activated by the default activation.
+                 * You are free to implement a custom activation handler in the provider and
+                 * not implement this function. For more information, see
+                 * gtk_source_completion_provider_activate_proposal(). The returned string must
+                 * be freed with g_free().
+                 */
+                vfunc_get_text(): string;
+                /**
+                 * Get the hash value of `proposal`. This is used to (together with
+                 * gtk_source_completion_proposal_equal()) to match proposals in the completion
+                 * model. By default, it uses a direct hash (g_direct_hash()).
+                 */
+                vfunc_hash(): number;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -13991,7 +15575,7 @@ declare module 'gi://GtkSource?version=3.0' {
             $gtype: GObject.GType<CompletionProposal>;
             prototype: CompletionProposal;
         }
-        interface CompletionProposal extends GObject.Object {
+        interface CompletionProposal extends GObject.Object, CompletionProposal.Interface {
             // Methods
 
             /**
@@ -14063,76 +15647,132 @@ declare module 'gi://GtkSource?version=3.0' {
              * @returns The hash value of @proposal.
              */
             hash(): number;
-
-            // Virtual methods
-
-            /**
-             * Emits the "changed" signal on `proposal`. This should be called by
-             * implementations whenever the name, icon or info of the proposal has
-             * changed.
-             */
-            vfunc_changed(): void;
-            /**
-             * Get whether two proposal objects are the same.  This is used to (together
-             * with gtk_source_completion_proposal_hash()) to match proposals in the
-             * completion model. By default, it uses direct equality (g_direct_equal()).
-             * @param other a #GtkSourceCompletionProposal.
-             */
-            vfunc_equal(other: CompletionProposal): boolean;
-            /**
-             * Gets the #GIcon for the icon of `proposal`.
-             */
-            vfunc_get_gicon(): Gio.Icon | null;
-            /**
-             * Gets the #GdkPixbuf for the icon of `proposal`.
-             */
-            vfunc_get_icon(): GdkPixbuf.Pixbuf | null;
-            /**
-             * Gets the icon name of `proposal`.
-             */
-            vfunc_get_icon_name(): string | null;
-            /**
-             * Gets extra information associated to the proposal. This information will be
-             * used to present the user with extra, detailed information about the
-             * selected proposal. The returned string must be freed with g_free().
-             */
-            vfunc_get_info(): string | null;
-            /**
-             * Gets the label of `proposal`. The label is shown in the list of proposals as
-             * plain text. If you need any markup (such as bold or italic text), you have
-             * to implement gtk_source_completion_proposal_get_markup(). The returned string
-             * must be freed with g_free().
-             */
-            vfunc_get_label(): string;
-            /**
-             * Gets the label of `proposal` with markup. The label is shown in the list of
-             * proposals and may contain markup. This will be used instead of
-             * gtk_source_completion_proposal_get_label() if implemented. The returned string
-             * must be freed with g_free().
-             */
-            vfunc_get_markup(): string;
-            /**
-             * Gets the text of `proposal`. The text that is inserted into
-             * the text buffer when the proposal is activated by the default activation.
-             * You are free to implement a custom activation handler in the provider and
-             * not implement this function. For more information, see
-             * gtk_source_completion_provider_activate_proposal(). The returned string must
-             * be freed with g_free().
-             */
-            vfunc_get_text(): string;
-            /**
-             * Get the hash value of `proposal`. This is used to (together with
-             * gtk_source_completion_proposal_equal()) to match proposals in the completion
-             * model. By default, it uses a direct hash (g_direct_hash()).
-             */
-            vfunc_hash(): number;
         }
 
         export const CompletionProposal: CompletionProposalNamespace & {
             new (): CompletionProposal; // This allows `obj instanceof CompletionProposal`
         };
 
-        module CompletionProvider {
+        namespace CompletionProvider {
+            /**
+             * Interface for implementing CompletionProvider.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Activate `proposal` at `iter`. When this functions returns %FALSE, the default
+                 * activation of `proposal` will take place which replaces the word at `iter`
+                 * with the text of `proposal` (see gtk_source_completion_proposal_get_text()).
+                 *
+                 * Here is how the default activation selects the boundaries of the word to
+                 * replace. The end of the word is `iter`. For the start of the word, it depends
+                 * on whether a start iter is defined for `proposal` (see
+                 * gtk_source_completion_provider_get_start_iter()). If a start iter is defined,
+                 * the start of the word is the start iter. Else, the word (as long as possible)
+                 * will contain only alphanumerical and the "_" characters.
+                 * @param proposal a #GtkSourceCompletionProposal.
+                 * @param iter a #GtkTextIter.
+                 */
+                vfunc_activate_proposal(proposal: CompletionProposal, iter: Gtk.TextIter): boolean;
+                /**
+                 * Get with what kind of activation the provider should be activated.
+                 */
+                vfunc_get_activation(): CompletionActivation;
+                /**
+                 * Gets the #GIcon for the icon of `provider`.
+                 */
+                vfunc_get_gicon(): Gio.Icon | null;
+                /**
+                 * Get the #GdkPixbuf for the icon of the `provider`.
+                 */
+                vfunc_get_icon(): GdkPixbuf.Pixbuf | null;
+                /**
+                 * Gets the icon name of `provider`.
+                 */
+                vfunc_get_icon_name(): string | null;
+                /**
+                 * Get a customized info widget to show extra information of a proposal.
+                 * This allows for customized widgets on a proposal basis, although in general
+                 * providers will have the same custom widget for all their proposals and
+                 * `proposal` can be ignored. The implementation of this function is optional.
+                 *
+                 * If this function is not implemented, the default widget is a #GtkLabel. The
+                 * return value of gtk_source_completion_proposal_get_info() is used as the
+                 * content of the #GtkLabel.
+                 *
+                 * <note>
+                 *   <para>
+                 *     If implemented, gtk_source_completion_provider_update_info()
+                 *     <emphasis>must</emphasis> also be implemented.
+                 *   </para>
+                 * </note>
+                 * @param proposal a currently selected #GtkSourceCompletionProposal.
+                 */
+                vfunc_get_info_widget(proposal: CompletionProposal): Gtk.Widget | null;
+                /**
+                 * Get the delay in milliseconds before starting interactive completion for
+                 * this provider. A value of -1 indicates to use the default value as set
+                 * by the #GtkSourceCompletion:auto-complete-delay property.
+                 */
+                vfunc_get_interactive_delay(): number;
+                /**
+                 * Get the name of the provider. This should be a translatable name for
+                 * display to the user. For example: _("Document word completion provider"). The
+                 * returned string must be freed with g_free().
+                 */
+                vfunc_get_name(): string;
+                /**
+                 * Get the provider priority. The priority determines the order in which
+                 * proposals appear in the completion popup. Higher priorities are sorted
+                 * before lower priorities. The default priority is 0.
+                 */
+                vfunc_get_priority(): number;
+                /**
+                 * Get the #GtkTextIter at which the completion for `proposal` starts. When
+                 * implemented, this information is used to position the completion window
+                 * accordingly when a proposal is selected in the completion window. The
+                 * `proposal` text inside the completion window is aligned on `iter`.
+                 *
+                 * If this function is not implemented, the word boundary is taken to position
+                 * the completion window. See gtk_source_completion_provider_activate_proposal()
+                 * for an explanation on the word boundaries.
+                 *
+                 * When the `proposal` is activated, the default handler uses `iter` as the start
+                 * of the word to replace. See
+                 * gtk_source_completion_provider_activate_proposal() for more information.
+                 * @param context a #GtkSourceCompletionContext.
+                 * @param proposal a #GtkSourceCompletionProposal.
+                 */
+                vfunc_get_start_iter(context: CompletionContext, proposal: CompletionProposal): [boolean, Gtk.TextIter];
+                /**
+                 * Get whether the provider match the context of completion detailed in
+                 * `context`.
+                 * @param context a #GtkSourceCompletionContext.
+                 */
+                vfunc_match(context: CompletionContext): boolean;
+                /**
+                 * Populate `context` with proposals from `provider` added with the
+                 * gtk_source_completion_context_add_proposals() function.
+                 * @param context a #GtkSourceCompletionContext.
+                 */
+                vfunc_populate(context: CompletionContext): void;
+                /**
+                 * Update extra information shown in `info` for `proposal`.
+                 *
+                 * <note>
+                 *   <para>
+                 *     This function <emphasis>must</emphasis> be implemented when
+                 *     gtk_source_completion_provider_get_info_widget() is implemented.
+                 *   </para>
+                 * </note>
+                 * @param proposal a #GtkSourceCompletionProposal.
+                 * @param info a #GtkSourceCompletionInfo.
+                 */
+                vfunc_update_info(proposal: CompletionProposal, info: CompletionInfo): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -14142,7 +15782,7 @@ declare module 'gi://GtkSource?version=3.0' {
             $gtype: GObject.GType<CompletionProvider>;
             prototype: CompletionProvider;
         }
-        interface CompletionProvider extends GObject.Object {
+        interface CompletionProvider extends GObject.Object, CompletionProvider.Interface {
             // Methods
 
             /**
@@ -14266,126 +15906,31 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param info a #GtkSourceCompletionInfo.
              */
             update_info(proposal: CompletionProposal, info: CompletionInfo): void;
-
-            // Virtual methods
-
-            /**
-             * Activate `proposal` at `iter`. When this functions returns %FALSE, the default
-             * activation of `proposal` will take place which replaces the word at `iter`
-             * with the text of `proposal` (see gtk_source_completion_proposal_get_text()).
-             *
-             * Here is how the default activation selects the boundaries of the word to
-             * replace. The end of the word is `iter`. For the start of the word, it depends
-             * on whether a start iter is defined for `proposal` (see
-             * gtk_source_completion_provider_get_start_iter()). If a start iter is defined,
-             * the start of the word is the start iter. Else, the word (as long as possible)
-             * will contain only alphanumerical and the "_" characters.
-             * @param proposal a #GtkSourceCompletionProposal.
-             * @param iter a #GtkTextIter.
-             */
-            vfunc_activate_proposal(proposal: CompletionProposal, iter: Gtk.TextIter): boolean;
-            /**
-             * Get with what kind of activation the provider should be activated.
-             */
-            vfunc_get_activation(): CompletionActivation;
-            /**
-             * Gets the #GIcon for the icon of `provider`.
-             */
-            vfunc_get_gicon(): Gio.Icon | null;
-            /**
-             * Get the #GdkPixbuf for the icon of the `provider`.
-             */
-            vfunc_get_icon(): GdkPixbuf.Pixbuf | null;
-            /**
-             * Gets the icon name of `provider`.
-             */
-            vfunc_get_icon_name(): string | null;
-            /**
-             * Get a customized info widget to show extra information of a proposal.
-             * This allows for customized widgets on a proposal basis, although in general
-             * providers will have the same custom widget for all their proposals and
-             * `proposal` can be ignored. The implementation of this function is optional.
-             *
-             * If this function is not implemented, the default widget is a #GtkLabel. The
-             * return value of gtk_source_completion_proposal_get_info() is used as the
-             * content of the #GtkLabel.
-             *
-             * <note>
-             *   <para>
-             *     If implemented, gtk_source_completion_provider_update_info()
-             *     <emphasis>must</emphasis> also be implemented.
-             *   </para>
-             * </note>
-             * @param proposal a currently selected #GtkSourceCompletionProposal.
-             */
-            vfunc_get_info_widget(proposal: CompletionProposal): Gtk.Widget | null;
-            /**
-             * Get the delay in milliseconds before starting interactive completion for
-             * this provider. A value of -1 indicates to use the default value as set
-             * by the #GtkSourceCompletion:auto-complete-delay property.
-             */
-            vfunc_get_interactive_delay(): number;
-            /**
-             * Get the name of the provider. This should be a translatable name for
-             * display to the user. For example: _("Document word completion provider"). The
-             * returned string must be freed with g_free().
-             */
-            vfunc_get_name(): string;
-            /**
-             * Get the provider priority. The priority determines the order in which
-             * proposals appear in the completion popup. Higher priorities are sorted
-             * before lower priorities. The default priority is 0.
-             */
-            vfunc_get_priority(): number;
-            /**
-             * Get the #GtkTextIter at which the completion for `proposal` starts. When
-             * implemented, this information is used to position the completion window
-             * accordingly when a proposal is selected in the completion window. The
-             * `proposal` text inside the completion window is aligned on `iter`.
-             *
-             * If this function is not implemented, the word boundary is taken to position
-             * the completion window. See gtk_source_completion_provider_activate_proposal()
-             * for an explanation on the word boundaries.
-             *
-             * When the `proposal` is activated, the default handler uses `iter` as the start
-             * of the word to replace. See
-             * gtk_source_completion_provider_activate_proposal() for more information.
-             * @param context a #GtkSourceCompletionContext.
-             * @param proposal a #GtkSourceCompletionProposal.
-             */
-            vfunc_get_start_iter(context: CompletionContext, proposal: CompletionProposal): [boolean, Gtk.TextIter];
-            /**
-             * Get whether the provider match the context of completion detailed in
-             * `context`.
-             * @param context a #GtkSourceCompletionContext.
-             */
-            vfunc_match(context: CompletionContext): boolean;
-            /**
-             * Populate `context` with proposals from `provider` added with the
-             * gtk_source_completion_context_add_proposals() function.
-             * @param context a #GtkSourceCompletionContext.
-             */
-            vfunc_populate(context: CompletionContext): void;
-            /**
-             * Update extra information shown in `info` for `proposal`.
-             *
-             * <note>
-             *   <para>
-             *     This function <emphasis>must</emphasis> be implemented when
-             *     gtk_source_completion_provider_get_info_widget() is implemented.
-             *   </para>
-             * </note>
-             * @param proposal a #GtkSourceCompletionProposal.
-             * @param info a #GtkSourceCompletionInfo.
-             */
-            vfunc_update_info(proposal: CompletionProposal, info: CompletionInfo): void;
         }
 
         export const CompletionProvider: CompletionProviderNamespace & {
             new (): CompletionProvider; // This allows `obj instanceof CompletionProvider`
         };
 
-        module StyleSchemeChooser {
+        namespace StyleSchemeChooser {
+            /**
+             * Interface for implementing StyleSchemeChooser.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the currently-selected scheme.
+                 */
+                vfunc_get_style_scheme(): StyleScheme;
+                /**
+                 * Sets the scheme.
+                 * @param scheme a #GtkSourceStyleScheme
+                 */
+                vfunc_set_style_scheme(scheme: StyleScheme): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -14398,7 +15943,7 @@ declare module 'gi://GtkSource?version=3.0' {
             $gtype: GObject.GType<StyleSchemeChooser>;
             prototype: StyleSchemeChooser;
         }
-        interface StyleSchemeChooser extends GObject.Object {
+        interface StyleSchemeChooser extends GObject.Object, StyleSchemeChooser.Interface {
             // Properties
 
             /**
@@ -14428,25 +15973,60 @@ declare module 'gi://GtkSource?version=3.0' {
              * @param scheme a #GtkSourceStyleScheme
              */
             set_style_scheme(scheme: StyleScheme): void;
-
-            // Virtual methods
-
-            /**
-             * Gets the currently-selected scheme.
-             */
-            vfunc_get_style_scheme(): StyleScheme;
-            /**
-             * Sets the scheme.
-             * @param scheme a #GtkSourceStyleScheme
-             */
-            vfunc_set_style_scheme(scheme: StyleScheme): void;
         }
 
         export const StyleSchemeChooser: StyleSchemeChooserNamespace & {
             new (): StyleSchemeChooser; // This allows `obj instanceof StyleSchemeChooser`
         };
 
-        module UndoManager {
+        namespace UndoManager {
+            /**
+             * Interface for implementing UndoManager.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Begin a not undoable action on the buffer. All changes between this call
+                 * and the call to gtk_source_undo_manager_end_not_undoable_action() cannot
+                 * be undone. This function should be re-entrant.
+                 */
+                vfunc_begin_not_undoable_action(): void;
+                /**
+                 * Get whether there are redo operations available.
+                 */
+                vfunc_can_redo(): boolean;
+                /**
+                 * Emits the #GtkSourceUndoManager::can-redo-changed signal.
+                 */
+                vfunc_can_redo_changed(): void;
+                /**
+                 * Get whether there are undo operations available.
+                 */
+                vfunc_can_undo(): boolean;
+                /**
+                 * Emits the #GtkSourceUndoManager::can-undo-changed signal.
+                 */
+                vfunc_can_undo_changed(): void;
+                /**
+                 * Ends a not undoable action on the buffer.
+                 */
+                vfunc_end_not_undoable_action(): void;
+                /**
+                 * Perform a single redo. Calling this function when there are no redo operations
+                 * available is an error. Use gtk_source_undo_manager_can_redo() to find out
+                 * if there are redo operations available.
+                 */
+                vfunc_redo(): void;
+                /**
+                 * Perform a single undo. Calling this function when there are no undo operations
+                 * available is an error. Use gtk_source_undo_manager_can_undo() to find out
+                 * if there are undo operations available.
+                 */
+                vfunc_undo(): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -14456,7 +16036,7 @@ declare module 'gi://GtkSource?version=3.0' {
             $gtype: GObject.GType<UndoManager>;
             prototype: UndoManager;
         }
-        interface UndoManager extends GObject.Object {
+        interface UndoManager extends GObject.Object, UndoManager.Interface {
             // Methods
 
             /**
@@ -14499,47 +16079,6 @@ declare module 'gi://GtkSource?version=3.0' {
              * if there are undo operations available.
              */
             undo(): void;
-
-            // Virtual methods
-
-            /**
-             * Begin a not undoable action on the buffer. All changes between this call
-             * and the call to gtk_source_undo_manager_end_not_undoable_action() cannot
-             * be undone. This function should be re-entrant.
-             */
-            vfunc_begin_not_undoable_action(): void;
-            /**
-             * Get whether there are redo operations available.
-             */
-            vfunc_can_redo(): boolean;
-            /**
-             * Emits the #GtkSourceUndoManager::can-redo-changed signal.
-             */
-            vfunc_can_redo_changed(): void;
-            /**
-             * Get whether there are undo operations available.
-             */
-            vfunc_can_undo(): boolean;
-            /**
-             * Emits the #GtkSourceUndoManager::can-undo-changed signal.
-             */
-            vfunc_can_undo_changed(): void;
-            /**
-             * Ends a not undoable action on the buffer.
-             */
-            vfunc_end_not_undoable_action(): void;
-            /**
-             * Perform a single redo. Calling this function when there are no redo operations
-             * available is an error. Use gtk_source_undo_manager_can_redo() to find out
-             * if there are redo operations available.
-             */
-            vfunc_redo(): void;
-            /**
-             * Perform a single undo. Calling this function when there are no undo operations
-             * available is an error. Use gtk_source_undo_manager_can_undo() to find out
-             * if there are undo operations available.
-             */
-            vfunc_undo(): void;
         }
 
         export const UndoManager: UndoManagerNamespace & {

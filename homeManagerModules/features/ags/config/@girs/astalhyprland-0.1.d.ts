@@ -30,12 +30,33 @@ declare module 'gi://AstalHyprland?version=0.1' {
 
         enum MonitorTransform {
             NORMAL,
+            /**
+             * rotate by 90° counter clockwise
+             */
             ROTATE_90_DEG,
+            /**
+             * rotate by 180°
+             */
             ROTATE_180_DEG,
+            /**
+             * rotate by 270° counter clockwise
+             */
             ROTATE_270_DEG,
+            /**
+             * mirror both axis
+             */
             FLIPPED,
+            /**
+             * flip and rotate by 90°
+             */
             FLIPPED_ROTATE_90_DEG,
+            /**
+             * flip and rotate by 180°
+             */
             FLIPPED_ROTATE_180_DEG,
+            /**
+             * flip and rotate by 270°
+             */
             FLIPPED_ROTATE_270_DEG,
         }
         const MAJOR_VERSION: number;
@@ -54,15 +75,32 @@ declare module 'gi://AstalHyprland?version=0.1' {
             MAXIMIZED,
             FULLSCREEN,
         }
-        module Client {
-            // Signal callback interfaces
-
-            interface Removed {
-                (): void;
-            }
-
-            interface MovedTo {
-                (workspace: Workspace): void;
+        namespace Client {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                removed: () => void;
+                'moved-to': (arg0: Workspace) => void;
+                'notify::address': (pspec: GObject.ParamSpec) => void;
+                'notify::mapped': (pspec: GObject.ParamSpec) => void;
+                'notify::hidden': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::workspace': (pspec: GObject.ParamSpec) => void;
+                'notify::floating': (pspec: GObject.ParamSpec) => void;
+                'notify::monitor': (pspec: GObject.ParamSpec) => void;
+                'notify::class': (pspec: GObject.ParamSpec) => void;
+                'notify::title': (pspec: GObject.ParamSpec) => void;
+                'notify::initial-class': (pspec: GObject.ParamSpec) => void;
+                'notify::initial-title': (pspec: GObject.ParamSpec) => void;
+                'notify::pid': (pspec: GObject.ParamSpec) => void;
+                'notify::xwayland': (pspec: GObject.ParamSpec) => void;
+                'notify::pinned': (pspec: GObject.ParamSpec) => void;
+                'notify::fullscreen': (pspec: GObject.ParamSpec) => void;
+                'notify::fullscreen-client': (pspec: GObject.ParamSpec) => void;
+                'notify::swallowing': (pspec: GObject.ParamSpec) => void;
+                'notify::focus-history-id': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -152,6 +190,15 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get focusHistoryId(): number;
             set focusHistoryId(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Client.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Client.ConstructorProps>, ...args: any[]);
@@ -162,15 +209,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'removed', callback: (_source: this) => void): number;
-            connect_after(signal: 'removed', callback: (_source: this) => void): number;
-            emit(signal: 'removed'): void;
-            connect(signal: 'moved-to', callback: (_source: this, workspace: Workspace) => void): number;
-            connect_after(signal: 'moved-to', callback: (_source: this, workspace: Workspace) => void): number;
-            emit(signal: 'moved-to', workspace: Workspace): void;
+            connect<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Client.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Client.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Client.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -201,63 +254,31 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get_focus_history_id(): number;
         }
 
-        module Hyprland {
-            // Signal callback interfaces
-
-            interface Event {
-                (event: string, args: string): void;
-            }
-
-            interface Minimize {
-                (client: Client, minimize: boolean): void;
-            }
-
-            interface Floating {
-                (client: Client, floating: boolean): void;
-            }
-
-            interface Urgent {
-                (client: Client): void;
-            }
-
-            interface ClientMoved {
-                (client: Client, ws: Workspace): void;
-            }
-
-            interface Submap {
-                (name: string): void;
-            }
-
-            interface KeyboardLayout {
-                (keyboard: string, layout: string): void;
-            }
-
-            interface ConfigReloaded {
-                (): void;
-            }
-
-            interface ClientAdded {
-                (client: Client): void;
-            }
-
-            interface ClientRemoved {
-                (address: string): void;
-            }
-
-            interface WorkspaceAdded {
-                (workspace: Workspace): void;
-            }
-
-            interface WorkspaceRemoved {
-                (id: number): void;
-            }
-
-            interface MonitorAdded {
-                (monitor: Monitor): void;
-            }
-
-            interface MonitorRemoved {
-                (id: number): void;
+        namespace Hyprland {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                event: (arg0: string, arg1: string) => void;
+                minimize: (arg0: Client, arg1: boolean) => void;
+                floating: (arg0: Client, arg1: boolean) => void;
+                urgent: (arg0: Client) => void;
+                'client-moved': (arg0: Client, arg1: Workspace) => void;
+                submap: (arg0: string) => void;
+                'keyboard-layout': (arg0: string, arg1: string) => void;
+                'config-reloaded': () => void;
+                'client-added': (arg0: Client) => void;
+                'client-removed': (arg0: string) => void;
+                'workspace-added': (arg0: Workspace) => void;
+                'workspace-removed': (arg0: number) => void;
+                'monitor-added': (arg0: Monitor) => void;
+                'monitor-removed': (arg0: number) => void;
+                'notify::monitors': (pspec: GObject.ParamSpec) => void;
+                'notify::workspaces': (pspec: GObject.ParamSpec) => void;
+                'notify::clients': (pspec: GObject.ParamSpec) => void;
+                'notify::focused-workspace': (pspec: GObject.ParamSpec) => void;
+                'notify::focused-monitor': (pspec: GObject.ParamSpec) => void;
+                'notify::focused-client': (pspec: GObject.ParamSpec) => void;
+                'notify::binds': (pspec: GObject.ParamSpec) => void;
+                'notify::cursor-position': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -302,6 +323,15 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get cursor_position(): Position;
             get cursorPosition(): Position;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Hyprland.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Hyprland.ConstructorProps>, ...args: any[]);
@@ -312,66 +342,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'event', callback: (_source: this, event: string, args: string) => void): number;
-            connect_after(signal: 'event', callback: (_source: this, event: string, args: string) => void): number;
-            emit(signal: 'event', event: string, args: string): void;
-            connect(signal: 'minimize', callback: (_source: this, client: Client, minimize: boolean) => void): number;
-            connect_after(
-                signal: 'minimize',
-                callback: (_source: this, client: Client, minimize: boolean) => void,
+            connect<K extends keyof Hyprland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyprland.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'minimize', client: Client, minimize: boolean): void;
-            connect(signal: 'floating', callback: (_source: this, client: Client, floating: boolean) => void): number;
-            connect_after(
-                signal: 'floating',
-                callback: (_source: this, client: Client, floating: boolean) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Hyprland.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyprland.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'floating', client: Client, floating: boolean): void;
-            connect(signal: 'urgent', callback: (_source: this, client: Client) => void): number;
-            connect_after(signal: 'urgent', callback: (_source: this, client: Client) => void): number;
-            emit(signal: 'urgent', client: Client): void;
-            connect(signal: 'client-moved', callback: (_source: this, client: Client, ws: Workspace) => void): number;
-            connect_after(
-                signal: 'client-moved',
-                callback: (_source: this, client: Client, ws: Workspace) => void,
-            ): number;
-            emit(signal: 'client-moved', client: Client, ws: Workspace): void;
-            connect(signal: 'submap', callback: (_source: this, name: string) => void): number;
-            connect_after(signal: 'submap', callback: (_source: this, name: string) => void): number;
-            emit(signal: 'submap', name: string): void;
-            connect(
-                signal: 'keyboard-layout',
-                callback: (_source: this, keyboard: string, layout: string) => void,
-            ): number;
-            connect_after(
-                signal: 'keyboard-layout',
-                callback: (_source: this, keyboard: string, layout: string) => void,
-            ): number;
-            emit(signal: 'keyboard-layout', keyboard: string, layout: string): void;
-            connect(signal: 'config-reloaded', callback: (_source: this) => void): number;
-            connect_after(signal: 'config-reloaded', callback: (_source: this) => void): number;
-            emit(signal: 'config-reloaded'): void;
-            connect(signal: 'client-added', callback: (_source: this, client: Client) => void): number;
-            connect_after(signal: 'client-added', callback: (_source: this, client: Client) => void): number;
-            emit(signal: 'client-added', client: Client): void;
-            connect(signal: 'client-removed', callback: (_source: this, address: string) => void): number;
-            connect_after(signal: 'client-removed', callback: (_source: this, address: string) => void): number;
-            emit(signal: 'client-removed', address: string): void;
-            connect(signal: 'workspace-added', callback: (_source: this, workspace: Workspace) => void): number;
-            connect_after(signal: 'workspace-added', callback: (_source: this, workspace: Workspace) => void): number;
-            emit(signal: 'workspace-added', workspace: Workspace): void;
-            connect(signal: 'workspace-removed', callback: (_source: this, id: number) => void): number;
-            connect_after(signal: 'workspace-removed', callback: (_source: this, id: number) => void): number;
-            emit(signal: 'workspace-removed', id: number): void;
-            connect(signal: 'monitor-added', callback: (_source: this, monitor: Monitor) => void): number;
-            connect_after(signal: 'monitor-added', callback: (_source: this, monitor: Monitor) => void): number;
-            emit(signal: 'monitor-added', monitor: Monitor): void;
-            connect(signal: 'monitor-removed', callback: (_source: this, id: number) => void): number;
-            connect_after(signal: 'monitor-removed', callback: (_source: this, id: number) => void): number;
-            emit(signal: 'monitor-removed', id: number): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Hyprland.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Hyprland.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -385,23 +370,26 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get_monitor_by_name(name: string): Monitor | null;
             get_workspace_by_name(name: string): Workspace | null;
             message(message: string): string;
-            message_async(message: string): Promise<string>;
+            message_async(message: string): globalThis.Promise<string>;
             message_async(message: string, _callback_: Gio.AsyncReadyCallback<this> | null): void;
-            message_async(message: string, _callback_?: Gio.AsyncReadyCallback<this> | null): Promise<string> | void;
+            message_async(
+                message: string,
+                _callback_?: Gio.AsyncReadyCallback<this> | null,
+            ): globalThis.Promise<string> | void;
             message_finish(_res_: Gio.AsyncResult): string;
             dispatch(dispatcher: string, args: string): void;
             move_cursor(x: number, y: number): void;
-            sync_monitors(): Promise<void>;
+            sync_monitors(): globalThis.Promise<void>;
             sync_monitors(_callback_: Gio.AsyncReadyCallback<this> | null): void;
-            sync_monitors(_callback_?: Gio.AsyncReadyCallback<this> | null): Promise<void> | void;
+            sync_monitors(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
             sync_monitors_finish(_res_: Gio.AsyncResult): void;
-            sync_workspaces(): Promise<void>;
+            sync_workspaces(): globalThis.Promise<void>;
             sync_workspaces(_callback_: Gio.AsyncReadyCallback<this> | null): void;
-            sync_workspaces(_callback_?: Gio.AsyncReadyCallback<this> | null): Promise<void> | void;
+            sync_workspaces(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
             sync_workspaces_finish(_res_: Gio.AsyncResult): void;
-            sync_clients(): Promise<void>;
+            sync_clients(): globalThis.Promise<void>;
             sync_clients(_callback_: Gio.AsyncReadyCallback<this> | null): void;
-            sync_clients(_callback_?: Gio.AsyncReadyCallback<this> | null): Promise<void> | void;
+            sync_clients(_callback_?: Gio.AsyncReadyCallback<this> | null): globalThis.Promise<void> | void;
             sync_clients_finish(_res_: Gio.AsyncResult): void;
             get_monitors(): Monitor[];
             get_workspaces(): Workspace[];
@@ -413,11 +401,36 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get_cursor_position(): Position;
         }
 
-        module Monitor {
-            // Signal callback interfaces
-
-            interface Removed {
-                (): void;
+        namespace Monitor {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                removed: () => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::make': (pspec: GObject.ParamSpec) => void;
+                'notify::model': (pspec: GObject.ParamSpec) => void;
+                'notify::serial': (pspec: GObject.ParamSpec) => void;
+                'notify::width': (pspec: GObject.ParamSpec) => void;
+                'notify::height': (pspec: GObject.ParamSpec) => void;
+                'notify::refresh-rate': (pspec: GObject.ParamSpec) => void;
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+                'notify::active-workspace': (pspec: GObject.ParamSpec) => void;
+                'notify::special-workspace': (pspec: GObject.ParamSpec) => void;
+                'notify::reserved-top': (pspec: GObject.ParamSpec) => void;
+                'notify::reserved-bottom': (pspec: GObject.ParamSpec) => void;
+                'notify::reserved-left': (pspec: GObject.ParamSpec) => void;
+                'notify::reserved-right': (pspec: GObject.ParamSpec) => void;
+                'notify::scale': (pspec: GObject.ParamSpec) => void;
+                'notify::transform': (pspec: GObject.ParamSpec) => void;
+                'notify::focused': (pspec: GObject.ParamSpec) => void;
+                'notify::dpms-status': (pspec: GObject.ParamSpec) => void;
+                'notify::vrr': (pspec: GObject.ParamSpec) => void;
+                'notify::actively-tearing': (pspec: GObject.ParamSpec) => void;
+                'notify::disabled': (pspec: GObject.ParamSpec) => void;
+                'notify::current-format': (pspec: GObject.ParamSpec) => void;
+                'notify::available-modes': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -543,6 +556,15 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get availableModes(): string[];
             set availableModes(val: string[]);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Monitor.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Monitor.ConstructorProps>, ...args: any[]);
@@ -553,12 +575,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'removed', callback: (_source: this) => void): number;
-            connect_after(signal: 'removed', callback: (_source: this) => void): number;
-            emit(signal: 'removed'): void;
+            connect<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Monitor.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Monitor.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Monitor.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -591,7 +622,26 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get_available_modes(): string[];
         }
 
-        module Bind {
+        namespace Bind {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::locked': (pspec: GObject.ParamSpec) => void;
+                'notify::mouse': (pspec: GObject.ParamSpec) => void;
+                'notify::release': (pspec: GObject.ParamSpec) => void;
+                'notify::repeat': (pspec: GObject.ParamSpec) => void;
+                'notify::long-press': (pspec: GObject.ParamSpec) => void;
+                'notify::non-consuming': (pspec: GObject.ParamSpec) => void;
+                'notify::has-description': (pspec: GObject.ParamSpec) => void;
+                'notify::modmask': (pspec: GObject.ParamSpec) => void;
+                'notify::submap': (pspec: GObject.ParamSpec) => void;
+                'notify::key': (pspec: GObject.ParamSpec) => void;
+                'notify::keycode': (pspec: GObject.ParamSpec) => void;
+                'notify::catch-all': (pspec: GObject.ParamSpec) => void;
+                'notify::description': (pspec: GObject.ParamSpec) => void;
+                'notify::dispatcher': (pspec: GObject.ParamSpec) => void;
+                'notify::arg': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -599,14 +649,19 @@ declare module 'gi://AstalHyprland?version=0.1' {
                 mouse: boolean;
                 release: boolean;
                 repeat: boolean;
+                long_press: boolean;
+                longPress: boolean;
                 non_consuming: boolean;
                 nonConsuming: boolean;
+                has_description: boolean;
+                hasDescription: boolean;
                 modmask: number;
                 submap: string;
                 key: string;
                 keycode: number;
                 catch_all: boolean;
                 catchAll: boolean;
+                description: string;
                 dispatcher: string;
                 arg: string;
             }
@@ -625,10 +680,18 @@ declare module 'gi://AstalHyprland?version=0.1' {
             set release(val: boolean);
             get repeat(): boolean;
             set repeat(val: boolean);
+            get long_press(): boolean;
+            set long_press(val: boolean);
+            get longPress(): boolean;
+            set longPress(val: boolean);
             get non_consuming(): boolean;
             set non_consuming(val: boolean);
             get nonConsuming(): boolean;
             set nonConsuming(val: boolean);
+            get has_description(): boolean;
+            set has_description(val: boolean);
+            get hasDescription(): boolean;
+            set hasDescription(val: boolean);
             get modmask(): number;
             set modmask(val: number);
             get submap(): string;
@@ -641,10 +704,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
             set catch_all(val: boolean);
             get catchAll(): boolean;
             set catchAll(val: boolean);
+            get description(): string;
+            set description(val: string);
             get dispatcher(): string;
             set dispatcher(val: string);
             get arg(): string;
             set arg(val: string);
+
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Bind.SignalSignatures;
 
             // Constructors
 
@@ -653,6 +727,24 @@ declare module 'gi://AstalHyprland?version=0.1' {
             _init(...args: any[]): void;
 
             static ['new'](): Bind;
+
+            // Signals
+
+            connect<K extends keyof Bind.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bind.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Bind.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Bind.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Bind.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Bind.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -664,8 +756,12 @@ declare module 'gi://AstalHyprland?version=0.1' {
             set_release(value: boolean): void;
             get_repeat(): boolean;
             set_repeat(value: boolean): void;
+            get_long_press(): boolean;
+            set_long_press(value: boolean): void;
             get_non_consuming(): boolean;
             set_non_consuming(value: boolean): void;
+            get_has_description(): boolean;
+            set_has_description(value: boolean): void;
             get_modmask(): number;
             set_modmask(value: number): void;
             get_submap(): string;
@@ -676,13 +772,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
             set_keycode(value: number): void;
             get_catch_all(): boolean;
             set_catch_all(value: boolean): void;
+            get_description(): string;
+            set_description(value: string): void;
             get_dispatcher(): string;
             set_dispatcher(value: string): void;
             get_arg(): string;
             set_arg(value: string): void;
         }
 
-        module Position {
+        namespace Position {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::x': (pspec: GObject.ParamSpec) => void;
+                'notify::y': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -701,6 +805,15 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get y(): number;
             set y(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Position.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Position.ConstructorProps>, ...args: any[]);
@@ -708,6 +821,24 @@ declare module 'gi://AstalHyprland?version=0.1' {
             _init(...args: any[]): void;
 
             static ['new'](): Position;
+
+            // Signals
+
+            connect<K extends keyof Position.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Position.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Position.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Position.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Position.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Position.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -717,11 +848,16 @@ declare module 'gi://AstalHyprland?version=0.1' {
             set_y(value: number): void;
         }
 
-        module Workspace {
-            // Signal callback interfaces
-
-            interface Removed {
-                (): void;
+        namespace Workspace {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                removed: () => void;
+                'notify::id': (pspec: GObject.ParamSpec) => void;
+                'notify::name': (pspec: GObject.ParamSpec) => void;
+                'notify::monitor': (pspec: GObject.ParamSpec) => void;
+                'notify::clients': (pspec: GObject.ParamSpec) => void;
+                'notify::has-fullscreen': (pspec: GObject.ParamSpec) => void;
+                'notify::last-client': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -759,6 +895,15 @@ declare module 'gi://AstalHyprland?version=0.1' {
             get lastClient(): Client;
             set lastClient(val: Client);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Workspace.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Workspace.ConstructorProps>, ...args: any[]);
@@ -771,12 +916,21 @@ declare module 'gi://AstalHyprland?version=0.1' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'removed', callback: (_source: this) => void): number;
-            connect_after(signal: 'removed', callback: (_source: this) => void): number;
-            emit(signal: 'removed'): void;
+            connect<K extends keyof Workspace.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Workspace.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Workspace.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Workspace.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Workspace.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Workspace.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

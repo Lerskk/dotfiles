@@ -896,6 +896,11 @@ declare module 'gi://Atk?version=1.0' {
              */
             PUSH_BUTTON_MENU,
             /**
+             * A switch that can be toggled on/off.
+             * (Since: 2.56)
+             */
+            SWITCH,
+            /**
              * not a valid role, used for finding end of the enumeration
              */
             LAST_DEFINED,
@@ -1783,7 +1788,7 @@ declare module 'gi://Atk?version=1.0' {
             (object: Object, focus_in: boolean): void;
         }
         interface Function {
-            (): boolean;
+            (user_data?: any | null): boolean;
         }
         interface KeySnoopFunc {
             (event: KeyEventStruct): number;
@@ -1808,7 +1813,28 @@ declare module 'gi://Atk?version=1.0' {
              */
             INLINE,
         }
-        module GObjectAccessible {
+        namespace GObjectAccessible {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::accessible-component-layer': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-component-mdi-zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-help-text': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-hypertext-nlinks': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-id': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-name': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-role': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption-object': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-summary': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -1825,11 +1851,40 @@ declare module 'gi://Atk?version=1.0' {
         class GObjectAccessible extends Object {
             static $gtype: GObject.GType<GObjectAccessible>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: GObjectAccessible.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<GObjectAccessible.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof GObjectAccessible.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GObjectAccessible.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof GObjectAccessible.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, GObjectAccessible.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof GObjectAccessible.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<GObjectAccessible.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1848,11 +1903,14 @@ declare module 'gi://Atk?version=1.0' {
             get_object<T = GObject.Object>(): T;
         }
 
-        module Hyperlink {
-            // Signal callback interfaces
-
-            interface LinkActivated {
-                (): void;
+        namespace Hyperlink {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'link-activated': () => void;
+                'notify::end-index': (pspec: GObject.ParamSpec) => void;
+                'notify::number-of-anchors': (pspec: GObject.ParamSpec) => void;
+                'notify::selected-link': (pspec: GObject.ParamSpec) => void;
+                'notify::start-index': (pspec: GObject.ParamSpec) => void;
             }
 
             // Constructor properties interface
@@ -1899,6 +1957,15 @@ declare module 'gi://Atk?version=1.0' {
             get start_index(): number;
             get startIndex(): number;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Hyperlink.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Hyperlink.ConstructorProps>, ...args: any[]);
@@ -1907,12 +1974,21 @@ declare module 'gi://Atk?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'link-activated', callback: (_source: this) => void): number;
-            connect_after(signal: 'link-activated', callback: (_source: this) => void): number;
-            emit(signal: 'link-activated'): void;
+            connect<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyperlink.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Hyperlink.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Hyperlink.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Hyperlink.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -2284,7 +2360,21 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -2412,7 +2502,12 @@ declare module 'gi://Atk?version=1.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -2562,14 +2657,37 @@ declare module 'gi://Atk?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module Misc {
+        namespace Misc {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -2584,11 +2702,38 @@ declare module 'gi://Atk?version=1.0' {
         class Misc extends GObject.Object {
             static $gtype: GObject.GType<Misc>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Misc.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Misc.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Misc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Misc.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Misc.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Misc.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Misc.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Misc.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -2642,7 +2787,28 @@ declare module 'gi://Atk?version=1.0' {
             threads_leave(): void;
         }
 
-        module NoOpObject {
+        namespace NoOpObject {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::accessible-component-layer': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-component-mdi-zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-help-text': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-hypertext-nlinks': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-id': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-name': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-role': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption-object': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-summary': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps
@@ -2687,6 +2853,15 @@ declare module 'gi://Atk?version=1.0' {
         {
             static $gtype: GObject.GType<NoOpObject>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NoOpObject.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<NoOpObject.ConstructorProps>, ...args: any[]);
@@ -2694,6 +2869,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](obj: GObject.Object): NoOpObject;
+
+            // Signals
+
+            connect<K extends keyof NoOpObject.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NoOpObject.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NoOpObject.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NoOpObject.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NoOpObject.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NoOpObject.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Inherited properties
             get accessible_component_layer(): number;
@@ -4049,7 +4242,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param offset a character offset within @text
              * @returns the character at @offset or 0 in the case of failure.
              */
-            get_character_at_offset(offset: number): number;
+            get_character_at_offset(offset: number): string;
             /**
              * Gets the character count.
              * @returns the number of characters or -1 in case of failure.
@@ -4279,7 +4472,7 @@ declare module 'gi://Atk?version=1.0' {
              * Gets the specified text.
              * @param offset a character offset within @text
              */
-            vfunc_get_character_at_offset(offset: number): number;
+            vfunc_get_character_at_offset(offset: number): string;
             /**
              * Gets the character count.
              */
@@ -4731,7 +4924,21 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -4859,7 +5066,12 @@ declare module 'gi://Atk?version=1.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -5009,11 +5221,31 @@ declare module 'gi://Atk?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
             /**
              * Adds a relationship of the specified type with the specified target.
              * @param relationship The #AtkRelationType of the relation
@@ -5248,7 +5480,10 @@ declare module 'gi://Atk?version=1.0' {
             vfunc_visible_data_changed(): void;
         }
 
-        module NoOpObjectFactory {
+        namespace NoOpObjectFactory {
+            // Signal signatures
+            interface SignalSignatures extends ObjectFactory.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends ObjectFactory.ConstructorProps {}
@@ -5264,6 +5499,15 @@ declare module 'gi://Atk?version=1.0' {
         class NoOpObjectFactory extends ObjectFactory {
             static $gtype: GObject.GType<NoOpObjectFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: NoOpObjectFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<NoOpObjectFactory.ConstructorProps>, ...args: any[]);
@@ -5271,45 +5515,125 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): NoOpObjectFactory;
+
+            // Signals
+
+            connect<K extends keyof NoOpObjectFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NoOpObjectFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof NoOpObjectFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, NoOpObjectFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof NoOpObjectFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<NoOpObjectFactory.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
-        module Object {
-            // Signal callback interfaces
-
-            interface ActiveDescendantChanged {
-                (arg1: Object): void;
-            }
-
-            interface Announcement {
-                (arg1: string): void;
-            }
-
-            interface AttributeChanged {
-                (arg1: string, arg2: string): void;
-            }
-
-            interface ChildrenChanged {
-                (arg1: number, arg2: Object): void;
-            }
-
-            interface FocusEvent {
-                (arg1: boolean): void;
-            }
-
-            interface Notification {
-                (arg1: string, arg2: number): void;
-            }
-
-            interface PropertyChange {
-                (arg1: PropertyValues): void;
-            }
-
-            interface StateChange {
-                (arg1: string, arg2: boolean): void;
-            }
-
-            interface VisibleDataChanged {
-                (): void;
+        namespace Object {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'active-descendant-changed': (arg0: Object) => void;
+                announcement: (arg0: string) => void;
+                'attribute-changed': (arg0: string, arg1: string) => void;
+                'children-changed': (arg0: number, arg1: Object) => void;
+                'focus-event': (arg0: boolean) => void;
+                notification: (arg0: string, arg1: number) => void;
+                'property-change': (arg0: PropertyValues) => void;
+                'state-change': (arg0: string, arg1: boolean) => void;
+                'visible-data-changed': () => void;
+                'notify::accessible-component-layer': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-component-mdi-zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-help-text': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-hypertext-nlinks': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-id': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-name': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-role': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption-object': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-summary': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-value': (pspec: GObject.ParamSpec) => void;
+                'active-descendant-changed::accessible-component-layer': (arg0: Object) => void;
+                'active-descendant-changed::accessible-component-mdi-zorder': (arg0: Object) => void;
+                'active-descendant-changed::accessible-description': (arg0: Object) => void;
+                'active-descendant-changed::accessible-help-text': (arg0: Object) => void;
+                'active-descendant-changed::accessible-hypertext-nlinks': (arg0: Object) => void;
+                'active-descendant-changed::accessible-id': (arg0: Object) => void;
+                'active-descendant-changed::accessible-name': (arg0: Object) => void;
+                'active-descendant-changed::accessible-parent': (arg0: Object) => void;
+                'active-descendant-changed::accessible-role': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-caption': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-caption-object': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-column-description': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-column-header': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-row-description': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-row-header': (arg0: Object) => void;
+                'active-descendant-changed::accessible-table-summary': (arg0: Object) => void;
+                'active-descendant-changed::accessible-value': (arg0: Object) => void;
+                'children-changed::accessible-component-layer': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-component-mdi-zorder': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-description': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-help-text': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-hypertext-nlinks': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-id': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-name': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-parent': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-role': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-caption': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-caption-object': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-column-description': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-column-header': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-row-description': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-row-header': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-table-summary': (arg0: number, arg1: Object) => void;
+                'children-changed::accessible-value': (arg0: number, arg1: Object) => void;
+                'property-change::accessible-component-layer': (arg0: PropertyValues) => void;
+                'property-change::accessible-component-mdi-zorder': (arg0: PropertyValues) => void;
+                'property-change::accessible-description': (arg0: PropertyValues) => void;
+                'property-change::accessible-help-text': (arg0: PropertyValues) => void;
+                'property-change::accessible-hypertext-nlinks': (arg0: PropertyValues) => void;
+                'property-change::accessible-id': (arg0: PropertyValues) => void;
+                'property-change::accessible-name': (arg0: PropertyValues) => void;
+                'property-change::accessible-parent': (arg0: PropertyValues) => void;
+                'property-change::accessible-role': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-caption': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-caption-object': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-column-description': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-column-header': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-row-description': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-row-header': (arg0: PropertyValues) => void;
+                'property-change::accessible-table-summary': (arg0: PropertyValues) => void;
+                'property-change::accessible-value': (arg0: PropertyValues) => void;
+                'state-change::accessible-component-layer': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-component-mdi-zorder': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-description': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-help-text': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-hypertext-nlinks': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-id': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-name': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-parent': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-role': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-caption': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-caption-object': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-column-description': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-column-header': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-row-description': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-row-header': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-table-summary': (arg0: string, arg1: boolean) => void;
+                'state-change::accessible-value': (arg0: string, arg1: boolean) => void;
             }
 
             // Constructor properties interface
@@ -5480,6 +5804,15 @@ declare module 'gi://Atk?version=1.0' {
             get accessibleValue(): number;
             set accessibleValue(val: number);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Object.SignalSignatures;
+
             // Fields
 
             description: string;
@@ -5496,48 +5829,21 @@ declare module 'gi://Atk?version=1.0' {
 
             // Signals
 
-            connect(id: string, callback: (...args: any[]) => any): number;
-            connect_after(id: string, callback: (...args: any[]) => any): number;
-            emit(id: string, ...args: any[]): void;
-            connect(signal: 'active-descendant-changed', callback: (_source: this, arg1: Object) => void): number;
-            connect_after(signal: 'active-descendant-changed', callback: (_source: this, arg1: Object) => void): number;
-            emit(signal: 'active-descendant-changed', arg1: Object): void;
-            connect(signal: 'announcement', callback: (_source: this, arg1: string) => void): number;
-            connect_after(signal: 'announcement', callback: (_source: this, arg1: string) => void): number;
-            emit(signal: 'announcement', arg1: string): void;
-            connect(signal: 'attribute-changed', callback: (_source: this, arg1: string, arg2: string) => void): number;
-            connect_after(
-                signal: 'attribute-changed',
-                callback: (_source: this, arg1: string, arg2: string) => void,
+            connect<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'attribute-changed', arg1: string, arg2: string): void;
-            connect(signal: 'children-changed', callback: (_source: this, arg1: number, arg2: Object) => void): number;
-            connect_after(
-                signal: 'children-changed',
-                callback: (_source: this, arg1: number, arg2: Object) => void,
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Object.SignalSignatures[K]>,
             ): number;
-            emit(signal: 'children-changed', arg1: number, arg2: Object): void;
-            connect(signal: 'focus-event', callback: (_source: this, arg1: boolean) => void): number;
-            connect_after(signal: 'focus-event', callback: (_source: this, arg1: boolean) => void): number;
-            emit(signal: 'focus-event', arg1: boolean): void;
-            connect(signal: 'notification', callback: (_source: this, arg1: string, arg2: number) => void): number;
-            connect_after(
-                signal: 'notification',
-                callback: (_source: this, arg1: string, arg2: number) => void,
-            ): number;
-            emit(signal: 'notification', arg1: string, arg2: number): void;
-            connect(signal: 'property-change', callback: (_source: this, arg1: PropertyValues) => void): number;
-            connect_after(signal: 'property-change', callback: (_source: this, arg1: PropertyValues) => void): number;
-            emit(signal: 'property-change', arg1: PropertyValues): void;
-            connect(signal: 'state-change', callback: (_source: this, arg1: string, arg2: boolean) => void): number;
-            connect_after(
-                signal: 'state-change',
-                callback: (_source: this, arg1: string, arg2: boolean) => void,
-            ): number;
-            emit(signal: 'state-change', arg1: string, arg2: boolean): void;
-            connect(signal: 'visible-data-changed', callback: (_source: this) => void): number;
-            connect_after(signal: 'visible-data-changed', callback: (_source: this) => void): number;
-            emit(signal: 'visible-data-changed'): void;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Object.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Object.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5840,7 +6146,10 @@ declare module 'gi://Atk?version=1.0' {
             set_role(role: Role | null): void;
         }
 
-        module ObjectFactory {
+        namespace ObjectFactory {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -5859,11 +6168,38 @@ declare module 'gi://Atk?version=1.0' {
         class ObjectFactory extends GObject.Object {
             static $gtype: GObject.GType<ObjectFactory>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: ObjectFactory.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<ObjectFactory.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ObjectFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObjectFactory.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ObjectFactory.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObjectFactory.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ObjectFactory.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ObjectFactory.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -5900,7 +6236,28 @@ declare module 'gi://Atk?version=1.0' {
             invalidate(): void;
         }
 
-        module Plug {
+        namespace Plug {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::accessible-component-layer': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-component-mdi-zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-help-text': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-hypertext-nlinks': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-id': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-name': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-role': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption-object': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-summary': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, Component.ConstructorProps {}
@@ -5914,6 +6271,15 @@ declare module 'gi://Atk?version=1.0' {
         class Plug extends Object implements Component {
             static $gtype: GObject.GType<Plug>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Plug.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Plug.ConstructorProps>, ...args: any[]);
@@ -5921,6 +6287,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Plug;
+
+            // Signals
+
+            connect<K extends keyof Plug.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Plug.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Plug.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Plug.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Plug.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Plug.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -6306,7 +6690,21 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -6434,7 +6832,12 @@ declare module 'gi://Atk?version=1.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -6584,14 +6987,37 @@ declare module 'gi://Atk?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module Registry {
+        namespace Registry {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6612,11 +7038,38 @@ declare module 'gi://Atk?version=1.0' {
         class Registry extends GObject.Object {
             static $gtype: GObject.GType<Registry>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Registry.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Registry.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Registry.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Registry.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Registry.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6645,7 +7098,13 @@ declare module 'gi://Atk?version=1.0' {
             set_factory_type(type: GObject.GType, factory_type: GObject.GType): void;
         }
 
-        module Relation {
+        namespace Relation {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {
+                'notify::relation-type': (pspec: GObject.ParamSpec) => void;
+                'notify::target': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {
@@ -6676,6 +7135,15 @@ declare module 'gi://Atk?version=1.0' {
             get target(): GObject.ValueArray;
             set target(val: GObject.ValueArray);
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Relation.SignalSignatures;
+
             // Fields
 
             relationship: RelationType;
@@ -6687,6 +7155,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](targets: Object[], relationship: RelationType): Relation;
+
+            // Signals
+
+            connect<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Relation.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Relation.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Relation.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Relation.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6714,7 +7200,10 @@ declare module 'gi://Atk?version=1.0' {
             remove_target(target: Object): boolean;
         }
 
-        module RelationSet {
+        namespace RelationSet {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -6736,6 +7225,15 @@ declare module 'gi://Atk?version=1.0' {
         class RelationSet extends GObject.Object {
             static $gtype: GObject.GType<RelationSet>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: RelationSet.SignalSignatures;
+
             // Fields
 
             relations: any[];
@@ -6747,6 +7245,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): RelationSet;
+
+            // Signals
+
+            connect<K extends keyof RelationSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RelationSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RelationSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RelationSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RelationSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RelationSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -6810,7 +7326,28 @@ declare module 'gi://Atk?version=1.0' {
             remove(relation: Relation): void;
         }
 
-        module Socket {
+        namespace Socket {
+            // Signal signatures
+            interface SignalSignatures extends Object.SignalSignatures {
+                'notify::accessible-component-layer': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-component-mdi-zorder': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-help-text': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-hypertext-nlinks': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-id': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-name': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-parent': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-role': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-caption-object': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-column-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-description': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-row-header': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-table-summary': (pspec: GObject.ParamSpec) => void;
+                'notify::accessible-value': (pspec: GObject.ParamSpec) => void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps, Component.ConstructorProps {}
@@ -6847,6 +7384,15 @@ declare module 'gi://Atk?version=1.0' {
         class Socket extends Object implements Component {
             static $gtype: GObject.GType<Socket>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Socket.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Socket.ConstructorProps>, ...args: any[]);
@@ -6854,6 +7400,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Socket;
+
+            // Signals
+
+            connect<K extends keyof Socket.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Socket.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Socket.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Socket.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Socket.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Socket.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Virtual methods
 
@@ -7246,7 +7810,21 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the data if found,          or %NULL if no such data exists.
              */
             get_data(key: string): any | null;
-            get_property(property_name: string): any;
+            /**
+             * Gets a property of an object.
+             *
+             * The value can be:
+             * - an empty GObject.Value initialized by G_VALUE_INIT, which will be automatically initialized with the expected type of the property (since GLib 2.60)
+             * - a GObject.Value initialized with the expected type of the property
+             * - a GObject.Value initialized with a type to which the expected type of the property can be transformed
+             *
+             * In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling GObject.Value.unset.
+             *
+             * Note that GObject.Object.get_property is really intended for language bindings, GObject.Object.get is much more convenient for C programming.
+             * @param property_name The name of the property to get
+             * @param value Return location for the property value. Can be an empty GObject.Value initialized by G_VALUE_INIT (auto-initialized with expected type since GLib 2.60), a GObject.Value initialized with the expected property type, or a GObject.Value initialized with a transformable type
+             */
+            get_property(property_name: string, value: GObject.Value | any): any;
             /**
              * This function gets back user data pointers stored via
              * g_object_set_qdata().
@@ -7374,7 +7952,12 @@ declare module 'gi://Atk?version=1.0' {
              * @param data data to associate with that key
              */
             set_data(key: string, data?: any | null): void;
-            set_property(property_name: string, value: any): void;
+            /**
+             * Sets a property on an object.
+             * @param property_name The name of the property to set
+             * @param value The value to set the property to
+             */
+            set_property(property_name: string, value: GObject.Value | any): void;
             /**
              * Remove a specified datum from the object's data associations,
              * without invoking the association's destroy handler.
@@ -7524,14 +8107,37 @@ declare module 'gi://Atk?version=1.0' {
              * @param pspec
              */
             vfunc_set_property(property_id: number, value: GObject.Value | any, pspec: GObject.ParamSpec): void;
+            /**
+             * Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to.
+             * @param id Handler ID of the handler to be disconnected
+             */
             disconnect(id: number): void;
+            /**
+             * Sets multiple properties of an object at once. The properties argument should be a dictionary mapping property names to values.
+             * @param properties Object containing the properties to set
+             */
             set(properties: { [key: string]: any }): void;
-            block_signal_handler(id: number): any;
-            unblock_signal_handler(id: number): any;
-            stop_emission_by_name(detailedName: string): any;
+            /**
+             * Blocks a handler of an instance so it will not be called during any signal emissions
+             * @param id Handler ID of the handler to be blocked
+             */
+            block_signal_handler(id: number): void;
+            /**
+             * Unblocks a handler so it will be called again during any signal emissions
+             * @param id Handler ID of the handler to be unblocked
+             */
+            unblock_signal_handler(id: number): void;
+            /**
+             * Stops a signal's emission by the given signal name. This will prevent the default handler and any subsequent signal handlers from being invoked.
+             * @param detailedName Name of the signal to stop emission of
+             */
+            stop_emission_by_name(detailedName: string): void;
         }
 
-        module StateSet {
+        namespace StateSet {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7547,6 +8153,15 @@ declare module 'gi://Atk?version=1.0' {
         class StateSet extends GObject.Object {
             static $gtype: GObject.GType<StateSet>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: StateSet.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<StateSet.ConstructorProps>, ...args: any[]);
@@ -7554,6 +8169,24 @@ declare module 'gi://Atk?version=1.0' {
             _init(...args: any[]): void;
 
             static ['new'](): StateSet;
+
+            // Signals
+
+            connect<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StateSet.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StateSet.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StateSet.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StateSet.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -7635,7 +8268,10 @@ declare module 'gi://Atk?version=1.0' {
             xor_sets(compare_set: StateSet): StateSet;
         }
 
-        module Util {
+        namespace Util {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7652,11 +8288,38 @@ declare module 'gi://Atk?version=1.0' {
         class Util extends GObject.Object {
             static $gtype: GObject.GType<Util>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Util.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Util.ConstructorProps>, ...args: any[]);
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof Util.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Util.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Util.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Util.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Util.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Util.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
         }
 
         type ActionIface = typeof Action;
@@ -7957,7 +8620,87 @@ declare module 'gi://Atk?version=1.0' {
         type UtilClass = typeof Util;
         type ValueIface = typeof Value;
         type WindowIface = typeof Window;
-        module Action {
+        namespace Action {
+            /**
+             * Interface for implementing Action.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Perform the specified action on the object.
+                 * @param i the action index corresponding to the action to be performed
+                 */
+                vfunc_do_action(i: number): boolean;
+                /**
+                 * Returns a description of the specified action of the object.
+                 * @param i the action index corresponding to the action to be performed
+                 */
+                vfunc_get_description(i: number): string | null;
+                /**
+                 * Gets the keybinding which can be used to activate this action, if one
+                 * exists. The string returned should contain localized, human-readable,
+                 * key sequences as they would appear when displayed on screen. It must
+                 * be in the format "mnemonic;sequence;shortcut".
+                 *
+                 * - The mnemonic key activates the object if it is presently enabled onscreen.
+                 *   This typically corresponds to the underlined letter within the widget.
+                 *   Example: "n" in a traditional "New..." menu item or the "a" in "Apply" for
+                 *   a button.
+                 * - The sequence is the full list of keys which invoke the action even if the
+                 *   relevant element is not currently shown on screen. For instance, for a menu
+                 *   item the sequence is the keybindings used to open the parent menus before
+                 *   invoking. The sequence string is colon-delimited. Example: "Alt+F:N" in a
+                 *   traditional "New..." menu item.
+                 * - The shortcut, if it exists, will invoke the same action without showing
+                 *   the component or its enclosing menus or dialogs. Example: "Ctrl+N" in a
+                 *   traditional "New..." menu item.
+                 *
+                 * Example: For a traditional "New..." menu item, the expected return value
+                 * would be: "N;Alt+F:N;Ctrl+N" for the English locale and "N;Alt+D:N;Strg+N"
+                 * for the German locale. If, hypothetically, this menu item lacked a mnemonic,
+                 * it would be represented by ";;Ctrl+N" and ";;Strg+N" respectively.
+                 * @param i the action index corresponding to the action to be performed
+                 */
+                vfunc_get_keybinding(i: number): string | null;
+                /**
+                 * Returns the localized name of the specified action of the object.
+                 * @param i the action index corresponding to the action to be performed
+                 */
+                vfunc_get_localized_name(i: number): string | null;
+                /**
+                 * Gets the number of accessible actions available on the object.
+                 * If there are more than one, the first one is considered the
+                 * "default" action of the object.
+                 */
+                vfunc_get_n_actions(): number;
+                /**
+                 * Returns a non-localized string naming the specified action of the
+                 * object. This name is generally not descriptive of the end result
+                 * of the action, but instead names the 'interaction type' which the
+                 * object supports. By convention, the above strings should be used to
+                 * represent the actions which correspond to the common point-and-click
+                 * interaction techniques of the same name: i.e.
+                 * "click", "press", "release", "drag", "drop", "popup", etc.
+                 * The "popup" action should be used to pop up a context menu for the
+                 * object, if one exists.
+                 *
+                 * For technical reasons, some toolkits cannot guarantee that the
+                 * reported action is actually 'bound' to a nontrivial user event;
+                 * i.e. the result of some actions via atk_action_do_action() may be
+                 * NIL.
+                 * @param i the action index corresponding to the action to be performed
+                 */
+                vfunc_get_name(i: number): string | null;
+                /**
+                 * Sets a description of the specified action of the object.
+                 * @param i the action index corresponding to the action to be performed
+                 * @param desc the description to be assigned to this action
+                 */
+                vfunc_set_description(i: number, desc: string): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -7967,7 +8710,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Action>;
             prototype: Action;
         }
-        interface Action extends GObject.Object {
+        interface Action extends GObject.Object, Action.Interface {
             // Methods
 
             /**
@@ -8048,87 +8791,134 @@ declare module 'gi://Atk?version=1.0' {
              * @returns a gboolean representing if the description was successfully set;
              */
             set_description(i: number, desc: string): boolean;
-
-            // Virtual methods
-
-            /**
-             * Perform the specified action on the object.
-             * @param i the action index corresponding to the action to be performed
-             */
-            vfunc_do_action(i: number): boolean;
-            /**
-             * Returns a description of the specified action of the object.
-             * @param i the action index corresponding to the action to be performed
-             */
-            vfunc_get_description(i: number): string | null;
-            /**
-             * Gets the keybinding which can be used to activate this action, if one
-             * exists. The string returned should contain localized, human-readable,
-             * key sequences as they would appear when displayed on screen. It must
-             * be in the format "mnemonic;sequence;shortcut".
-             *
-             * - The mnemonic key activates the object if it is presently enabled onscreen.
-             *   This typically corresponds to the underlined letter within the widget.
-             *   Example: "n" in a traditional "New..." menu item or the "a" in "Apply" for
-             *   a button.
-             * - The sequence is the full list of keys which invoke the action even if the
-             *   relevant element is not currently shown on screen. For instance, for a menu
-             *   item the sequence is the keybindings used to open the parent menus before
-             *   invoking. The sequence string is colon-delimited. Example: "Alt+F:N" in a
-             *   traditional "New..." menu item.
-             * - The shortcut, if it exists, will invoke the same action without showing
-             *   the component or its enclosing menus or dialogs. Example: "Ctrl+N" in a
-             *   traditional "New..." menu item.
-             *
-             * Example: For a traditional "New..." menu item, the expected return value
-             * would be: "N;Alt+F:N;Ctrl+N" for the English locale and "N;Alt+D:N;Strg+N"
-             * for the German locale. If, hypothetically, this menu item lacked a mnemonic,
-             * it would be represented by ";;Ctrl+N" and ";;Strg+N" respectively.
-             * @param i the action index corresponding to the action to be performed
-             */
-            vfunc_get_keybinding(i: number): string | null;
-            /**
-             * Returns the localized name of the specified action of the object.
-             * @param i the action index corresponding to the action to be performed
-             */
-            vfunc_get_localized_name(i: number): string | null;
-            /**
-             * Gets the number of accessible actions available on the object.
-             * If there are more than one, the first one is considered the
-             * "default" action of the object.
-             */
-            vfunc_get_n_actions(): number;
-            /**
-             * Returns a non-localized string naming the specified action of the
-             * object. This name is generally not descriptive of the end result
-             * of the action, but instead names the 'interaction type' which the
-             * object supports. By convention, the above strings should be used to
-             * represent the actions which correspond to the common point-and-click
-             * interaction techniques of the same name: i.e.
-             * "click", "press", "release", "drag", "drop", "popup", etc.
-             * The "popup" action should be used to pop up a context menu for the
-             * object, if one exists.
-             *
-             * For technical reasons, some toolkits cannot guarantee that the
-             * reported action is actually 'bound' to a nontrivial user event;
-             * i.e. the result of some actions via atk_action_do_action() may be
-             * NIL.
-             * @param i the action index corresponding to the action to be performed
-             */
-            vfunc_get_name(i: number): string | null;
-            /**
-             * Sets a description of the specified action of the object.
-             * @param i the action index corresponding to the action to be performed
-             * @param desc the description to be assigned to this action
-             */
-            vfunc_set_description(i: number, desc: string): boolean;
         }
 
         export const Action: ActionNamespace & {
             new (): Action; // This allows `obj instanceof Action`
         };
 
-        module Component {
+        namespace Component {
+            /**
+             * Interface for implementing Component.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                vfunc_bounds_changed(bounds: Rectangle): void;
+                /**
+                 * Checks whether the specified point is within the extent of the `component`.
+                 *
+                 * Toolkit implementor note: ATK provides a default implementation for
+                 * this virtual method. In general there are little reason to
+                 * re-implement it.
+                 * @param x x coordinate
+                 * @param y y coordinate
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_contains(x: number, y: number, coord_type: CoordType): boolean;
+                /**
+                 * Returns the alpha value (i.e. the opacity) for this
+                 * `component,` on a scale from 0 (fully transparent) to 1.0
+                 * (fully opaque).
+                 */
+                vfunc_get_alpha(): number;
+                /**
+                 * Gets the rectangle which gives the extent of the `component`.
+                 *
+                 * If the extent can not be obtained (e.g. a non-embedded plug or missing
+                 * support), all of x, y, width, height are set to -1.
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_get_extents(coord_type: CoordType): [number, number, number, number];
+                /**
+                 * Gets the layer of the component.
+                 */
+                vfunc_get_layer(): Layer;
+                /**
+                 * Gets the zorder of the component. The value G_MININT will be returned
+                 * if the layer of the component is not ATK_LAYER_MDI or ATK_LAYER_WINDOW.
+                 */
+                vfunc_get_mdi_zorder(): number;
+                /**
+                 * Gets the position of `component` in the form of
+                 * a point specifying `component'`s top-left corner.
+                 *
+                 * If the position can not be obtained (e.g. a non-embedded plug or missing
+                 * support), x and y are set to -1.
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_get_position(coord_type: CoordType): [number, number];
+                /**
+                 * Gets the size of the `component` in terms of width and height.
+                 *
+                 * If the size can not be obtained (e.g. a non-embedded plug or missing
+                 * support), width and height are set to -1.
+                 */
+                vfunc_get_size(): [number, number];
+                /**
+                 * Grabs focus for this `component`.
+                 */
+                vfunc_grab_focus(): boolean;
+                /**
+                 * Gets a reference to the accessible child, if one exists, at the
+                 * coordinate point specified by `x` and `y`.
+                 * @param x x coordinate
+                 * @param y y coordinate
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
+                /**
+                 * Remove the handler specified by `handler_id` from the list of
+                 * functions to be executed when this object receives focus events
+                 * (in or out).
+                 * @param handler_id the handler id of the focus handler to be removed from @component
+                 */
+                vfunc_remove_focus_handler(handler_id: number): void;
+                /**
+                 * Makes `component` visible on the screen by scrolling all necessary parents.
+                 *
+                 * Contrary to atk_component_set_position, this does not actually move
+                 * `component` in its parent, this only makes the parents scroll so that the
+                 * object shows up on the screen, given its current position within the parents.
+                 * @param type specify where the object should be made visible.
+                 */
+                vfunc_scroll_to(type: ScrollType): boolean;
+                /**
+                 * Move the top-left of `component` to a given position of the screen by
+                 * scrolling all necessary parents.
+                 * @param coords specify whether coordinates are relative to the screen or to the parent object.
+                 * @param x x-position where to scroll to
+                 * @param y y-position where to scroll to
+                 */
+                vfunc_scroll_to_point(coords: CoordType, x: number, y: number): boolean;
+                /**
+                 * Sets the extents of `component`.
+                 * @param x x coordinate
+                 * @param y y coordinate
+                 * @param width width to set for @component
+                 * @param height height to set for @component
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
+                /**
+                 * Sets the position of `component`.
+                 *
+                 * Contrary to atk_component_scroll_to, this does not trigger any scrolling,
+                 * this just moves `component` in its parent.
+                 * @param x x coordinate
+                 * @param y y coordinate
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
+                 */
+                vfunc_set_position(x: number, y: number, coord_type: CoordType): boolean;
+                /**
+                 * Set the size of the `component` in terms of width and height.
+                 * @param width width to set for @component
+                 * @param height height to set for @component
+                 */
+                vfunc_set_size(width: number, height: number): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8138,7 +8928,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Component>;
             prototype: Component;
         }
-        interface Component extends GObject.Object {
+        interface Component extends GObject.Object, Component.Interface {
             // Methods
 
             /**
@@ -8263,128 +9053,77 @@ declare module 'gi://Atk?version=1.0' {
              * @returns %TRUE or %FALSE whether the size was set or not
              */
             set_size(width: number, height: number): boolean;
-
-            // Virtual methods
-
-            vfunc_bounds_changed(bounds: Rectangle): void;
-            /**
-             * Checks whether the specified point is within the extent of the `component`.
-             *
-             * Toolkit implementor note: ATK provides a default implementation for
-             * this virtual method. In general there are little reason to
-             * re-implement it.
-             * @param x x coordinate
-             * @param y y coordinate
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_contains(x: number, y: number, coord_type: CoordType): boolean;
-            /**
-             * Returns the alpha value (i.e. the opacity) for this
-             * `component,` on a scale from 0 (fully transparent) to 1.0
-             * (fully opaque).
-             */
-            vfunc_get_alpha(): number;
-            /**
-             * Gets the rectangle which gives the extent of the `component`.
-             *
-             * If the extent can not be obtained (e.g. a non-embedded plug or missing
-             * support), all of x, y, width, height are set to -1.
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_get_extents(coord_type: CoordType): [number, number, number, number];
-            /**
-             * Gets the layer of the component.
-             */
-            vfunc_get_layer(): Layer;
-            /**
-             * Gets the zorder of the component. The value G_MININT will be returned
-             * if the layer of the component is not ATK_LAYER_MDI or ATK_LAYER_WINDOW.
-             */
-            vfunc_get_mdi_zorder(): number;
-            /**
-             * Gets the position of `component` in the form of
-             * a point specifying `component'`s top-left corner.
-             *
-             * If the position can not be obtained (e.g. a non-embedded plug or missing
-             * support), x and y are set to -1.
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_get_position(coord_type: CoordType): [number, number];
-            /**
-             * Gets the size of the `component` in terms of width and height.
-             *
-             * If the size can not be obtained (e.g. a non-embedded plug or missing
-             * support), width and height are set to -1.
-             */
-            vfunc_get_size(): [number, number];
-            /**
-             * Grabs focus for this `component`.
-             */
-            vfunc_grab_focus(): boolean;
-            /**
-             * Gets a reference to the accessible child, if one exists, at the
-             * coordinate point specified by `x` and `y`.
-             * @param x x coordinate
-             * @param y y coordinate
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_ref_accessible_at_point(x: number, y: number, coord_type: CoordType): Object | null;
-            /**
-             * Remove the handler specified by `handler_id` from the list of
-             * functions to be executed when this object receives focus events
-             * (in or out).
-             * @param handler_id the handler id of the focus handler to be removed from @component
-             */
-            vfunc_remove_focus_handler(handler_id: number): void;
-            /**
-             * Makes `component` visible on the screen by scrolling all necessary parents.
-             *
-             * Contrary to atk_component_set_position, this does not actually move
-             * `component` in its parent, this only makes the parents scroll so that the
-             * object shows up on the screen, given its current position within the parents.
-             * @param type specify where the object should be made visible.
-             */
-            vfunc_scroll_to(type: ScrollType): boolean;
-            /**
-             * Move the top-left of `component` to a given position of the screen by
-             * scrolling all necessary parents.
-             * @param coords specify whether coordinates are relative to the screen or to the parent object.
-             * @param x x-position where to scroll to
-             * @param y y-position where to scroll to
-             */
-            vfunc_scroll_to_point(coords: CoordType, x: number, y: number): boolean;
-            /**
-             * Sets the extents of `component`.
-             * @param x x coordinate
-             * @param y y coordinate
-             * @param width width to set for @component
-             * @param height height to set for @component
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_set_extents(x: number, y: number, width: number, height: number, coord_type: CoordType): boolean;
-            /**
-             * Sets the position of `component`.
-             *
-             * Contrary to atk_component_scroll_to, this does not trigger any scrolling,
-             * this just moves `component` in its parent.
-             * @param x x coordinate
-             * @param y y coordinate
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the component's top level window
-             */
-            vfunc_set_position(x: number, y: number, coord_type: CoordType): boolean;
-            /**
-             * Set the size of the `component` in terms of width and height.
-             * @param width width to set for @component
-             * @param height height to set for @component
-             */
-            vfunc_set_size(width: number, height: number): boolean;
         }
 
         export const Component: ComponentNamespace & {
             new (): Component; // This allows `obj instanceof Component`
         };
 
-        module Document {
+        namespace Document {
+            /**
+             * Interface for implementing Document.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Retrieves the current page number inside `document`.
+                 */
+                vfunc_get_current_page_number(): number;
+                /**
+                 * Gets a %gpointer that points to an instance of the DOM.  It is
+                 * up to the caller to check atk_document_get_type to determine
+                 * how to cast this pointer.
+                 */
+                vfunc_get_document(): any | null;
+                /**
+                 * Retrieves the value of the given `attribute_name` inside `document`.
+                 * @param attribute_name a character string representing the name of the attribute   whose value is being queried.
+                 */
+                vfunc_get_document_attribute_value(attribute_name: string): string | null;
+                /**
+                 * Gets an AtkAttributeSet which describes document-wide
+                 *          attributes as name-value pairs.
+                 */
+                vfunc_get_document_attributes(): AttributeSet;
+                /**
+                 * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
+                 *          of the content of this document instance.  Individual
+                 *          text substrings or images within this document may have
+                 *          a different locale, see atk_text_get_attributes and
+                 *          atk_image_get_image_locale.
+                 */
+                vfunc_get_document_locale(): string;
+                /**
+                 * Gets a string indicating the document type.
+                 */
+                vfunc_get_document_type(): string;
+                /**
+                 * Retrieves the total number of pages inside `document`.
+                 */
+                vfunc_get_page_count(): number;
+                /**
+                 * Returns an array of AtkTextSelections within this document.
+                 */
+                vfunc_get_text_selections(): TextSelection[];
+                /**
+                 * Sets the value for the given `attribute_name` inside `document`.
+                 * @param attribute_name a character string representing the name of the attribute   whose value is being set.
+                 * @param attribute_value a string value to be associated with @attribute_name.
+                 */
+                vfunc_set_document_attribute(attribute_name: string, attribute_value: string): boolean;
+                /**
+                 * Makes 1 or more selections within this document denoted by the given
+                 * array of AtkTextSelections. Any existing physical selection (inside or
+                 * outside this document) is replaced by the new selections. All objects within
+                 * the given selection ranges must be descendants of this document. Otherwise
+                 * FALSE will be returned.
+                 * @param selections a GArray of AtkTextSelections              to be selected.
+                 */
+                vfunc_set_text_selections(selections: TextSelection[]): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8394,7 +9133,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Document>;
             prototype: Document;
         }
-        interface Document extends GObject.Object {
+        interface Document extends GObject.Object, Document.Interface {
             // Methods
 
             /**
@@ -8462,71 +9201,69 @@ declare module 'gi://Atk?version=1.0' {
              * @returns TRUE if the selection was made successfully; FALSE otherwise.
              */
             set_text_selections(selections: TextSelection[]): boolean;
-
-            // Virtual methods
-
-            /**
-             * Retrieves the current page number inside `document`.
-             */
-            vfunc_get_current_page_number(): number;
-            /**
-             * Gets a %gpointer that points to an instance of the DOM.  It is
-             * up to the caller to check atk_document_get_type to determine
-             * how to cast this pointer.
-             */
-            vfunc_get_document(): any | null;
-            /**
-             * Retrieves the value of the given `attribute_name` inside `document`.
-             * @param attribute_name a character string representing the name of the attribute   whose value is being queried.
-             */
-            vfunc_get_document_attribute_value(attribute_name: string): string | null;
-            /**
-             * Gets an AtkAttributeSet which describes document-wide
-             *          attributes as name-value pairs.
-             */
-            vfunc_get_document_attributes(): AttributeSet;
-            /**
-             * Gets a UTF-8 string indicating the POSIX-style LC_MESSAGES locale
-             *          of the content of this document instance.  Individual
-             *          text substrings or images within this document may have
-             *          a different locale, see atk_text_get_attributes and
-             *          atk_image_get_image_locale.
-             */
-            vfunc_get_document_locale(): string;
-            /**
-             * Gets a string indicating the document type.
-             */
-            vfunc_get_document_type(): string;
-            /**
-             * Retrieves the total number of pages inside `document`.
-             */
-            vfunc_get_page_count(): number;
-            /**
-             * Returns an array of AtkTextSelections within this document.
-             */
-            vfunc_get_text_selections(): TextSelection[];
-            /**
-             * Sets the value for the given `attribute_name` inside `document`.
-             * @param attribute_name a character string representing the name of the attribute   whose value is being set.
-             * @param attribute_value a string value to be associated with @attribute_name.
-             */
-            vfunc_set_document_attribute(attribute_name: string, attribute_value: string): boolean;
-            /**
-             * Makes 1 or more selections within this document denoted by the given
-             * array of AtkTextSelections. Any existing physical selection (inside or
-             * outside this document) is replaced by the new selections. All objects within
-             * the given selection ranges must be descendants of this document. Otherwise
-             * FALSE will be returned.
-             * @param selections a GArray of AtkTextSelections              to be selected.
-             */
-            vfunc_set_text_selections(selections: TextSelection[]): boolean;
         }
 
         export const Document: DocumentNamespace & {
             new (): Document; // This allows `obj instanceof Document`
         };
 
-        module EditableText {
+        namespace EditableText {
+            /**
+             * Interface for implementing EditableText.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Copy text from `start_pos` up to, but not including `end_pos`
+                 * to the clipboard.
+                 * @param start_pos start position
+                 * @param end_pos end position
+                 */
+                vfunc_copy_text(start_pos: number, end_pos: number): void;
+                /**
+                 * Copy text from `start_pos` up to, but not including `end_pos`
+                 * to the clipboard and then delete from the widget.
+                 * @param start_pos start position
+                 * @param end_pos end position
+                 */
+                vfunc_cut_text(start_pos: number, end_pos: number): void;
+                /**
+                 * Delete text `start_pos` up to, but not including `end_pos`.
+                 * @param start_pos start position
+                 * @param end_pos end position
+                 */
+                vfunc_delete_text(start_pos: number, end_pos: number): void;
+                /**
+                 * Insert text at a given position.
+                 * @param string the text to insert
+                 * @param length the length of text to insert, in bytes
+                 * @param position The caller initializes this to the position at which to insert the text. After the call it points at the position after the newly inserted text.
+                 */
+                vfunc_insert_text(string: string, length: number, position: number): void;
+                /**
+                 * Paste text from clipboard to specified `position`.
+                 * @param position position to paste
+                 */
+                vfunc_paste_text(position: number): void;
+                /**
+                 * Sets the attributes for a specified range. See the ATK_ATTRIBUTE
+                 * macros (such as #ATK_ATTRIBUTE_LEFT_MARGIN) for examples of attributes
+                 * that can be set. Note that other attributes that do not have corresponding
+                 * ATK_ATTRIBUTE macros may also be set for certain text widgets.
+                 * @param attrib_set an #AtkAttributeSet
+                 * @param start_offset start of range in which to set attributes
+                 * @param end_offset end of range in which to set attributes
+                 */
+                vfunc_set_run_attributes(attrib_set: AttributeSet, start_offset: number, end_offset: number): boolean;
+                /**
+                 * Set text contents of `text`.
+                 * @param string string to set for text contents of @text
+                 */
+                vfunc_set_text_contents(string: string): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8536,7 +9273,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<EditableText>;
             prototype: EditableText;
         }
-        interface EditableText extends GObject.Object {
+        interface EditableText extends GObject.Object, EditableText.Interface {
             // Methods
 
             /**
@@ -8587,63 +9324,26 @@ declare module 'gi://Atk?version=1.0' {
              * @param string string to set for text contents of @text
              */
             set_text_contents(string: string): void;
-
-            // Virtual methods
-
-            /**
-             * Copy text from `start_pos` up to, but not including `end_pos`
-             * to the clipboard.
-             * @param start_pos start position
-             * @param end_pos end position
-             */
-            vfunc_copy_text(start_pos: number, end_pos: number): void;
-            /**
-             * Copy text from `start_pos` up to, but not including `end_pos`
-             * to the clipboard and then delete from the widget.
-             * @param start_pos start position
-             * @param end_pos end position
-             */
-            vfunc_cut_text(start_pos: number, end_pos: number): void;
-            /**
-             * Delete text `start_pos` up to, but not including `end_pos`.
-             * @param start_pos start position
-             * @param end_pos end position
-             */
-            vfunc_delete_text(start_pos: number, end_pos: number): void;
-            /**
-             * Insert text at a given position.
-             * @param string the text to insert
-             * @param length the length of text to insert, in bytes
-             * @param position The caller initializes this to the position at which to insert the text. After the call it points at the position after the newly inserted text.
-             */
-            vfunc_insert_text(string: string, length: number, position: number): void;
-            /**
-             * Paste text from clipboard to specified `position`.
-             * @param position position to paste
-             */
-            vfunc_paste_text(position: number): void;
-            /**
-             * Sets the attributes for a specified range. See the ATK_ATTRIBUTE
-             * macros (such as #ATK_ATTRIBUTE_LEFT_MARGIN) for examples of attributes
-             * that can be set. Note that other attributes that do not have corresponding
-             * ATK_ATTRIBUTE macros may also be set for certain text widgets.
-             * @param attrib_set an #AtkAttributeSet
-             * @param start_offset start of range in which to set attributes
-             * @param end_offset end of range in which to set attributes
-             */
-            vfunc_set_run_attributes(attrib_set: AttributeSet, start_offset: number, end_offset: number): boolean;
-            /**
-             * Set text contents of `text`.
-             * @param string string to set for text contents of @text
-             */
-            vfunc_set_text_contents(string: string): void;
         }
 
         export const EditableText: EditableTextNamespace & {
             new (): EditableText; // This allows `obj instanceof EditableText`
         };
 
-        module HyperlinkImpl {
+        namespace HyperlinkImpl {
+            /**
+             * Interface for implementing HyperlinkImpl.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the hyperlink associated with this object.
+                 */
+                vfunc_get_hyperlink(): Hyperlink;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8653,7 +9353,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<HyperlinkImpl>;
             prototype: HyperlinkImpl;
         }
-        interface HyperlinkImpl extends GObject.Object {
+        interface HyperlinkImpl extends GObject.Object, HyperlinkImpl.Interface {
             // Methods
 
             /**
@@ -8661,20 +9361,39 @@ declare module 'gi://Atk?version=1.0' {
              * @returns an AtkHyperlink object which points to this implementing AtkObject.
              */
             get_hyperlink(): Hyperlink;
-
-            // Virtual methods
-
-            /**
-             * Gets the hyperlink associated with this object.
-             */
-            vfunc_get_hyperlink(): Hyperlink;
         }
 
         export const HyperlinkImpl: HyperlinkImplNamespace & {
             new (): HyperlinkImpl; // This allows `obj instanceof HyperlinkImpl`
         };
 
-        module Hypertext {
+        namespace Hypertext {
+            /**
+             * Interface for implementing Hypertext.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the link in this hypertext document at index
+                 * `link_index`
+                 * @param link_index an integer specifying the desired link
+                 */
+                vfunc_get_link(link_index: number): Hyperlink;
+                /**
+                 * Gets the index into the array of hyperlinks that is associated with
+                 * the character specified by `char_index`.
+                 * @param char_index a character index
+                 */
+                vfunc_get_link_index(char_index: number): number;
+                /**
+                 * Gets the number of links within this hypertext document.
+                 */
+                vfunc_get_n_links(): number;
+                vfunc_link_selected(link_index: number): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8684,7 +9403,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Hypertext>;
             prototype: Hypertext;
         }
-        interface Hypertext extends GObject.Object {
+        interface Hypertext extends GObject.Object, Hypertext.Interface {
             // Methods
 
             /**
@@ -8706,33 +9425,53 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the number of links within this hypertext document
              */
             get_n_links(): number;
-
-            // Virtual methods
-
-            /**
-             * Gets the link in this hypertext document at index
-             * `link_index`
-             * @param link_index an integer specifying the desired link
-             */
-            vfunc_get_link(link_index: number): Hyperlink;
-            /**
-             * Gets the index into the array of hyperlinks that is associated with
-             * the character specified by `char_index`.
-             * @param char_index a character index
-             */
-            vfunc_get_link_index(char_index: number): number;
-            /**
-             * Gets the number of links within this hypertext document.
-             */
-            vfunc_get_n_links(): number;
-            vfunc_link_selected(link_index: number): void;
         }
 
         export const Hypertext: HypertextNamespace & {
             new (): Hypertext; // This allows `obj instanceof Hypertext`
         };
 
-        module Image {
+        namespace Image {
+            /**
+             * Interface for implementing Image.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Get a textual description of this image.
+                 */
+                vfunc_get_image_description(): string;
+                /**
+                 * Retrieves the locale identifier associated to the #AtkImage.
+                 */
+                vfunc_get_image_locale(): string | null;
+                /**
+                 * Gets the position of the image in the form of a point specifying the
+                 * images top-left corner.
+                 *
+                 * If the position can not be obtained (e.g. missing support), x and y are set
+                 * to -1.
+                 * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
+                 */
+                vfunc_get_image_position(coord_type: CoordType): [number, number];
+                /**
+                 * Get the width and height in pixels for the specified image.
+                 * The values of `width` and `height` are returned as -1 if the
+                 * values cannot be obtained (for instance, if the object is not onscreen).
+                 *
+                 * If the size can not be obtained (e.g. missing support), x and y are set
+                 * to -1.
+                 */
+                vfunc_get_image_size(): [number, number];
+                /**
+                 * Sets the textual description for this image.
+                 * @param description a string description to set for @image
+                 */
+                vfunc_set_image_description(description: string): boolean;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8742,7 +9481,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Image>;
             prototype: Image;
         }
-        interface Image extends GObject.Object {
+        interface Image extends GObject.Object, Image.Interface {
             // Methods
 
             /**
@@ -8779,47 +9518,13 @@ declare module 'gi://Atk?version=1.0' {
              * @returns boolean TRUE, or FALSE if operation could not be completed.
              */
             set_image_description(description: string): boolean;
-
-            // Virtual methods
-
-            /**
-             * Get a textual description of this image.
-             */
-            vfunc_get_image_description(): string;
-            /**
-             * Retrieves the locale identifier associated to the #AtkImage.
-             */
-            vfunc_get_image_locale(): string | null;
-            /**
-             * Gets the position of the image in the form of a point specifying the
-             * images top-left corner.
-             *
-             * If the position can not be obtained (e.g. missing support), x and y are set
-             * to -1.
-             * @param coord_type specifies whether the coordinates are relative to the screen or to the components top level window
-             */
-            vfunc_get_image_position(coord_type: CoordType): [number, number];
-            /**
-             * Get the width and height in pixels for the specified image.
-             * The values of `width` and `height` are returned as -1 if the
-             * values cannot be obtained (for instance, if the object is not onscreen).
-             *
-             * If the size can not be obtained (e.g. missing support), x and y are set
-             * to -1.
-             */
-            vfunc_get_image_size(): [number, number];
-            /**
-             * Sets the textual description for this image.
-             * @param description a string description to set for @image
-             */
-            vfunc_set_image_description(description: string): boolean;
         }
 
         export const Image: ImageNamespace & {
             new (): Image; // This allows `obj instanceof Image`
         };
 
-        module ImplementorIface {
+        namespace ImplementorIface {
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8835,7 +9540,65 @@ declare module 'gi://Atk?version=1.0' {
             new (): ImplementorIface; // This allows `obj instanceof ImplementorIface`
         };
 
-        module Selection {
+        namespace Selection {
+            /**
+             * Interface for implementing Selection.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Adds the specified accessible child of the object to the
+                 * object's selection.
+                 * @param i a #gint specifying the child index.
+                 */
+                vfunc_add_selection(i: number): boolean;
+                /**
+                 * Clears the selection in the object so that no children in the object
+                 * are selected.
+                 */
+                vfunc_clear_selection(): boolean;
+                /**
+                 * Gets the number of accessible children currently selected.
+                 * Note: callers should not rely on %NULL or on a zero value for
+                 * indication of whether AtkSelectionIface is implemented, they should
+                 * use type checking/interface checking macros or the
+                 * atk_get_accessible_value() convenience method.
+                 */
+                vfunc_get_selection_count(): number;
+                /**
+                 * Determines if the current child of this object is selected
+                 * Note: callers should not rely on %NULL or on a zero value for
+                 * indication of whether AtkSelectionIface is implemented, they should
+                 * use type checking/interface checking macros or the
+                 * atk_get_accessible_value() convenience method.
+                 * @param i a #gint specifying the child index.
+                 */
+                vfunc_is_child_selected(i: number): boolean;
+                /**
+                 * Gets a reference to the accessible object representing the specified
+                 * selected child of the object.
+                 * Note: callers should not rely on %NULL or on a zero value for
+                 * indication of whether AtkSelectionIface is implemented, they should
+                 * use type checking/interface checking macros or the
+                 * atk_get_accessible_value() convenience method.
+                 * @param i a #gint specifying the index in the selection set.  (e.g. the ith selection as opposed to the ith child).
+                 */
+                vfunc_ref_selection(i: number): Object | null;
+                /**
+                 * Removes the specified child of the object from the object's selection.
+                 * @param i a #gint specifying the index in the selection set.  (e.g. the ith selection as opposed to the ith child).
+                 */
+                vfunc_remove_selection(i: number): boolean;
+                /**
+                 * Causes every child of the object to be selected if the object
+                 * supports multiple selections.
+                 */
+                vfunc_select_all_selection(): boolean;
+                vfunc_selection_changed(): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8845,7 +9608,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Selection>;
             prototype: Selection;
         }
-        interface Selection extends GObject.Object {
+        interface Selection extends GObject.Object, Selection.Interface {
             // Methods
 
             /**
@@ -8903,65 +9666,49 @@ declare module 'gi://Atk?version=1.0' {
              * @returns TRUE if success, FALSE otherwise.
              */
             select_all_selection(): boolean;
-
-            // Virtual methods
-
-            /**
-             * Adds the specified accessible child of the object to the
-             * object's selection.
-             * @param i a #gint specifying the child index.
-             */
-            vfunc_add_selection(i: number): boolean;
-            /**
-             * Clears the selection in the object so that no children in the object
-             * are selected.
-             */
-            vfunc_clear_selection(): boolean;
-            /**
-             * Gets the number of accessible children currently selected.
-             * Note: callers should not rely on %NULL or on a zero value for
-             * indication of whether AtkSelectionIface is implemented, they should
-             * use type checking/interface checking macros or the
-             * atk_get_accessible_value() convenience method.
-             */
-            vfunc_get_selection_count(): number;
-            /**
-             * Determines if the current child of this object is selected
-             * Note: callers should not rely on %NULL or on a zero value for
-             * indication of whether AtkSelectionIface is implemented, they should
-             * use type checking/interface checking macros or the
-             * atk_get_accessible_value() convenience method.
-             * @param i a #gint specifying the child index.
-             */
-            vfunc_is_child_selected(i: number): boolean;
-            /**
-             * Gets a reference to the accessible object representing the specified
-             * selected child of the object.
-             * Note: callers should not rely on %NULL or on a zero value for
-             * indication of whether AtkSelectionIface is implemented, they should
-             * use type checking/interface checking macros or the
-             * atk_get_accessible_value() convenience method.
-             * @param i a #gint specifying the index in the selection set.  (e.g. the ith selection as opposed to the ith child).
-             */
-            vfunc_ref_selection(i: number): Object | null;
-            /**
-             * Removes the specified child of the object from the object's selection.
-             * @param i a #gint specifying the index in the selection set.  (e.g. the ith selection as opposed to the ith child).
-             */
-            vfunc_remove_selection(i: number): boolean;
-            /**
-             * Causes every child of the object to be selected if the object
-             * supports multiple selections.
-             */
-            vfunc_select_all_selection(): boolean;
-            vfunc_selection_changed(): void;
         }
 
         export const Selection: SelectionNamespace & {
             new (): Selection; // This allows `obj instanceof Selection`
         };
 
-        module StreamableContent {
+        namespace StreamableContent {
+            /**
+             * Interface for implementing StreamableContent.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the character string of the specified mime type. The first mime
+                 * type is at position 0, the second at position 1, and so on.
+                 * @param i a gint representing the position of the mime type starting from 0
+                 */
+                vfunc_get_mime_type(i: number): string;
+                /**
+                 * Gets the number of mime types supported by this object.
+                 */
+                vfunc_get_n_mime_types(): number;
+                /**
+                 * Gets the content in the specified mime type.
+                 * @param mime_type a gchar* representing the mime type
+                 */
+                vfunc_get_stream(mime_type: string): GLib.IOChannel;
+                /**
+                 * Get a string representing a URI in IETF standard format
+                 * (see http://www.ietf.org/rfc/rfc2396.txt) from which the object's content
+                 * may be streamed in the specified mime-type, if one is available.
+                 * If mime_type is NULL, the URI for the default (and possibly only) mime-type is
+                 * returned.
+                 *
+                 * Note that it is possible for get_uri to return NULL but for
+                 * get_stream to work nonetheless, since not all GIOChannels connect to URIs.
+                 * @param mime_type a gchar* representing the mime type, or NULL to request a URI for the default mime type.
+                 */
+                vfunc_get_uri(mime_type: string): string | null;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -8971,7 +9718,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<StreamableContent>;
             prototype: StreamableContent;
         }
-        interface StreamableContent extends GObject.Object {
+        interface StreamableContent extends GObject.Object, StreamableContent.Interface {
             // Methods
 
             /**
@@ -9005,43 +9752,188 @@ declare module 'gi://Atk?version=1.0' {
              * @returns Returns a string representing a URI, or %NULL if no corresponding URI can be constructed.
              */
             get_uri(mime_type: string): string | null;
-
-            // Virtual methods
-
-            /**
-             * Gets the character string of the specified mime type. The first mime
-             * type is at position 0, the second at position 1, and so on.
-             * @param i a gint representing the position of the mime type starting from 0
-             */
-            vfunc_get_mime_type(i: number): string;
-            /**
-             * Gets the number of mime types supported by this object.
-             */
-            vfunc_get_n_mime_types(): number;
-            /**
-             * Gets the content in the specified mime type.
-             * @param mime_type a gchar* representing the mime type
-             */
-            vfunc_get_stream(mime_type: string): GLib.IOChannel;
-            /**
-             * Get a string representing a URI in IETF standard format
-             * (see http://www.ietf.org/rfc/rfc2396.txt) from which the object's content
-             * may be streamed in the specified mime-type, if one is available.
-             * If mime_type is NULL, the URI for the default (and possibly only) mime-type is
-             * returned.
-             *
-             * Note that it is possible for get_uri to return NULL but for
-             * get_stream to work nonetheless, since not all GIOChannels connect to URIs.
-             * @param mime_type a gchar* representing the mime type, or NULL to request a URI for the default mime type.
-             */
-            vfunc_get_uri(mime_type: string): string | null;
         }
 
         export const StreamableContent: StreamableContentNamespace & {
             new (): StreamableContent; // This allows `obj instanceof StreamableContent`
         };
 
-        module Table {
+        namespace Table {
+            /**
+             * Interface for implementing Table.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Adds the specified `column` to the selection.
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_add_column_selection(column: number): boolean;
+                /**
+                 * Adds the specified `row` to the selection.
+                 * @param row a #gint representing a row in @table
+                 */
+                vfunc_add_row_selection(row: number): boolean;
+                vfunc_column_deleted(column: number, num_deleted: number): void;
+                vfunc_column_inserted(column: number, num_inserted: number): void;
+                vfunc_column_reordered(): void;
+                /**
+                 * Gets the caption for the `table`.
+                 */
+                vfunc_get_caption(): Object | null;
+                /**
+                 * Gets a #gint representing the column at the specified `index_`.
+                 * @param index_ a #gint representing an index in @table
+                 */
+                vfunc_get_column_at_index(index_: number): number;
+                /**
+                 * Gets the description text of the specified `column` in the table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_get_column_description(column: number): string;
+                /**
+                 * Gets the number of columns occupied by the accessible object
+                 * at the specified `row` and `column` in the `table`.
+                 * @param row a #gint representing a row in @table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_get_column_extent_at(row: number, column: number): number;
+                /**
+                 * Gets the column header of a specified column in an accessible table.
+                 * @param column a #gint representing a column in the table
+                 */
+                vfunc_get_column_header(column: number): Object | null;
+                /**
+                 * Gets a #gint representing the index at the specified `row` and
+                 * `column`.
+                 * @param row a #gint representing a row in @table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_get_index_at(row: number, column: number): number;
+                /**
+                 * Gets the number of columns in the table.
+                 */
+                vfunc_get_n_columns(): number;
+                /**
+                 * Gets the number of rows in the table.
+                 */
+                vfunc_get_n_rows(): number;
+                /**
+                 * Gets a #gint representing the row at the specified `index_`.
+                 * @param index_ a #gint representing an index in @table
+                 */
+                vfunc_get_row_at_index(index_: number): number;
+                /**
+                 * Gets the description text of the specified row in the table
+                 * @param row a #gint representing a row in @table
+                 */
+                vfunc_get_row_description(row: number): string | null;
+                /**
+                 * Gets the number of rows occupied by the accessible object
+                 * at a specified `row` and `column` in the `table`.
+                 * @param row a #gint representing a row in @table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_get_row_extent_at(row: number, column: number): number;
+                /**
+                 * Gets the row header of a specified row in an accessible table.
+                 * @param row a #gint representing a row in the table
+                 */
+                vfunc_get_row_header(row: number): Object | null;
+                /**
+                 * Gets the selected columns of the table by initializing **selected with
+                 * the selected column numbers. This array should be freed by the caller.
+                 * @param selected a #gint** that is to contain the selected columns numbers
+                 */
+                vfunc_get_selected_columns(selected: number): number;
+                /**
+                 * Gets the selected rows of the table by initializing **selected with
+                 * the selected row numbers. This array should be freed by the caller.
+                 * @param selected a #gint** that is to contain the selected row numbers
+                 */
+                vfunc_get_selected_rows(selected: number): number;
+                /**
+                 * Gets the summary description of the table.
+                 */
+                vfunc_get_summary(): Object;
+                /**
+                 * Gets a boolean value indicating whether the specified `column`
+                 * is selected
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_is_column_selected(column: number): boolean;
+                /**
+                 * Gets a boolean value indicating whether the specified `row`
+                 * is selected
+                 * @param row a #gint representing a row in @table
+                 */
+                vfunc_is_row_selected(row: number): boolean;
+                /**
+                 * Gets a boolean value indicating whether the accessible object
+                 * at the specified `row` and `column` is selected
+                 * @param row a #gint representing a row in @table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_is_selected(row: number, column: number): boolean;
+                vfunc_model_changed(): void;
+                /**
+                 * Get a reference to the table cell at `row,` `column`. This cell
+                 * should implement the interface #AtkTableCell
+                 * @param row a #gint representing a row in @table
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_ref_at(row: number, column: number): Object;
+                /**
+                 * Adds the specified `column` to the selection.
+                 * @param column a #gint representing a column in @table
+                 */
+                vfunc_remove_column_selection(column: number): boolean;
+                /**
+                 * Removes the specified `row` from the selection.
+                 * @param row a #gint representing a row in @table
+                 */
+                vfunc_remove_row_selection(row: number): boolean;
+                vfunc_row_deleted(row: number, num_deleted: number): void;
+                vfunc_row_inserted(row: number, num_inserted: number): void;
+                vfunc_row_reordered(): void;
+                /**
+                 * Sets the caption for the table.
+                 * @param caption a #AtkObject representing the caption to set for @table
+                 */
+                vfunc_set_caption(caption: Object): void;
+                /**
+                 * Sets the description text for the specified `column` of the `table`.
+                 * @param column a #gint representing a column in @table
+                 * @param description a #gchar representing the description text to set for the specified @column of the @table
+                 */
+                vfunc_set_column_description(column: number, description: string): void;
+                /**
+                 * Sets the specified column header to `header`.
+                 * @param column a #gint representing a column in @table
+                 * @param header an #AtkTable
+                 */
+                vfunc_set_column_header(column: number, header: Object): void;
+                /**
+                 * Sets the description text for the specified `row` of `table`.
+                 * @param row a #gint representing a row in @table
+                 * @param description a #gchar representing the description text to set for the specified @row of @table
+                 */
+                vfunc_set_row_description(row: number, description: string): void;
+                /**
+                 * Sets the specified row header to `header`.
+                 * @param row a #gint representing a row in @table
+                 * @param header an #AtkTable
+                 */
+                vfunc_set_row_header(row: number, header: Object): void;
+                /**
+                 * Sets the summary description of the table.
+                 * @param accessible an #AtkObject representing the summary description to set for @table
+                 */
+                vfunc_set_summary(accessible: Object): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9051,7 +9943,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Table>;
             prototype: Table;
         }
-        interface Table extends GObject.Object {
+        interface Table extends GObject.Object, Table.Interface {
             // Methods
 
             /**
@@ -9236,182 +10128,54 @@ declare module 'gi://Atk?version=1.0' {
              * @param accessible an #AtkObject representing the summary description to set for @table
              */
             set_summary(accessible: Object): void;
-
-            // Virtual methods
-
-            /**
-             * Adds the specified `column` to the selection.
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_add_column_selection(column: number): boolean;
-            /**
-             * Adds the specified `row` to the selection.
-             * @param row a #gint representing a row in @table
-             */
-            vfunc_add_row_selection(row: number): boolean;
-            vfunc_column_deleted(column: number, num_deleted: number): void;
-            vfunc_column_inserted(column: number, num_inserted: number): void;
-            vfunc_column_reordered(): void;
-            /**
-             * Gets the caption for the `table`.
-             */
-            vfunc_get_caption(): Object | null;
-            /**
-             * Gets a #gint representing the column at the specified `index_`.
-             * @param index_ a #gint representing an index in @table
-             */
-            vfunc_get_column_at_index(index_: number): number;
-            /**
-             * Gets the description text of the specified `column` in the table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_get_column_description(column: number): string;
-            /**
-             * Gets the number of columns occupied by the accessible object
-             * at the specified `row` and `column` in the `table`.
-             * @param row a #gint representing a row in @table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_get_column_extent_at(row: number, column: number): number;
-            /**
-             * Gets the column header of a specified column in an accessible table.
-             * @param column a #gint representing a column in the table
-             */
-            vfunc_get_column_header(column: number): Object | null;
-            /**
-             * Gets a #gint representing the index at the specified `row` and
-             * `column`.
-             * @param row a #gint representing a row in @table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_get_index_at(row: number, column: number): number;
-            /**
-             * Gets the number of columns in the table.
-             */
-            vfunc_get_n_columns(): number;
-            /**
-             * Gets the number of rows in the table.
-             */
-            vfunc_get_n_rows(): number;
-            /**
-             * Gets a #gint representing the row at the specified `index_`.
-             * @param index_ a #gint representing an index in @table
-             */
-            vfunc_get_row_at_index(index_: number): number;
-            /**
-             * Gets the description text of the specified row in the table
-             * @param row a #gint representing a row in @table
-             */
-            vfunc_get_row_description(row: number): string | null;
-            /**
-             * Gets the number of rows occupied by the accessible object
-             * at a specified `row` and `column` in the `table`.
-             * @param row a #gint representing a row in @table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_get_row_extent_at(row: number, column: number): number;
-            /**
-             * Gets the row header of a specified row in an accessible table.
-             * @param row a #gint representing a row in the table
-             */
-            vfunc_get_row_header(row: number): Object | null;
-            /**
-             * Gets the selected columns of the table by initializing **selected with
-             * the selected column numbers. This array should be freed by the caller.
-             * @param selected a #gint** that is to contain the selected columns numbers
-             */
-            vfunc_get_selected_columns(selected: number): number;
-            /**
-             * Gets the selected rows of the table by initializing **selected with
-             * the selected row numbers. This array should be freed by the caller.
-             * @param selected a #gint** that is to contain the selected row numbers
-             */
-            vfunc_get_selected_rows(selected: number): number;
-            /**
-             * Gets the summary description of the table.
-             */
-            vfunc_get_summary(): Object;
-            /**
-             * Gets a boolean value indicating whether the specified `column`
-             * is selected
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_is_column_selected(column: number): boolean;
-            /**
-             * Gets a boolean value indicating whether the specified `row`
-             * is selected
-             * @param row a #gint representing a row in @table
-             */
-            vfunc_is_row_selected(row: number): boolean;
-            /**
-             * Gets a boolean value indicating whether the accessible object
-             * at the specified `row` and `column` is selected
-             * @param row a #gint representing a row in @table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_is_selected(row: number, column: number): boolean;
-            vfunc_model_changed(): void;
-            /**
-             * Get a reference to the table cell at `row,` `column`. This cell
-             * should implement the interface #AtkTableCell
-             * @param row a #gint representing a row in @table
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_ref_at(row: number, column: number): Object;
-            /**
-             * Adds the specified `column` to the selection.
-             * @param column a #gint representing a column in @table
-             */
-            vfunc_remove_column_selection(column: number): boolean;
-            /**
-             * Removes the specified `row` from the selection.
-             * @param row a #gint representing a row in @table
-             */
-            vfunc_remove_row_selection(row: number): boolean;
-            vfunc_row_deleted(row: number, num_deleted: number): void;
-            vfunc_row_inserted(row: number, num_inserted: number): void;
-            vfunc_row_reordered(): void;
-            /**
-             * Sets the caption for the table.
-             * @param caption a #AtkObject representing the caption to set for @table
-             */
-            vfunc_set_caption(caption: Object): void;
-            /**
-             * Sets the description text for the specified `column` of the `table`.
-             * @param column a #gint representing a column in @table
-             * @param description a #gchar representing the description text to set for the specified @column of the @table
-             */
-            vfunc_set_column_description(column: number, description: string): void;
-            /**
-             * Sets the specified column header to `header`.
-             * @param column a #gint representing a column in @table
-             * @param header an #AtkTable
-             */
-            vfunc_set_column_header(column: number, header: Object): void;
-            /**
-             * Sets the description text for the specified `row` of `table`.
-             * @param row a #gint representing a row in @table
-             * @param description a #gchar representing the description text to set for the specified @row of @table
-             */
-            vfunc_set_row_description(row: number, description: string): void;
-            /**
-             * Sets the specified row header to `header`.
-             * @param row a #gint representing a row in @table
-             * @param header an #AtkTable
-             */
-            vfunc_set_row_header(row: number, header: Object): void;
-            /**
-             * Sets the summary description of the table.
-             * @param accessible an #AtkObject representing the summary description to set for @table
-             */
-            vfunc_set_summary(accessible: Object): void;
         }
 
         export const Table: TableNamespace & {
             new (): Table; // This allows `obj instanceof Table`
         };
 
-        module TableCell {
+        namespace TableCell {
+            /**
+             * Interface for implementing TableCell.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Returns the column headers as an array of cell accessibles.
+                 */
+                vfunc_get_column_header_cells(): Object[];
+                /**
+                 * Returns the number of columns occupied by this cell accessible.
+                 */
+                vfunc_get_column_span(): number;
+                /**
+                 * Retrieves the tabular position of this cell.
+                 */
+                vfunc_get_position(): [boolean, number, number];
+                /**
+                 * Gets the row and column indexes and span of this cell accessible.
+                 *
+                 * Note: If the object does not implement this function, then, by default, atk
+                 * will implement this function by calling get_row_span and get_column_span
+                 * on the object.
+                 */
+                vfunc_get_row_column_span(): [boolean, number, number, number, number];
+                /**
+                 * Returns the row headers as an array of cell accessibles.
+                 */
+                vfunc_get_row_header_cells(): Object[];
+                /**
+                 * Returns the number of rows occupied by this cell accessible.
+                 */
+                vfunc_get_row_span(): number;
+                /**
+                 * Returns a reference to the accessible of the containing table.
+                 */
+                vfunc_get_table(): Object;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}
@@ -9421,7 +10185,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<TableCell>;
             prototype: TableCell;
         }
-        interface TableCell extends Object {
+        interface TableCell extends Object, TableCell.Interface {
             // Methods
 
             /**
@@ -9463,48 +10227,262 @@ declare module 'gi://Atk?version=1.0' {
              * @returns the atk object for the containing table.
              */
             get_table(): Object;
-
-            // Virtual methods
-
-            /**
-             * Returns the column headers as an array of cell accessibles.
-             */
-            vfunc_get_column_header_cells(): Object[];
-            /**
-             * Returns the number of columns occupied by this cell accessible.
-             */
-            vfunc_get_column_span(): number;
-            /**
-             * Retrieves the tabular position of this cell.
-             */
-            vfunc_get_position(): [boolean, number, number];
-            /**
-             * Gets the row and column indexes and span of this cell accessible.
-             *
-             * Note: If the object does not implement this function, then, by default, atk
-             * will implement this function by calling get_row_span and get_column_span
-             * on the object.
-             */
-            vfunc_get_row_column_span(): [boolean, number, number, number, number];
-            /**
-             * Returns the row headers as an array of cell accessibles.
-             */
-            vfunc_get_row_header_cells(): Object[];
-            /**
-             * Returns the number of rows occupied by this cell accessible.
-             */
-            vfunc_get_row_span(): number;
-            /**
-             * Returns a reference to the accessible of the containing table.
-             */
-            vfunc_get_table(): Object;
         }
 
         export const TableCell: TableCellNamespace & {
             new (): TableCell; // This allows `obj instanceof TableCell`
         };
 
-        module Text {
+        namespace Text {
+            /**
+             * Interface for implementing Text.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Adds a selection bounded by the specified offsets.
+                 * @param start_offset the starting character offset of the selected region
+                 * @param end_offset the offset of the first character after the selected region.
+                 */
+                vfunc_add_selection(start_offset: number, end_offset: number): boolean;
+                /**
+                 * Get the ranges of text in the specified bounding box.
+                 * @param rect An AtkTextRectangle giving the dimensions of the bounding box.
+                 * @param coord_type Specify whether coordinates are relative to the screen or widget window.
+                 * @param x_clip_type Specify the horizontal clip type.
+                 * @param y_clip_type Specify the vertical clip type.
+                 */
+                vfunc_get_bounded_ranges(
+                    rect: TextRectangle,
+                    coord_type: CoordType,
+                    x_clip_type: TextClipType,
+                    y_clip_type: TextClipType,
+                ): TextRange[];
+                /**
+                 * Gets the offset of the position of the caret (cursor).
+                 */
+                vfunc_get_caret_offset(): number;
+                /**
+                 * Gets the specified text.
+                 * @param offset a character offset within @text
+                 */
+                vfunc_get_character_at_offset(offset: number): string;
+                /**
+                 * Gets the character count.
+                 */
+                vfunc_get_character_count(): number;
+                /**
+                 * If the extent can not be obtained (e.g. missing support), all of x, y, width,
+                 * height are set to -1.
+                 *
+                 * Get the bounding box containing the glyph representing the character at
+                 *     a particular text offset.
+                 * @param offset The offset of the text character for which bounding information is required.
+                 * @param coords specify whether coordinates are relative to the screen or widget window
+                 */
+                vfunc_get_character_extents(offset: number, coords: CoordType): [number, number, number, number];
+                /**
+                 * Creates an #AtkAttributeSet which consists of the default values of
+                 * attributes for the text. See the enum AtkTextAttribute for types of text
+                 * attributes that can be returned. Note that other attributes may also be
+                 * returned.
+                 */
+                vfunc_get_default_attributes(): AttributeSet;
+                /**
+                 * Gets the number of selected regions.
+                 */
+                vfunc_get_n_selections(): number;
+                /**
+                 * Gets the offset of the character located at coordinates `x` and `y`. `x` and `y`
+                 * are interpreted as being relative to the screen or this widget's window
+                 * depending on `coords`.
+                 * @param x screen x-position of character
+                 * @param y screen y-position of character
+                 * @param coords specify whether coordinates are relative to the screen or widget window
+                 */
+                vfunc_get_offset_at_point(x: number, y: number, coords: CoordType): number;
+                /**
+                 * Get the bounding box for text within the specified range.
+                 *
+                 * If the extents can not be obtained (e.g. or missing support), the rectangle
+                 * fields are set to -1.
+                 * @param start_offset The offset of the first text character for which boundary        information is required.
+                 * @param end_offset The offset of the text character after the last character        for which boundary information is required.
+                 * @param coord_type Specify whether coordinates are relative to the screen or widget window.
+                 */
+                vfunc_get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType): TextRectangle;
+                /**
+                 * Creates an #AtkAttributeSet which consists of the attributes explicitly
+                 * set at the position `offset` in the text. `start_offset` and `end_offset` are
+                 * set to the start and end of the range around `offset` where the attributes are
+                 * invariant. Note that `end_offset` is the offset of the first character
+                 * after the range.  See the enum AtkTextAttribute for types of text
+                 * attributes that can be returned. Note that other attributes may also be
+                 * returned.
+                 * @param offset the character offset at which to get the attributes, -1 means the offset of the character to be inserted at the caret location.
+                 */
+                vfunc_get_run_attributes(offset: number): [AttributeSet, number, number];
+                /**
+                 * Gets the text from the specified selection.
+                 * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
+                 */
+                vfunc_get_selection(selection_num: number): [string, number, number];
+                /**
+                 * Gets a portion of the text exposed through an #AtkText according to a given `offset`
+                 * and a specific `granularity,` along with the start and end offsets defining the
+                 * boundaries of such a portion of text.
+                 *
+                 * If `granularity` is ATK_TEXT_GRANULARITY_CHAR the character at the
+                 * offset is returned.
+                 *
+                 * If `granularity` is ATK_TEXT_GRANULARITY_WORD the returned string
+                 * is from the word start at or before the offset to the word start after
+                 * the offset.
+                 *
+                 * The returned string will contain the word at the offset if the offset
+                 * is inside a word and will contain the word before the offset if the
+                 * offset is not inside a word.
+                 *
+                 * If `granularity` is ATK_TEXT_GRANULARITY_SENTENCE the returned string
+                 * is from the sentence start at or before the offset to the sentence
+                 * start after the offset.
+                 *
+                 * The returned string will contain the sentence at the offset if the offset
+                 * is inside a sentence and will contain the sentence before the offset
+                 * if the offset is not inside a sentence.
+                 *
+                 * If `granularity` is ATK_TEXT_GRANULARITY_LINE the returned string
+                 * is from the line start at or before the offset to the line
+                 * start after the offset.
+                 *
+                 * If `granularity` is ATK_TEXT_GRANULARITY_PARAGRAPH the returned string
+                 * is from the start of the paragraph at or before the offset to the start
+                 * of the following paragraph after the offset.
+                 * @param offset position
+                 * @param granularity An #AtkTextGranularity
+                 */
+                vfunc_get_string_at_offset(
+                    offset: number,
+                    granularity: TextGranularity,
+                ): [string | null, number, number];
+                /**
+                 * Gets the specified text.
+                 * @param start_offset a starting character offset within @text
+                 * @param end_offset an ending character offset within @text, or -1 for the end of the string.
+                 */
+                vfunc_get_text(start_offset: number, end_offset: number): string;
+                /**
+                 * Gets the specified text.
+                 * @param offset position
+                 * @param boundary_type An #AtkTextBoundary
+                 */
+                vfunc_get_text_after_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+                /**
+                 * Gets the specified text.
+                 *
+                 * If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character at the
+                 * offset is returned.
+                 *
+                 * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
+                 * is from the word start at or before the offset to the word start after
+                 * the offset.
+                 *
+                 * The returned string will contain the word at the offset if the offset
+                 * is inside a word and will contain the word before the offset if the
+                 * offset is not inside a word.
+                 *
+                 * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the returned
+                 * string is from the sentence start at or before the offset to the sentence
+                 * start after the offset.
+                 *
+                 * The returned string will contain the sentence at the offset if the offset
+                 * is inside a sentence and will contain the sentence before the offset
+                 * if the offset is not inside a sentence.
+                 *
+                 * If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
+                 * string is from the line start at or before the offset to the line
+                 * start after the offset.
+                 * @param offset position
+                 * @param boundary_type An #AtkTextBoundary
+                 */
+                vfunc_get_text_at_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+                /**
+                 * Gets the specified text.
+                 * @param offset position
+                 * @param boundary_type An #AtkTextBoundary
+                 */
+                vfunc_get_text_before_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
+                /**
+                 * Removes the specified selection.
+                 * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
+                 */
+                vfunc_remove_selection(selection_num: number): boolean;
+                /**
+                 * Makes a substring of `text` visible on the screen by scrolling all necessary parents.
+                 * @param start_offset start offset in the @text
+                 * @param end_offset end offset in the @text, or -1 for the end of the text.
+                 * @param type specify where the object should be made visible.
+                 */
+                vfunc_scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean;
+                /**
+                 * Move the top-left of a substring of `text` to a given position of the screen
+                 * by scrolling all necessary parents.
+                 * @param start_offset start offset in the @text
+                 * @param end_offset end offset in the @text, or -1 for the end of the text.
+                 * @param coords specify whether coordinates are relative to the screen or to the parent object.
+                 * @param x x-position where to scroll to
+                 * @param y y-position where to scroll to
+                 */
+                vfunc_scroll_substring_to_point(
+                    start_offset: number,
+                    end_offset: number,
+                    coords: CoordType,
+                    x: number,
+                    y: number,
+                ): boolean;
+                /**
+                 * Sets the caret (cursor) position to the specified `offset`.
+                 *
+                 * In the case of rich-text content, this method should either grab focus
+                 * or move the sequential focus navigation starting point (if the application
+                 * supports this concept) as if the user had clicked on the new caret position.
+                 * Typically, this means that the target of this operation is the node containing
+                 * the new caret position or one of its ancestors. In other words, after this
+                 * method is called, if the user advances focus, it should move to the first
+                 * focusable node following the new caret position.
+                 *
+                 * Calling this method should also scroll the application viewport in a way
+                 * that matches the behavior of the application's typical caret motion or tab
+                 * navigation as closely as possible. This also means that if the application's
+                 * caret motion or focus navigation does not trigger a scroll operation, this
+                 * method should not trigger one either. If the application does not have a caret
+                 * motion or focus navigation operation, this method should try to scroll the new
+                 * caret position into view while minimizing unnecessary scroll motion.
+                 * @param offset the character offset of the new caret position
+                 */
+                vfunc_set_caret_offset(offset: number): boolean;
+                /**
+                 * Changes the start and end offset of the specified selection.
+                 * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
+                 * @param start_offset the new starting character offset of the selection
+                 * @param end_offset the new end position of (e.g. offset immediately past) the selection
+                 */
+                vfunc_set_selection(selection_num: number, start_offset: number, end_offset: number): boolean;
+                vfunc_text_attributes_changed(): void;
+                vfunc_text_caret_moved(location: number): void;
+                /**
+                 * the signal handler which is executed when there is a
+                 *   text change. This virtual function is deprecated sice 2.9.4 and
+                 *   it should not be overriden.
+                 * @param position
+                 * @param length
+                 */
+                vfunc_text_changed(position: number, length: number): void;
+                vfunc_text_selection_changed(): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -9522,7 +10500,7 @@ declare module 'gi://Atk?version=1.0' {
              */
             free_ranges(ranges: TextRange[]): void;
         }
-        interface Text extends GObject.Object {
+        interface Text extends GObject.Object, Text.Interface {
             // Methods
 
             /**
@@ -9556,7 +10534,7 @@ declare module 'gi://Atk?version=1.0' {
              * @param offset a character offset within @text
              * @returns the character at @offset or 0 in the case of failure.
              */
-            get_character_at_offset(offset: number): number;
+            get_character_at_offset(offset: number): string;
             /**
              * Gets the character count.
              * @returns the number of characters or -1 in case of failure.
@@ -9771,253 +10749,85 @@ declare module 'gi://Atk?version=1.0' {
              * @returns %TRUE if successful, %FALSE otherwise
              */
             set_selection(selection_num: number, start_offset: number, end_offset: number): boolean;
-
-            // Virtual methods
-
-            /**
-             * Adds a selection bounded by the specified offsets.
-             * @param start_offset the starting character offset of the selected region
-             * @param end_offset the offset of the first character after the selected region.
-             */
-            vfunc_add_selection(start_offset: number, end_offset: number): boolean;
-            /**
-             * Get the ranges of text in the specified bounding box.
-             * @param rect An AtkTextRectangle giving the dimensions of the bounding box.
-             * @param coord_type Specify whether coordinates are relative to the screen or widget window.
-             * @param x_clip_type Specify the horizontal clip type.
-             * @param y_clip_type Specify the vertical clip type.
-             */
-            vfunc_get_bounded_ranges(
-                rect: TextRectangle,
-                coord_type: CoordType,
-                x_clip_type: TextClipType,
-                y_clip_type: TextClipType,
-            ): TextRange[];
-            /**
-             * Gets the offset of the position of the caret (cursor).
-             */
-            vfunc_get_caret_offset(): number;
-            /**
-             * Gets the specified text.
-             * @param offset a character offset within @text
-             */
-            vfunc_get_character_at_offset(offset: number): number;
-            /**
-             * Gets the character count.
-             */
-            vfunc_get_character_count(): number;
-            /**
-             * If the extent can not be obtained (e.g. missing support), all of x, y, width,
-             * height are set to -1.
-             *
-             * Get the bounding box containing the glyph representing the character at
-             *     a particular text offset.
-             * @param offset The offset of the text character for which bounding information is required.
-             * @param coords specify whether coordinates are relative to the screen or widget window
-             */
-            vfunc_get_character_extents(offset: number, coords: CoordType): [number, number, number, number];
-            /**
-             * Creates an #AtkAttributeSet which consists of the default values of
-             * attributes for the text. See the enum AtkTextAttribute for types of text
-             * attributes that can be returned. Note that other attributes may also be
-             * returned.
-             */
-            vfunc_get_default_attributes(): AttributeSet;
-            /**
-             * Gets the number of selected regions.
-             */
-            vfunc_get_n_selections(): number;
-            /**
-             * Gets the offset of the character located at coordinates `x` and `y`. `x` and `y`
-             * are interpreted as being relative to the screen or this widget's window
-             * depending on `coords`.
-             * @param x screen x-position of character
-             * @param y screen y-position of character
-             * @param coords specify whether coordinates are relative to the screen or widget window
-             */
-            vfunc_get_offset_at_point(x: number, y: number, coords: CoordType): number;
-            /**
-             * Get the bounding box for text within the specified range.
-             *
-             * If the extents can not be obtained (e.g. or missing support), the rectangle
-             * fields are set to -1.
-             * @param start_offset The offset of the first text character for which boundary        information is required.
-             * @param end_offset The offset of the text character after the last character        for which boundary information is required.
-             * @param coord_type Specify whether coordinates are relative to the screen or widget window.
-             */
-            vfunc_get_range_extents(start_offset: number, end_offset: number, coord_type: CoordType): TextRectangle;
-            /**
-             * Creates an #AtkAttributeSet which consists of the attributes explicitly
-             * set at the position `offset` in the text. `start_offset` and `end_offset` are
-             * set to the start and end of the range around `offset` where the attributes are
-             * invariant. Note that `end_offset` is the offset of the first character
-             * after the range.  See the enum AtkTextAttribute for types of text
-             * attributes that can be returned. Note that other attributes may also be
-             * returned.
-             * @param offset the character offset at which to get the attributes, -1 means the offset of the character to be inserted at the caret location.
-             */
-            vfunc_get_run_attributes(offset: number): [AttributeSet, number, number];
-            /**
-             * Gets the text from the specified selection.
-             * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
-             */
-            vfunc_get_selection(selection_num: number): [string, number, number];
-            /**
-             * Gets a portion of the text exposed through an #AtkText according to a given `offset`
-             * and a specific `granularity,` along with the start and end offsets defining the
-             * boundaries of such a portion of text.
-             *
-             * If `granularity` is ATK_TEXT_GRANULARITY_CHAR the character at the
-             * offset is returned.
-             *
-             * If `granularity` is ATK_TEXT_GRANULARITY_WORD the returned string
-             * is from the word start at or before the offset to the word start after
-             * the offset.
-             *
-             * The returned string will contain the word at the offset if the offset
-             * is inside a word and will contain the word before the offset if the
-             * offset is not inside a word.
-             *
-             * If `granularity` is ATK_TEXT_GRANULARITY_SENTENCE the returned string
-             * is from the sentence start at or before the offset to the sentence
-             * start after the offset.
-             *
-             * The returned string will contain the sentence at the offset if the offset
-             * is inside a sentence and will contain the sentence before the offset
-             * if the offset is not inside a sentence.
-             *
-             * If `granularity` is ATK_TEXT_GRANULARITY_LINE the returned string
-             * is from the line start at or before the offset to the line
-             * start after the offset.
-             *
-             * If `granularity` is ATK_TEXT_GRANULARITY_PARAGRAPH the returned string
-             * is from the start of the paragraph at or before the offset to the start
-             * of the following paragraph after the offset.
-             * @param offset position
-             * @param granularity An #AtkTextGranularity
-             */
-            vfunc_get_string_at_offset(offset: number, granularity: TextGranularity): [string | null, number, number];
-            /**
-             * Gets the specified text.
-             * @param start_offset a starting character offset within @text
-             * @param end_offset an ending character offset within @text, or -1 for the end of the string.
-             */
-            vfunc_get_text(start_offset: number, end_offset: number): string;
-            /**
-             * Gets the specified text.
-             * @param offset position
-             * @param boundary_type An #AtkTextBoundary
-             */
-            vfunc_get_text_after_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
-            /**
-             * Gets the specified text.
-             *
-             * If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character at the
-             * offset is returned.
-             *
-             * If the boundary_type is ATK_TEXT_BOUNDARY_WORD_START the returned string
-             * is from the word start at or before the offset to the word start after
-             * the offset.
-             *
-             * The returned string will contain the word at the offset if the offset
-             * is inside a word and will contain the word before the offset if the
-             * offset is not inside a word.
-             *
-             * If the boundary type is ATK_TEXT_BOUNDARY_SENTENCE_START the returned
-             * string is from the sentence start at or before the offset to the sentence
-             * start after the offset.
-             *
-             * The returned string will contain the sentence at the offset if the offset
-             * is inside a sentence and will contain the sentence before the offset
-             * if the offset is not inside a sentence.
-             *
-             * If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
-             * string is from the line start at or before the offset to the line
-             * start after the offset.
-             * @param offset position
-             * @param boundary_type An #AtkTextBoundary
-             */
-            vfunc_get_text_at_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
-            /**
-             * Gets the specified text.
-             * @param offset position
-             * @param boundary_type An #AtkTextBoundary
-             */
-            vfunc_get_text_before_offset(offset: number, boundary_type: TextBoundary): [string, number, number];
-            /**
-             * Removes the specified selection.
-             * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
-             */
-            vfunc_remove_selection(selection_num: number): boolean;
-            /**
-             * Makes a substring of `text` visible on the screen by scrolling all necessary parents.
-             * @param start_offset start offset in the @text
-             * @param end_offset end offset in the @text, or -1 for the end of the text.
-             * @param type specify where the object should be made visible.
-             */
-            vfunc_scroll_substring_to(start_offset: number, end_offset: number, type: ScrollType): boolean;
-            /**
-             * Move the top-left of a substring of `text` to a given position of the screen
-             * by scrolling all necessary parents.
-             * @param start_offset start offset in the @text
-             * @param end_offset end offset in the @text, or -1 for the end of the text.
-             * @param coords specify whether coordinates are relative to the screen or to the parent object.
-             * @param x x-position where to scroll to
-             * @param y y-position where to scroll to
-             */
-            vfunc_scroll_substring_to_point(
-                start_offset: number,
-                end_offset: number,
-                coords: CoordType,
-                x: number,
-                y: number,
-            ): boolean;
-            /**
-             * Sets the caret (cursor) position to the specified `offset`.
-             *
-             * In the case of rich-text content, this method should either grab focus
-             * or move the sequential focus navigation starting point (if the application
-             * supports this concept) as if the user had clicked on the new caret position.
-             * Typically, this means that the target of this operation is the node containing
-             * the new caret position or one of its ancestors. In other words, after this
-             * method is called, if the user advances focus, it should move to the first
-             * focusable node following the new caret position.
-             *
-             * Calling this method should also scroll the application viewport in a way
-             * that matches the behavior of the application's typical caret motion or tab
-             * navigation as closely as possible. This also means that if the application's
-             * caret motion or focus navigation does not trigger a scroll operation, this
-             * method should not trigger one either. If the application does not have a caret
-             * motion or focus navigation operation, this method should try to scroll the new
-             * caret position into view while minimizing unnecessary scroll motion.
-             * @param offset the character offset of the new caret position
-             */
-            vfunc_set_caret_offset(offset: number): boolean;
-            /**
-             * Changes the start and end offset of the specified selection.
-             * @param selection_num The selection number.  The selected regions are assigned numbers that correspond to how far the region is from the start of the text.  The selected region closest to the beginning of the text region is assigned the number 0, etc.  Note that adding, moving or deleting a selected region can change the numbering.
-             * @param start_offset the new starting character offset of the selection
-             * @param end_offset the new end position of (e.g. offset immediately past) the selection
-             */
-            vfunc_set_selection(selection_num: number, start_offset: number, end_offset: number): boolean;
-            vfunc_text_attributes_changed(): void;
-            vfunc_text_caret_moved(location: number): void;
-            /**
-             * the signal handler which is executed when there is a
-             *   text change. This virtual function is deprecated sice 2.9.4 and
-             *   it should not be overriden.
-             * @param position
-             * @param length
-             */
-            vfunc_text_changed(position: number, length: number): void;
-            vfunc_text_selection_changed(): void;
         }
 
         export const Text: TextNamespace & {
             new (): Text; // This allows `obj instanceof Text`
         };
 
-        module Value {
+        namespace Value {
+            /**
+             * Interface for implementing Value.
+             * Contains only the virtual methods that need to be implemented.
+             */
+            interface Interface {
+                // Virtual methods
+
+                /**
+                 * Gets the value of this object.
+                 */
+                vfunc_get_current_value(): unknown;
+                /**
+                 * Gets the minimum increment by which the value of this object may be
+                 * changed.  If zero, the minimum increment is undefined, which may
+                 * mean that it is limited only by the floating point precision of the
+                 * platform.
+                 */
+                vfunc_get_increment(): number;
+                /**
+                 * Gets the maximum value of this object.
+                 */
+                vfunc_get_maximum_value(): unknown;
+                /**
+                 * Gets the minimum increment by which the value of this object may be changed.  If zero,
+                 * the minimum increment is undefined, which may mean that it is limited only by the
+                 * floating point precision of the platform.
+                 */
+                vfunc_get_minimum_increment(): unknown;
+                /**
+                 * Gets the minimum value of this object.
+                 */
+                vfunc_get_minimum_value(): unknown;
+                /**
+                 * Gets the range of this object.
+                 */
+                vfunc_get_range(): Range | null;
+                /**
+                 * Gets the list of subranges defined for this object. See #AtkValue
+                 * introduction for examples of subranges and when to expose them.
+                 */
+                vfunc_get_sub_ranges(): Range[];
+                /**
+                 * Gets the current value and the human readable text alternative of
+                 * `obj`. `text` is a newly created string, that must be freed by the
+                 * caller. Can be NULL if no descriptor is available.
+                 */
+                vfunc_get_value_and_text(): [number, string];
+                /**
+                 * Sets the value of this object.
+                 * @param value a #GValue which is the desired new accessible value.
+                 */
+                vfunc_set_current_value(value: GObject.Value | any): boolean;
+                /**
+                 * Sets the value of this object.
+                 *
+                 * This method is intended to provide a way to change the value of the
+                 * object. In any case, it is possible that the value can't be
+                 * modified (ie: a read-only component). If the value changes due this
+                 * call, it is possible that the text could change, and will trigger
+                 * an #AtkValue::value-changed signal emission.
+                 *
+                 * Note for implementors: the deprecated atk_value_set_current_value()
+                 * method returned TRUE or FALSE depending if the value was assigned
+                 * or not. In the practice several implementors were not able to
+                 * decide it, and returned TRUE in any case. For that reason it is not
+                 * required anymore to return if the value was properly assigned or
+                 * not.
+                 * @param new_value a double which is the desired new accessible value.
+                 */
+                vfunc_set_value(new_value: number): void;
+            }
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -10027,7 +10837,7 @@ declare module 'gi://Atk?version=1.0' {
             $gtype: GObject.GType<Value>;
             prototype: Value;
         }
-        interface Value extends GObject.Object {
+        interface Value extends GObject.Object, Value.Interface {
             // Methods
 
             /**
@@ -10097,79 +10907,13 @@ declare module 'gi://Atk?version=1.0' {
              * @param new_value a double which is the desired new accessible value.
              */
             set_value(new_value: number): void;
-
-            // Virtual methods
-
-            /**
-             * Gets the value of this object.
-             */
-            vfunc_get_current_value(): unknown;
-            /**
-             * Gets the minimum increment by which the value of this object may be
-             * changed.  If zero, the minimum increment is undefined, which may
-             * mean that it is limited only by the floating point precision of the
-             * platform.
-             */
-            vfunc_get_increment(): number;
-            /**
-             * Gets the maximum value of this object.
-             */
-            vfunc_get_maximum_value(): unknown;
-            /**
-             * Gets the minimum increment by which the value of this object may be changed.  If zero,
-             * the minimum increment is undefined, which may mean that it is limited only by the
-             * floating point precision of the platform.
-             */
-            vfunc_get_minimum_increment(): unknown;
-            /**
-             * Gets the minimum value of this object.
-             */
-            vfunc_get_minimum_value(): unknown;
-            /**
-             * Gets the range of this object.
-             */
-            vfunc_get_range(): Range | null;
-            /**
-             * Gets the list of subranges defined for this object. See #AtkValue
-             * introduction for examples of subranges and when to expose them.
-             */
-            vfunc_get_sub_ranges(): Range[];
-            /**
-             * Gets the current value and the human readable text alternative of
-             * `obj`. `text` is a newly created string, that must be freed by the
-             * caller. Can be NULL if no descriptor is available.
-             */
-            vfunc_get_value_and_text(): [number, string];
-            /**
-             * Sets the value of this object.
-             * @param value a #GValue which is the desired new accessible value.
-             */
-            vfunc_set_current_value(value: GObject.Value | any): boolean;
-            /**
-             * Sets the value of this object.
-             *
-             * This method is intended to provide a way to change the value of the
-             * object. In any case, it is possible that the value can't be
-             * modified (ie: a read-only component). If the value changes due this
-             * call, it is possible that the text could change, and will trigger
-             * an #AtkValue::value-changed signal emission.
-             *
-             * Note for implementors: the deprecated atk_value_set_current_value()
-             * method returned TRUE or FALSE depending if the value was assigned
-             * or not. In the practice several implementors were not able to
-             * decide it, and returned TRUE in any case. For that reason it is not
-             * required anymore to return if the value was properly assigned or
-             * not.
-             * @param new_value a double which is the desired new accessible value.
-             */
-            vfunc_set_value(new_value: number): void;
         }
 
         export const Value: ValueNamespace & {
             new (): Value; // This allows `obj instanceof Value`
         };
 
-        module Window {
+        namespace Window {
             // Constructor properties interface
 
             interface ConstructorProps extends Object.ConstructorProps {}

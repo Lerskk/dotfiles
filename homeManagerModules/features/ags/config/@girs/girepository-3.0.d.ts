@@ -457,6 +457,7 @@ declare module 'gi://GIRepository?version=3.0' {
              * represents a virtual function.
              */
             WRAPS_VFUNC,
+            IS_ASYNC,
         }
         /**
          * Flags that control how a typelib is loaded.
@@ -504,6 +505,11 @@ declare module 'gi://GIRepository?version=3.0' {
              */
             NOT_OVERRIDE,
         }
+        namespace ArgInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GIArgInfo` represents an argument of a callable.
          *
@@ -515,6 +521,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ArgInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArgInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ArgInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ArgInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ArgInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ArgInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -609,6 +633,11 @@ declare module 'gi://GIRepository?version=3.0' {
             may_be_null(): boolean;
         }
 
+        namespace BaseInfo {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+        }
+
         /**
          * `GIBaseInfo` is the common base struct of all other Info structs
          * accessible through the [class`GIRepository`.Repository] API.
@@ -645,6 +674,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof BaseInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof BaseInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, BaseInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof BaseInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<BaseInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -754,6 +801,11 @@ declare module 'gi://GIRepository?version=3.0' {
             unref(): void;
         }
 
+        namespace CallableInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GICallableInfo` represents an entity which is callable.
          *
@@ -773,6 +825,24 @@ declare module 'gi://GIRepository?version=3.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof CallableInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CallableInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CallableInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CallableInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CallableInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CallableInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
@@ -787,12 +857,22 @@ declare module 'gi://GIRepository?version=3.0' {
              */
             get_arg(n: number): ArgInfo;
             /**
+             * Gets the callable info for the callable's asynchronous version
+             * @returns a [class@GIRepository.CallableInfo] for the   async function or `NULL` if not defined.
+             */
+            get_async_function(): CallableInfo | null;
+            /**
              * See whether the caller owns the return value of this callable.
              *
              * [type`GIRepository`.Transfer] contains a list of possible transfer values.
              * @returns the transfer mode for the return value of the callable
              */
             get_caller_owns(): Transfer;
+            /**
+             * Gets the info for an async function's corresponding finish function
+             * @returns a [class@GIRepository.CallableInfo] for the   finish function or `NULL` if not defined.
+             */
+            get_finish_function(): CallableInfo | null;
             /**
              * Obtains the ownership transfer for the instance argument.
              *
@@ -820,6 +900,11 @@ declare module 'gi://GIRepository?version=3.0' {
              */
             get_return_type(): TypeInfo;
             /**
+             * Gets the callable info for the callable's synchronous version
+             * @returns a [class@GIRepository.CallableInfo] for the   sync function or `NULL` if not defined.
+             */
+            get_sync_function(): CallableInfo | null;
+            /**
              * Invoke the given `GICallableInfo` by calling the given `function` pointer.
              *
              * The set of arguments passed to `function` will be constructed according to the
@@ -832,11 +917,20 @@ declare module 'gi://GIRepository?version=3.0' {
              */
             invoke(_function: any | null, in_args: Argument[], out_args: Argument[]): [boolean, Argument];
             /**
+             * Gets whether a callable is ‘async’. Async callables have a
+             * [type`Gio`.AsyncReadyCallback] parameter and user data.
+             * @returns true if the callable is async
+             */
+            is_async(): boolean;
+            /**
              * Determines if the callable info is a method.
              *
-             * For [class`GIRepository`.VFuncInfo]s, [class`GIRepository`.CallbackInfo]s, and
-             * [class`GIRepository`.SignalInfo]s, this is always true. Otherwise, this looks
-             * at the `GI_FUNCTION_IS_METHOD` flag on the [class`GIRepository`.FunctionInfo].
+             * For [class`GIRepository`.SignalInfo]s, this is always true, and for
+             * [class`GIRepository`.CallbackInfo]s always false.
+             * For [class`GIRepository`.FunctionInfo]s this looks at the
+             * `GI_FUNCTION_IS_METHOD` flag on the [class`GIRepository`.FunctionInfo].
+             * For [class`GIRepository`.VFuncInfo]s this is true when the virtual function
+             * has an instance parameter.
              *
              * Concretely, this function returns whether
              * [method`GIRepository`.CallableInfo.get_n_args] matches the number of arguments
@@ -895,6 +989,11 @@ declare module 'gi://GIRepository?version=3.0' {
             skip_return(): boolean;
         }
 
+        namespace CallbackInfo {
+            // Signal signatures
+            interface SignalSignatures extends CallableInfo.SignalSignatures {}
+        }
+
         /**
          * `GICallbackInfo` represents a callback.
          */
@@ -904,6 +1003,29 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof CallbackInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CallbackInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof CallbackInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, CallbackInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof CallbackInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<CallbackInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace ConstantInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
         }
 
         /**
@@ -920,6 +1042,24 @@ declare module 'gi://GIRepository?version=3.0' {
 
             _init(...args: any[]): void;
 
+            // Signals
+
+            connect<K extends keyof ConstantInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConstantInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ConstantInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ConstantInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ConstantInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ConstantInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+
             // Methods
 
             /**
@@ -927,6 +1067,11 @@ declare module 'gi://GIRepository?version=3.0' {
              * @returns The [class@GIRepository.TypeInfo]. Free the struct   by calling [method@GIRepository.BaseInfo.unref] when done.
              */
             get_type_info(): TypeInfo;
+        }
+
+        namespace EnumInfo {
+            // Signal signatures
+            interface SignalSignatures extends RegisteredTypeInfo.SignalSignatures {}
         }
 
         /**
@@ -944,6 +1089,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof EnumInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EnumInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof EnumInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, EnumInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof EnumInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<EnumInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -987,6 +1150,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_value(n: number): ValueInfo;
         }
 
+        namespace FieldInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * A `GIFieldInfo` struct represents a field of a struct, union, or object.
          *
@@ -1007,6 +1175,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FieldInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FieldInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FieldInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FieldInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FieldInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FieldInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1035,6 +1221,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_type_info(): TypeInfo;
         }
 
+        namespace FlagsInfo {
+            // Signal signatures
+            interface SignalSignatures extends EnumInfo.SignalSignatures {}
+        }
+
         /**
          * A `GIFlagsInfo` represents an enumeration which defines flag values
          * (independently set bits).
@@ -1051,6 +1242,29 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FlagsInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FlagsInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FlagsInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FlagsInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FlagsInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FlagsInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace FunctionInfo {
+            // Signal signatures
+            interface SignalSignatures extends CallableInfo.SignalSignatures {}
         }
 
         /**
@@ -1068,6 +1282,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof FunctionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FunctionInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof FunctionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, FunctionInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof FunctionInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<FunctionInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1103,6 +1335,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_vfunc(): VFuncInfo | null;
         }
 
+        namespace InterfaceInfo {
+            // Signal signatures
+            interface SignalSignatures extends RegisteredTypeInfo.SignalSignatures {}
+        }
+
         /**
          * `GIInterfaceInfo` represents a `GInterface` type.
          *
@@ -1115,6 +1352,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof InterfaceInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InterfaceInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof InterfaceInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, InterfaceInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof InterfaceInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<InterfaceInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1219,6 +1474,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_vfunc(n: number): VFuncInfo;
         }
 
+        namespace ObjectInfo {
+            // Signal signatures
+            interface SignalSignatures extends RegisteredTypeInfo.SignalSignatures {}
+        }
+
         /**
          * `GIObjectInfo` represents a classed type.
          *
@@ -1237,6 +1497,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ObjectInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObjectInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ObjectInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ObjectInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ObjectInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ObjectInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1465,6 +1743,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_vfunc(n: number): VFuncInfo;
         }
 
+        namespace PropertyInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GIPropertyInfo` represents a property in a [class`GObject`.Object].
          *
@@ -1477,6 +1760,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof PropertyInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PropertyInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof PropertyInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, PropertyInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof PropertyInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<PropertyInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1517,6 +1818,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_type_info(): TypeInfo;
         }
 
+        namespace RegisteredTypeInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GIRegisteredTypeInfo` represents an entity with a [type`GObject`.Type]
          * associated.
@@ -1544,6 +1850,26 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof RegisteredTypeInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RegisteredTypeInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof RegisteredTypeInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, RegisteredTypeInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof RegisteredTypeInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<RegisteredTypeInfo.SignalSignatures[K]> extends [any, ...infer Q]
+                    ? Q
+                    : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -1596,7 +1922,10 @@ declare module 'gi://GIRepository?version=3.0' {
             is_boxed(): boolean;
         }
 
-        module Repository {
+        namespace Repository {
+            // Signal signatures
+            interface SignalSignatures extends GObject.Object.SignalSignatures {}
+
             // Constructor properties interface
 
             interface ConstructorProps extends GObject.Object.ConstructorProps {}
@@ -1648,6 +1977,15 @@ declare module 'gi://GIRepository?version=3.0' {
         class Repository extends GObject.Object {
             static $gtype: GObject.GType<Repository>;
 
+            /**
+             * Compile-time signal type information.
+             *
+             * This instance property is generated only for TypeScript type checking.
+             * It is not defined at runtime and should not be accessed in JS code.
+             * @internal
+             */
+            $signals: Repository.SignalSignatures;
+
             // Constructors
 
             constructor(properties?: Partial<Repository.ConstructorProps>, ...args: any[]);
@@ -1655,6 +1993,24 @@ declare module 'gi://GIRepository?version=3.0' {
             _init(...args: any[]): void;
 
             static ['new'](): Repository;
+
+            // Signals
+
+            connect<K extends keyof Repository.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Repository.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof Repository.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, Repository.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof Repository.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<Repository.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Static methods
 
@@ -1969,6 +2325,11 @@ declare module 'gi://GIRepository?version=3.0' {
             ): Typelib;
         }
 
+        namespace SignalInfo {
+            // Signal signatures
+            interface SignalSignatures extends CallableInfo.SignalSignatures {}
+        }
+
         /**
          * `GISignalInfo` represents a signal.
          *
@@ -1984,6 +2345,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof SignalInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SignalInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof SignalInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, SignalInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof SignalInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<SignalInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2011,6 +2390,11 @@ declare module 'gi://GIRepository?version=3.0' {
             true_stops_emit(): boolean;
         }
 
+        namespace StructInfo {
+            // Signal signatures
+            interface SignalSignatures extends RegisteredTypeInfo.SignalSignatures {}
+        }
+
         /**
          * `GIStructInfo` represents a generic C structure type.
          *
@@ -2022,6 +2406,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof StructInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StructInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof StructInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, StructInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof StructInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<StructInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2096,6 +2498,11 @@ declare module 'gi://GIRepository?version=3.0' {
             is_gtype_struct(): boolean;
         }
 
+        namespace TypeInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GITypeInfo` represents a type, including information about direction and
          * transfer.
@@ -2119,6 +2526,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof TypeInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TypeInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof TypeInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, TypeInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof TypeInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<TypeInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2240,6 +2665,11 @@ declare module 'gi://GIRepository?version=3.0' {
             is_zero_terminated(): boolean;
         }
 
+        namespace UnionInfo {
+            // Signal signatures
+            interface SignalSignatures extends RegisteredTypeInfo.SignalSignatures {}
+        }
+
         /**
          * `GIUnionInfo` represents a union type.
          *
@@ -2253,6 +2683,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof UnionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnionInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UnionInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnionInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UnionInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UnionInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2333,6 +2781,11 @@ declare module 'gi://GIRepository?version=3.0' {
             is_discriminated(): boolean;
         }
 
+        namespace UnresolvedInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * `GIUnresolvedInfo` represents an unresolved symbol.
          */
@@ -2342,6 +2795,29 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof UnresolvedInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnresolvedInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof UnresolvedInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, UnresolvedInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof UnresolvedInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<UnresolvedInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
+        }
+
+        namespace VFuncInfo {
+            // Signal signatures
+            interface SignalSignatures extends CallableInfo.SignalSignatures {}
         }
 
         /**
@@ -2356,6 +2832,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof VFuncInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VFuncInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof VFuncInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, VFuncInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof VFuncInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<VFuncInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 
@@ -2399,6 +2893,11 @@ declare module 'gi://GIRepository?version=3.0' {
             get_signal(): SignalInfo | null;
         }
 
+        namespace ValueInfo {
+            // Signal signatures
+            interface SignalSignatures extends BaseInfo.SignalSignatures {}
+        }
+
         /**
          * A `GIValueInfo` represents a value in an enumeration.
          *
@@ -2411,6 +2910,24 @@ declare module 'gi://GIRepository?version=3.0' {
             // Constructors
 
             _init(...args: any[]): void;
+
+            // Signals
+
+            connect<K extends keyof ValueInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueInfo.SignalSignatures[K]>,
+            ): number;
+            connect(signal: string, callback: (...args: any[]) => any): number;
+            connect_after<K extends keyof ValueInfo.SignalSignatures>(
+                signal: K,
+                callback: GObject.SignalCallback<this, ValueInfo.SignalSignatures[K]>,
+            ): number;
+            connect_after(signal: string, callback: (...args: any[]) => any): number;
+            emit<K extends keyof ValueInfo.SignalSignatures>(
+                signal: K,
+                ...args: GObject.GjsParameters<ValueInfo.SignalSignatures[K]> extends [any, ...infer Q] ? Q : never
+            ): void;
+            emit(signal: string, ...args: any[]): void;
 
             // Methods
 

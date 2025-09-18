@@ -68,6 +68,7 @@
       zathura
 
       vesktop
+      vencord
       libxkbcommon   
       dunst
       swww
