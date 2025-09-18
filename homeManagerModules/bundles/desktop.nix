@@ -71,7 +71,7 @@
       vencord
       libxkbcommon   
       dunst
-      swww
+      hyprpaper
       firefox
       tldr
       xfce.thunar
