@@ -55,8 +55,6 @@ return {
         global = { 'vim ' }
       }
     })
-    lspconfig.prismals.setup({})
-    lspconfig.tailwindcss.setup({})
     lspconfig.texlab.setup({})
     lspconfig.ts_ls.setup({})
 
