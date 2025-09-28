@@ -44,7 +44,7 @@ in {
       gpg.format = "ssh";
       gpg."ssh".program = "${pkgs._1password-gui}/bin/op-ssh-sign";
       commit.gpgsign = true;
-      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCteEfbYPbK6TMvJPFQRkM3IaZfch+UuIOUF6pWdpQi";
+      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICn1t/+LQBv85iTfendlgchDU9CcfMGNTp/nb3a7l1NB";
     };
   };
 
