@@ -61,7 +61,6 @@
       spotify
       sway-contrib.grimshot
       texliveFull
-      xfce.thunar
       vlc
       wlogout
       # xdg-desktop-portal-hyprland
@@ -73,6 +72,7 @@
       dunst
       hyprpaper
       firefox
+      inputs.zen-browser.packages.${pkgs.stdenv.system}.twilight
       tldr
       xfce.thunar
       nvitop
@@ -84,7 +84,6 @@
       telegram-desktop
       tidal-hifi
       cmake
-      kdePackages.xwaylandvideobridge
       xdg-desktop-portal-hyprland
       webcord
       wget

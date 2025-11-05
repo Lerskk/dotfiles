@@ -13,7 +13,7 @@
 
   fonts.packages = with pkgs; [
     corefonts
-    vistafonts
+    vista-fonts
     (google-fonts.override { fonts = [ "Nunito" "Arial"]; })
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
