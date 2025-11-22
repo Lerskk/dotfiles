@@ -22,6 +22,7 @@
     myHomeManager.hyprland.enable = lib.mkDefault true;
     myHomeManager.nvim.enable = lib.mkDefault true;
     myHomeManager.tmux.enable = lib.mkDefault true;
+    myHomeManager.qutebrowser.enable = lib.mkDefault true;
     myHomeManager.wlogout.enable = lib.mkDefault true;
     myHomeManager.xdg.enable = lib.mkDefault true;
     myHomeManager.zathura.enable = lib.mkDefault true;
@@ -36,6 +37,7 @@
     };
 
     home.packages = with pkgs; [
+      _1password-cli
       adwaita-qt
       alacritty
       audacity
@@ -81,7 +83,6 @@
       syncthing
       gnugrep
       gnumake
-      qutebrowser
       telegram-desktop
       tidal-hifi
       cmake
