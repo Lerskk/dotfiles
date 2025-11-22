@@ -81,6 +81,7 @@
       syncthing
       gnugrep
       gnumake
+      qutebrowser
       telegram-desktop
       tidal-hifi
       cmake

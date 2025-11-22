@@ -12,8 +12,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = 'lerskk.lazy',
-  change_detection = { notify = false }
+  spec = {
+    { import = 'lerskk.lazy' },
+    { import = "lerskk.lazy.lsp" },
+  },
+  change_detection = { notify = false },
+  git = {
+    url_format = "git@github.com:%s.git",
+  }
 })
-
-

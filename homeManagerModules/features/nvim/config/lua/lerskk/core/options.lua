@@ -63,7 +63,7 @@ opt.inccommand = 'split'
 opt.smarttab = true
 opt.showmatch = true
 opt.autoread = true
-opt.signcolumn = 'number'
+opt.signcolumn = "yes"
 opt.showbreak = '↳'
 
 opt.clipboard:append { 'unnamedplus' }
@@ -79,17 +79,6 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
 
 vim.opt.conceallevel = 2
-
--- Automatically save and load folds
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = "*.*",
-  command = "mkview",
-})
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.*",
-  command = "silent! loadview",
-})
 
 vim.filetype.add({
   extension = {

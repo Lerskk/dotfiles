@@ -1,8 +1,6 @@
 return {
   'nvim-telescope/telescope.nvim',
 
-  tag = '0.1.5',
-
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
@@ -28,6 +26,12 @@ return {
 
     telescope.setup {
       defaults = {
+        layout_strategy = "flex",
+        layout_config = {
+          horizontal = { preview_width = 0.55 },
+          vertical = { width = 0.9 },
+        },
+        -- sorting_strategy = "ascending",
         file_ignore_patterns = {
           'node_modules', '.git', '.next', 'dist' -- in addition to .gitignore
         },
@@ -36,8 +40,16 @@ return {
             ['<C-k>'] = actions.move_selection_previous,
             ['<C-j>'] = actions.move_selection_next,
             ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
-          }
-        }
+            ['<esc>'] = actions.close,
+          },
+        },
+
+        pickers = {
+          find_files = { hidden = true },
+          lsp_document_symbols = {
+            symbols = { 'function', 'method', 'class', 'struct', 'interface' },
+          },
+        },
       },
       extensions = {
         file_browser = {
@@ -64,35 +76,34 @@ return {
       },
     }
 
-    telescope.load_extension('file_browser')
-    telescope.load_extension('git_diffs')
-    telescope.load_extension("ui-select")
-    telescope.load_extension("ui-select")
-    telescope.load_extension('heading')
+    local extensions = {
+      "file_browser",
+      "git_diffs",
+      "ui-select",
+      "heading",
+    }
 
+    for _, ext in ipairs(extensions) do
+      pcall(telescope.load_extension, ext)
+    end
 
     vim.keymap.set('n', '<leader>?', builtin.keymaps, {})
-    vim.keymap.set('n', '<leader>ff', function()
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+    vim.keymap.set('n', '<leader>fF', function()
       builtin.find_files({
         hidden = true,
         no_ignore = true,
         no_ignore_parent = true,
       })
     end, {})
-    vim.keymap.set('n', '<leader>fp', function()
-      builtin.find_files({
-        hidden = true,
-        no_ignore = true,
-        no_ignore_parent = true,
-      })
-    end, {})
+    vim.keymap.set('n', '<leader>fd', '<Cmd>Telescope lsp_document_symbols<CR>', {})
+    vim.keymap.set('n', '<leader>fw', '<Cmd>Telescope lsp_workspace_symbols<CR>', {})
 
     vim.keymap.set('n', '<leader>fr', '<Cmd>Telescope resume<CR>', {})
     vim.keymap.set('n', '<leader>fh', '<Cmd>Telescope heading<CR>', {})
-    vim.keymap.set('n', '<leader>fs', '<Cmd>Telescope lsp_document_symbols<CR>', {})
     vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {})
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-    vim.keymap.set('n', '<leader>fv', '<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>', {})
+    vim.keymap.set('n', '<leader>fb', '<Cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>', {})
     vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
   end
 }

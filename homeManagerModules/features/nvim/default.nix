@@ -12,8 +12,6 @@
 
     extraPackages = with pkgs; [
       lua-language-server
-      # clang-tools
-      # clang
       # libclang
       nodePackages."@tailwindcss/language-server"
       nodePackages.typescript-language-server

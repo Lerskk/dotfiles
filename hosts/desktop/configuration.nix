@@ -30,6 +30,7 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Argentina/Cordoba";
+  time.hardwareClockInLocalTime = true;
 
 
   # Select internationalisation properties.
