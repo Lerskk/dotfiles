@@ -15,14 +15,19 @@ return {
         ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
       },
 
-      appearance = {
-        nerd_font_variant = "mono"
+      snippets = {
+        preset = "luasnip",
       },
 
-      completion = { documentation = { auto_show = true } },
+      appearance = {
+        nerd_font_variant = "mono",
+        column_alignment = "full",
+      },
+
+      completion = { documentation = { auto_show = true, auto_show_delay = 100, } },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "snippets", "buffer", "path" },
       },
 
       fuzzy = { implementation = "prefer_rust_with_warning" }
