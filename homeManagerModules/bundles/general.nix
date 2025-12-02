@@ -28,5 +28,8 @@
     unzip
     wget
     zip
+
+    texliveFull
+    texlab
   ];
 }

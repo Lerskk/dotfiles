@@ -12,13 +12,6 @@
 
     extraPackages = with pkgs; [
       lua-language-server
-      # libclang
-      nodePackages."@tailwindcss/language-server"
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted
-      pyright
-      texlab
-      vscode-langservers-extracted
     ];
 
   };

@@ -62,7 +62,6 @@
       scrcpy
       spotify
       sway-contrib.grimshot
-      texliveFull
       vlc
       wlogout
       # xdg-desktop-portal-hyprland
