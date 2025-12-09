@@ -16,6 +16,7 @@ pkgs.mkShell {
 
     # Graphics / windowing
     glfw
+    sdl3
     wayland
     libxkbcommon
     xorg.libXcursor
