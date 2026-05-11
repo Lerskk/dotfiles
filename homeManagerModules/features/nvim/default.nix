@@ -4,8 +4,10 @@
   config,
   ...
 }: {
-  home.file."./.config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/homeManagerModules/features/nvim/config";
-
+  home.file."./.config/nvim" = {
+    source = ./config;
+    recursive = true;
+  };
 
   programs.neovim = {
     enable = true;

@@ -11,13 +11,16 @@ return {
     vim.g.tex_conceal = "abdmg"
 
     -- Force latexmk to use biber
+    vim.g.vimtex_compiler_latexmk_engines = {
+      _ = "-lualatex"
+    }
     vim.g.vimtex_compiler_latexmk = {
       options = {
+        "-lualatex",
         "-verbose",
         "-file-line-error",
         "-synctex=1",
         "-interaction=nonstopmode",
-        "-pdf",
         "-bibtex"
       }
     }

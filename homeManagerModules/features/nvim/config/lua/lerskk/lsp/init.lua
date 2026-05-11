@@ -18,7 +18,6 @@ vim.lsp.config("texlab", vim.tbl_deep_extend("force", common_config, {
             auxDirectory = ".texlab_aux",
             build = {
                 onSave = true,
-                executable = "pdflatex",
                 args = { "-interaction=nonstopmode", "%f" },
                 forwardSearchAfter = true,
             },

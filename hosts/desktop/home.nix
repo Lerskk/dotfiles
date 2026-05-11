@@ -27,17 +27,20 @@ in {
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host *
-          IdentityAgent ${onePassPath}
-    '';
+    enableDefaultConfig = false;
+
+    matchBlocks."*" = {
+      identityAgent = onePassPath;
+    };
   };
 
   programs.git = {
     enable = true;
-    userName = "Lerskk";
-    userEmail = "faustoleo02@gmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Lerskk";
+        email = "faustoleo02@gmail.com";
+      };
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
       

@@ -21,6 +21,10 @@ pkgs.mkShell {
     libxkbcommon
     xorg.libXcursor
 
+    # gtk
+    gtk4
+    pkg-config
+
     # Vulkan toolchain
     shaderc
     vulkan-headers

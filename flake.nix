@@ -25,8 +25,8 @@
   outputs = {nixpkgs, ...} @ inputs: let
     myLib = (import ./myLib/default.nix) {inherit inputs;};
 
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    stdenv.hostPlatform.system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
 
     # Path to your directory with dev shells
     devEnvDir = ./devEnv;
@@ -43,7 +43,7 @@
         }) nixFiles);
   in
     with myLib; {
-    devShells.${system} = devEnvs;
+    devShells.${stdenv.hostPlatform.system} = devEnvs;
 
     nixosConfigurations = {
       desktop = mkSystem ./hosts/desktop/configuration.nix;

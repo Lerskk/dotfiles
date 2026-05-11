@@ -44,6 +44,8 @@
       flameshot
       geeqie
       gimp
+      gphoto2
+      darktable
       google-chrome
       hypridle
       hyprlock
@@ -88,6 +90,7 @@
       xdg-desktop-portal-hyprland
       webcord
       wget
+      wireshark
     ];
   };
 

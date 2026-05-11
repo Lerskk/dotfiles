@@ -62,7 +62,7 @@ in {
           isNormalUser = true;
           initialPassword = "12345";
           description = "";
-          extraGroups = ["libvirtd" "networkmanager" "wheel" "input"];
+          extraGroups = ["libvirtd" "networkmanager" "wheel" "input" "wireshark"];
         }
     ) (config.myNixOS.home-users);
   };

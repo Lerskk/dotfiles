@@ -48,6 +48,9 @@ if status is-interactive
   # editors
   abbr v "nvim"
 
+  # flake
+  abbr ndc "nix develop ~/dotfiles#cpp"
+
   # git
   abbr g "git"
   abbr gs "git status"
