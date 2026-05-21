@@ -10,11 +10,19 @@
 		packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
 			inherit pkgs;
 			settings = {
+				xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
+
 				layout.gaps = 5;
 
 				binds = {
 					"Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
-					"Mod+Q".close-window = null;
+					"Mod+Q".close-window = {};
+				};
+
+				outputs = {
+					"HDMI-A-2" = {
+						mode = "2560x1440@360";
+					};
 				};
 			};
 		};
