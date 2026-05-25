@@ -6,6 +6,7 @@
       self.nixosModules.tmux
       self.nixosModules.onePassword
       self.nixosModules.nvim
+      self.nixosModules.fish
     ];
 
     boot.loader.systemd-boot.enable = true;
@@ -17,8 +18,19 @@
 
     nixpkgs.config.allowUnfree = true;
 
+    users.users.lerskk = {
+      isNormalUser = true;
+
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
+
+      shell = pkgs.fish;
+    };
 
     environment.systemPackages = with pkgs; [
+      opentabletdriver
       firefox
       git
       tidal-hifi

@@ -6,5 +6,5 @@ local plugins = {
 }
 
 for _, plugin in ipairs(plugins) do
-  require("plugins." .. plugin)
+  require("lerskk.plugins." .. plugin)
 end

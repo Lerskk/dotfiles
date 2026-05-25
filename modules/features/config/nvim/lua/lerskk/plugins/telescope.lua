@@ -1,13 +1,9 @@
-local ok, telescope = pcall(require, "telescope")
-if not ok then
-  return
-end
 
 actions = require("telescope.actions")
 
 builtin = require("telescope.builtin")
 
-telescope.setup({
+require("telescope").setup({
   defaults = {
     layout_strategy = "flex",
     layout_config = {
