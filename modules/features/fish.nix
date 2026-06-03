@@ -1,5 +1,6 @@
 { self, inputs, ... }: {
 	flake.nixosModules.fish = { pkgs, lib, ... }: {
+    programs.starship.enable = true;
 		programs.fish = {
 			enable = true;
 			package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
@@ -10,7 +11,7 @@
 		packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
 			inherit pkgs;
 
-      extraPackages = with pkgs; [
+      runtimePkgs = with pkgs; [
         eza
         trash-cli
       ];
@@ -39,9 +40,12 @@
         gstl = "git stash list";
       };
 
+      configFile.content = ''
+        starship init fish | source
+      '';
 
-      plugins = [
-        pkgs.fishPlugins.fzf-fish
+      plugins = with pkgs.fishPlugins; [
+        fzf
       ];
 
 		};

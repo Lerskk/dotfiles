@@ -31,6 +31,7 @@
 
     environment.systemPackages = with pkgs; [
       opentabletdriver
+			self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty
       firefox
       git
       tidal-hifi
