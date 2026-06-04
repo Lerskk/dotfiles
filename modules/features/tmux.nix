@@ -10,6 +10,7 @@
 			inherit pkgs;
 					mouse  = true;
 					prefix = "C-a";
+          modeKeys = "vi";
 					configAfter = ''
 						bind ^A last-window
 					'';
