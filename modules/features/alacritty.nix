@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-	flake.nixosModules.fish = { pkgs, lib, ... }: {
+	flake.nixosModules.alacritty = { pkgs, lib, ... }: {
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
     ];

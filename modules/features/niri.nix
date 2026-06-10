@@ -45,12 +45,16 @@
           "Mod+L".focus-column-right = {};
           "Mod+J".focus-window-down = {};
           "Mod+K".focus-window-up = {};
-          "Mod+C".center-column = {};
+
+          "Mod+Shift+H".move-column-left = {};
+          "Mod+Shift+L".move-column-right = {};
 
           "Mod+Ctrl+H".set-column-width = "-5%";
           "Mod+Ctrl+L".set-column-width = "+5%";
           "Mod+Ctrl+J".set-window-height = "+5%";
           "Mod+Ctrl+K".set-window-height = "-5%";
+
+          "Mod+C".center-column = {};
 
           "Mod+U".focus-workspace-up = {};
           "Mod+D".focus-workspace-down = {};
@@ -69,14 +73,6 @@
           "Mod+M".maximize-column = {};
           "Mod+Shift+F".fullscreen-window = {};
           "Mod+T".toggle-window-floating = {};
-
-
-          "Mod+Shift+1".move-column-to-workspace = "0";
-          "Mod+Shift+2".move-column-to-workspace = "1";
-          "Mod+Shift+3".move-column-to-workspace = "2";
-          "Mod+Shift+4".move-column-to-workspace = "3";
-          "Mod+Shift+5".move-column-to-workspace = "4";
-
 
 					"Alt+Space".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
 					"Mod+Return".spawn-sh = "${lib.getExe self'.packages.myAlacritty}";

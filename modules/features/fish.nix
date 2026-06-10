@@ -42,6 +42,8 @@
 
       configFile.content = ''
         starship init fish | source
+
+        bind \cr history-pager
       '';
 
       plugins = with pkgs.fishPlugins; [

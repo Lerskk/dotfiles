@@ -10,13 +10,15 @@
 		packages.myNvim = inputs.wrapper-modules.wrappers.neovim.wrap {
 			inherit pkgs;
 
+      runtimePkgs = with pkgs; [
+        ripgrep
+      ];
 
       settings = {
         config_directory = ./config/nvim;
 
         extraPackages = with pkgs; [
           wl-clipboard
-          ripgrep
         ];
       };
 
