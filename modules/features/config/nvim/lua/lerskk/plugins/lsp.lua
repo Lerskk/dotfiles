@@ -41,6 +41,9 @@ map("n", "]d", vim.diagnostic.goto_next)
 require("blink.cmp").setup({
   keymap = {
     preset = "default",
+
+    ["<C-j>"] = { "select_next" },
+    ["<C-k>"] = { "select_prev", "fallback" },
   },
 
   appearance = {
@@ -48,6 +51,16 @@ require("blink.cmp").setup({
   },
 
   completion = {
+    list = {
+      max_items = 200,
+
+      selection = {
+        preselect = true,
+
+        auto_insert = false,
+      },
+    },
+
     documentation = {
       auto_show = true,
     },
@@ -65,3 +78,5 @@ require("blink.cmp").setup({
     implementation = "prefer_rust_with_warning",
   },
 })
+
+

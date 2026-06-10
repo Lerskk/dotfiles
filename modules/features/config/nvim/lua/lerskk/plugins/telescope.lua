@@ -1,6 +1,6 @@
-actions = require("telescope.actions")
+local actions = require("telescope.actions")
 
-builtin = require("telescope.builtin")
+local builtin = require("telescope.builtin")
 
 require("telescope").setup({
   defaults = {
