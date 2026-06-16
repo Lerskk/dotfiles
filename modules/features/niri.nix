@@ -1,12 +1,12 @@
 { self, inputs, ... }: {
-	flake.nixosModules.niri = { pkgs, lib, ... }: {
+	flake.nixosModules.niri = { pkgs, ... }: {
 		programs.niri = {
 			enable = true;
 			package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
 		};
 	};
 
-	perSystem = { config, pkgs, lib, self', ... }: {
+	perSystem = { pkgs, lib, self', ... }: {
 		packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
 			inherit pkgs;
 
@@ -66,6 +66,8 @@
           "Mod+Shift+W".move-window-to-monitor-right = {};
           "Mod+Shift+B".move-window-to-monitor-left = {};
 
+          "Mod+Ctrl+U".move-workspace-up = {};
+          "Mod+Ctrl+D".move-workspace-down = {};
           "Mod+Ctrl+W".move-workspace-to-monitor-right = {};
           "Mod+Ctrl+B".move-workspace-to-monitor-left = {};
 

@@ -41,9 +41,9 @@
       };
 
       configFile.content = ''
-        starship init fish | source
+        fish_vi_key_bindings
 
-        bind \cr history-pager
+        starship init fish | source
       '';
 
       plugins = with pkgs.fishPlugins; [

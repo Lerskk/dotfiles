@@ -1,7 +1,9 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.mainPCConfiguration =  { pkgs, lib, ... }: {
+{ self, ... }: {
+  flake.nixosModules.mainPCConfiguration =  { pkgs, ... }: {
     imports = [
       self.nixosModules.mainPCHardware
+
+      self.nixosModules.alacritty
       self.nixosModules.niri
       self.nixosModules.tmux
       self.nixosModules.onePassword
@@ -25,8 +27,7 @@
         "wheel"
         "networkmanager"
       ];
-
-      shell = pkgs.fish;
+      shell = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
     };
 
     environment.systemPackages = with pkgs; [
@@ -35,6 +36,10 @@
       firefox
       git
       tidal-hifi
+      zathura
+      spotify
+      telegram-desktop
+      vesktop
     ];
 
     system.stateVersion = "25.11"; # Did you read the comment?
