@@ -95,7 +95,7 @@
           {
             matches = [ 
               { app-id = "vesktop"; }
-              { app-id = "telegram-desktop"; }
+              { app-id = "org.telegram.desktop"; }
               { app-id = "tidal-hifi"; }
             ];
             open-on-workspace = "multimedia";
