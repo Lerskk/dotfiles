@@ -70,6 +70,7 @@ require("blink.cmp").setup({
     default = {
       "lsp",
       "path",
+      "snippets",
       "buffer",
     },
   },

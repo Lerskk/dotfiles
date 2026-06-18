@@ -7,9 +7,11 @@ local plugins = {
   "gitsigns",
   "harpoon",
   "lsp",
+  "luasnip",
   "spider",
   "telescope",
   "treesitter",
+  "vimtex",
 }
 
 for _, plugin in ipairs(plugins) do
