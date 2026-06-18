@@ -7,13 +7,16 @@
 		};
 	};
 
-	perSystem = { pkgs, lib, self', ... }: {
+	perSystem = { pkgs, ... }: {
 		packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
 			inherit pkgs;
 
       runtimePkgs = with pkgs; [
         eza
         trash-cli
+        fzf
+        fd
+        bat
       ];
 
       abbreviations = {
@@ -39,6 +42,8 @@
         gstp = "git stash pop";
         gstl = "git stash list";
       };
+
+      flags."--no-config" = false; # fish update enabling private mode when --no-config is used. remove when fixed
 
       configFile.content = ''
         fish_vi_key_bindings

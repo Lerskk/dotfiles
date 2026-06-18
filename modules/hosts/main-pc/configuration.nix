@@ -4,6 +4,7 @@
       self.nixosModules.mainPCHardware
 
       self.nixosModules.alacritty
+      self.nixosModules.ghostty
       self.nixosModules.niri
       self.nixosModules.tmux
       self.nixosModules.onePassword
@@ -33,6 +34,7 @@
     environment.systemPackages = with pkgs; [
       opentabletdriver
 			self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty
+      darktable
       firefox
       git
       tidal-hifi
@@ -41,6 +43,13 @@
       telegram-desktop
       vesktop
     ];
+
+    services.syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      user = "lerskk";
+      dataDir = "/home/lerskk";
+    };
 
     system.stateVersion = "25.11"; # Did you read the comment?
   };

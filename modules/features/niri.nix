@@ -77,7 +77,7 @@
           "Mod+T".toggle-window-floating = {};
 
 					"Alt+Space".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
-					"Mod+Return".spawn-sh = "${lib.getExe self'.packages.myAlacritty}";
+					"Mod+Return".spawn-sh = "${lib.getExe self'.packages.myGhostty}";
 
           "Mod+Ctrl+S".spawn-sh = "${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy";
           "Mod+Shift+E".spawn-sh = "${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -";
