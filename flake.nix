@@ -1,59 +1,13 @@
 {
-  description = "Nixos config flake";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
 
-    ags.url = "github:Aylur/ags";
-
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wrappers.url = "github:Lassulus/wrappers";
+    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    myLib = (import ./myLib/default.nix) {inherit inputs;};
-
-    stdenv.hostPlatform.system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${stdenv.hostPlatform.system};
-
-    # Path to your directory with dev shells
-    devEnvDir = ./devEnv;
-
-    # Load all *.nix files in the directory and turn them into dev shells
-    devEnvs =
-      let
-        files = builtins.attrNames (builtins.readDir devEnvDir);
-        nixFiles = builtins.filter (f: builtins.match ".*\\.nix$" f != null) files;
-      in
-        builtins.listToAttrs (map (file: {
-          name = builtins.replaceStrings [".nix"] [""] file;  # remove .nix
-          value = import (devEnvDir + "/${file}") { inherit pkgs; };
-        }) nixFiles);
-  in
-    with myLib; {
-    devShells.${stdenv.hostPlatform.system} = devEnvs;
-
-    nixosConfigurations = {
-      desktop = mkSystem ./hosts/desktop/configuration.nix;
-    };
-
-    homeConfigurations = {
-      "lerskk" = mkHome "x86_64-linux" ./hosts/desktop/home.nix;
-    };
-
-    homeManagerModules.default = ./homeManagerModules;
-    nixosModules.default = ./nixosModules;
-  };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 }
