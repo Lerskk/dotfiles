@@ -18,7 +18,6 @@
     networking.networkmanager.enable = true;
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
     nixpkgs.config.allowUnfree = true;
 
     users.users.lerskk = {
@@ -37,12 +36,26 @@
       darktable
       firefox
       git
-      tidal-hifi
+      (symlinkJoin {
+        name = "tidal-hifi-fixed";
+        paths = [ tidal-hifi ];
+
+        buildInputs = [ makeWrapper ];
+
+        postBuild = ''
+          wrapProgram $out/bin/tidal-hifi \
+            --add-flags "--disable-dev-shm-usage"
+        '';
+      })
       zathura
       spotify
       telegram-desktop
+      thunar
       tuxedo
       vesktop
+
+      # university
+      logisim
     ];
 
     services.syncthing = {

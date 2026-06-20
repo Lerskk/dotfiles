@@ -6,7 +6,14 @@
 		};
 	};
 
-	perSystem = { pkgs, lib, self', ... }: {
+	perSystem = { pkgs, lib, self', system, ... }: {
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+
+      config = {
+        allowUnfree = true;
+      };
+    };
 		packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
 			inherit pkgs;
 
@@ -15,10 +22,17 @@
       ];
 
 			settings = {
+        environment = {
+          _JAVA_AWT_WM_NONREPARENTING = "1";
+          ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        };
+
         spawn-at-startup = [
           (lib.getExe self'.packages.myNoctalia)
           (lib.getExe pkgs.vesktop)
           (lib.getExe pkgs.telegram-desktop)
+          "${lib.getExe pkgs._1password-gui} --silent"
+          (lib.getExe pkgs.tidal-hifi)
         ];
 
         input = {
@@ -91,6 +105,7 @@
 
 					"Alt+Space".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
 					"Mod+Return".spawn-sh = "${lib.getExe self'.packages.myGhostty}";
+					"Ctrl+Shift+Alt+Space".spawn-sh = "${lib.getExe pkgs._1password-gui} --quick-access";
 
           "Mod+Shift+S".screenshot = {};
 
