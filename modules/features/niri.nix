@@ -10,6 +10,10 @@
 		packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
 			inherit pkgs;
 
+      runtimePkgs = with pkgs; [
+        xdg-desktop-portal-gnome
+      ];
+
 			settings = {
         spawn-at-startup = [
           (lib.getExe self'.packages.myNoctalia)
@@ -19,17 +23,26 @@
 
         input = {
           keyboard = {
+            xkb = {
+              layout = "us";
+              variant = "altgr-intl";
+            };
+
             repeat-rate = 40;
             repeat-delay = 250;
           };
 
-          focus-follows-mouse = {};
           mouse.accel-profile = "flat";
+        };
+
+        cursor = {
+          xcursor-theme = "breeze_cursors";
+          xcursor-size = 16;
         };
 
 				xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
-				layout.gaps = 5;
+				layout.gaps = 16;
 
         workspaces = {
           "browser" = {};
@@ -79,8 +92,7 @@
 					"Alt+Space".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call launcher toggle";
 					"Mod+Return".spawn-sh = "${lib.getExe self'.packages.myGhostty}";
 
-          "Mod+Ctrl+S".spawn-sh = "${lib.getExe pkgs.grim} -l 0 - | ${pkgs.wl-clipboard}/bin/wl-copy";
-          "Mod+Shift+E".spawn-sh = "${pkgs.wl-clipboard}/bin/wl-paste | ${lib.getExe pkgs.swappy} -f -";
+          "Mod+Shift+S".screenshot = {};
 
           "XF86AudioPrev".spawn-sh = "${lib.getExe pkgs.playerctl} previous";
           "XF86AudioPlay".spawn-sh = "${lib.getExe pkgs.playerctl} play-pause";

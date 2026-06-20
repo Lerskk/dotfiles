@@ -41,6 +41,7 @@
       zathura
       spotify
       telegram-desktop
+      tuxedo
       vesktop
     ];
 

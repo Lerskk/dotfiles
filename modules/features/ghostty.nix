@@ -13,6 +13,8 @@
         font-size = 12;
 
         term = "xterm-ghostty";
+
+        confirm-close-surface = false;
       };
     }).wrapper;
   };
