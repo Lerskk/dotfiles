@@ -1,6 +1,7 @@
 { self, inputs, ... }: {
 	flake.nixosModules.fish = { pkgs, lib, ... }: {
     programs.starship.enable = true;
+
 		programs.fish = {
 			enable = true;
 			package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
@@ -17,6 +18,7 @@
         fzf
         fd
         bat
+        sesh
         zoxide
       ];
 

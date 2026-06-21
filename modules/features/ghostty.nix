@@ -15,6 +15,7 @@
         term = "xterm-ghostty";
 
         confirm-close-surface = false;
+        clipboard-paste-protection = false;
       };
     }).wrapper;
   };

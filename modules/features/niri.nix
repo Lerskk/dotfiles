@@ -35,6 +35,10 @@
           (lib.getExe pkgs.tidal-hifi)
         ];
 
+        hotkey-overlay = {
+            skip-at-startup = {};
+        };
+
         input = {
           keyboard = {
             xkb = {
@@ -56,12 +60,14 @@
 
 				xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
 
-				layout.gaps = 16;
+				layout = {
+          always-center-single-column = {};
+          gaps = 16;
+        };
+
+        prefer-no-csd = {};
 
         workspaces = {
-          "browser" = {};
-          "work" = {};
-          "filler" = {};
           "multimedia" = {
             open-on-output = "DP-4";
           };
@@ -99,6 +105,7 @@
           "Mod+Ctrl+B".move-workspace-to-monitor-left = {};
 
 					"Mod+Q".close-window = {};
+					"Mod+Shift+Q".spawn-sh = "${lib.getExe self'.packages.myNoctalia} ipc call sessionMenu toggle";
           "Mod+M".maximize-column = {};
           "Mod+Shift+F".fullscreen-window = {};
           "Mod+T".toggle-window-floating = {};
