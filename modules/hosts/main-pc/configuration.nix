@@ -82,6 +82,12 @@
       ];
     };
 
+
+    hardware.opentabletdriver = {
+      enable = true;
+      daemon.enable = true;
+    };
+
     services.syncthing = {
       enable = true;
       openDefaultPorts = true;
