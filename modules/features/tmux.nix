@@ -21,6 +21,7 @@
       modeKeys = "vi";
       configAfter = ''
         bind ^A last-window
+
         bind-key ^E run-shell "sesh connect \"$(
           sesh list --icons | fzf-tmux -p 80%,70% \
             --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \

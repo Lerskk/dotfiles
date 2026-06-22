@@ -50,6 +50,7 @@
       zathura
       spotify
       telegram-desktop
+      obs-studio
       thunar
       tuxedo
       vesktop
@@ -57,6 +58,29 @@
       # university
       logisim
     ];
+
+    services.pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa.enable = true;
+      wireplumber.enable = true;
+    };
+
+    xdg.portal = {
+      config.niri = {
+        default = ["gnome" "gtk"];
+        "org.freedesktop.impl.portal.Access" = "gtk";
+        "org.freedesktop.impl.portal.Notification" = "gtk";
+        "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+        "org.freedesktop.impl.portal.FileChooser" = "gtk";
+        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+        "org.freedesktop.portal.ScreenCast" = "gnome";
+      };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
+    };
 
     services.syncthing = {
       enable = true;

@@ -18,7 +18,6 @@
 			inherit pkgs;
 
       runtimePkgs = with pkgs; [
-        xdg-desktop-portal-gnome
       ];
 
 			settings = {
