@@ -78,6 +78,9 @@
           "Mod+J".focus-window-down = {};
           "Mod+K".focus-window-up = {};
 
+          "Mod+Shift+6".focus-column-first = {};
+          "Mod+Shift+4".focus-column-last = {};
+
           "Mod+Shift+H".move-column-left = {};
           "Mod+Shift+L".move-column-right = {};
 
@@ -138,6 +141,7 @@
 				outputs = {
 					"HDMI-A-2" = {
 						mode = "2560x1440@119.998";
+            focus-at-startup = {};
             position = _: {
               props = {
                 x= 0;

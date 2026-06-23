@@ -3,15 +3,16 @@ require "lerskk.core.keymaps"
 vim.cmd.colorscheme("catppuccin")
 
 local plugins = {
-  "autopairs",
   "gitsigns",
   "harpoon",
   "lsp",
   "luasnip",
   "oil",
   "spider",
+  "surrounds",
   "telescope",
   "treesitter",
+  "undotree",
   "vimtex",
 }
 

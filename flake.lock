@@ -101,8 +101,26 @@
         "flake-parts": "flake-parts",
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
+        "undotree": "undotree",
         "wrapper-modules": "wrapper-modules",
         "wrappers": "wrappers"
+      }
+    },
+    "undotree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778896944,
+        "narHash": "sha256-AwGFfTwYRE9aU99b14QS44n4DLnhzH5xXYZc0mb5Y/w=",
+        "owner": "jiaoshijie",
+        "repo": "undotree",
+        "rev": "02b69aed427b848c4dca483fc5e9524b6019c296",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jiaoshijie",
+        "repo": "undotree",
+        "rev": "02b69aed427b848c4dca483fc5e9524b6019c296",
+        "type": "github"
       }
     },
     "wrapper-modules": {

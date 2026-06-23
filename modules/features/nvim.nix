@@ -10,9 +10,14 @@
 		};
 	};
 
-	perSystem = { pkgs, ... }: {
-		packages.myNvim = inputs.wrapper-modules.wrappers.neovim.wrap {
-			inherit pkgs;
+		perSystem = { pkgs, ... }: {
+			packages.myNvim = let
+				undotree-vim = pkgs.vimUtils.buildVimPlugin {
+					name = "undotree-vim";
+					src = inputs.undotree;
+				};
+			in inputs.wrapper-modules.wrappers.neovim.wrap {
+      inherit pkgs;
 
       runtimePkgs = with pkgs; [
         ripgrep
@@ -48,7 +53,9 @@
       };
 
       specs = {
-        general = with pkgs.vimPlugins; [
+        general = [
+          undotree-vim
+        ] ++ (with pkgs.vimPlugins; [
           blink-cmp
           blink-indent
           catppuccin-nvim
@@ -58,6 +65,7 @@
           lazy-nvim
           luasnip
           oil-nvim
+          nvim-surround
           nvim-autopairs
           nvim-lspconfig
           nvim-spider
@@ -65,7 +73,7 @@
           plenary-nvim
           telescope-nvim
           vimtex
-        ];
+        ]);
       };
 		};
 	};
