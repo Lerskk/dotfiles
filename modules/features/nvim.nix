@@ -1,6 +1,10 @@
-{ self, inputs, ... }: {
+{ self, inputs, lib, ... }: {
 	flake.nixosModules.nvim = { pkgs, ... }: {
+    environment.sessionVariables = {
+      EDITOR = "nvim";
+    };
 		programs.neovim = {
+
 			enable = true;
 			package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNvim;
 		};
@@ -33,12 +37,14 @@
         zotero # TODO investigate
       ];
 
+
       settings = {
         config_directory = ./config/nvim;
 
         extraPackages = with pkgs; [
           wl-clipboard
         ];
+
       };
 
       specs = {
@@ -51,6 +57,7 @@
           harpoon2
           lazy-nvim
           luasnip
+          oil-nvim
           nvim-autopairs
           nvim-lspconfig
           nvim-spider

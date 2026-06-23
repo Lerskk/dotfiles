@@ -7,6 +7,7 @@
       self.nixosModules.ghostty
       self.nixosModules.niri
       self.nixosModules.tmux
+      self.nixosModules.opencode
       self.nixosModules.onePassword
       self.nixosModules.nvim
       self.nixosModules.fish
@@ -48,6 +49,7 @@
         '';
       })
       zathura
+      jujutsu
       spotify
       telegram-desktop
       obs-studio

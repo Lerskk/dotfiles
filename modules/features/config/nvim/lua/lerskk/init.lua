@@ -8,6 +8,7 @@ local plugins = {
   "harpoon",
   "lsp",
   "luasnip",
+  "oil",
   "spider",
   "telescope",
   "treesitter",
