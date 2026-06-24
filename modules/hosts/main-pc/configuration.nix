@@ -21,6 +21,8 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
 
+    time.timeZone = "America/Argentina/Cordoba";
+
     users.users.lerskk = {
       isNormalUser = true;
 
