@@ -50,6 +50,7 @@
 
       configFile.content = ''
         fish_vi_key_bindings
+        fish_clipboard_copy
 
         zoxide init fish | source
         starship init fish | source

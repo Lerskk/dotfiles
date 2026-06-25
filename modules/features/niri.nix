@@ -38,6 +38,10 @@
             skip-at-startup = {};
         };
 
+        gestures = {
+          hot-corners = { off = {}; };
+        };
+
         input = {
           keyboard = {
             xkb = {
@@ -62,6 +66,12 @@
 				layout = {
           always-center-single-column = {};
           gaps = 16;
+          preset-column-widths = [
+            { proportion = 0.33333; }
+            { proportion = 0.5; }
+            { proportion = 0.66667; }
+            { fixed = 1280; }
+          ];
         };
 
         prefer-no-csd = {};
@@ -88,6 +98,7 @@
           "Mod+Ctrl+L".set-column-width = "+5%";
           "Mod+Ctrl+J".set-window-height = "+5%";
           "Mod+Ctrl+K".set-window-height = "-5%";
+          "Mod+R".switch-preset-column-width = {};
 
           "Mod+C".center-column = {};
 
