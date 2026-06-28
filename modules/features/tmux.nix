@@ -36,6 +36,21 @@
             --preview-window 'right:55%' \
             --preview 'sesh preview {}'
         )\""
+
+        set -g status on
+        set -g status-position bottom
+        set -g status-interval 1
+        set -g status-style "bg=default,fg=colour7"
+
+        set -g window-status-format "#[fg=colour8]#I:#W"
+        set -g window-status-current-format "#[fg=colour15,bold]#I:#W"
+        set -g window-status-separator "   "
+
+        set -g status-left-length 60
+        set -g status-left " #[fg=colour4]󰆍 #[fg=colour15]#S #[fg=colour8]│ "
+
+        set -g status-right-length 120
+        set -g status-right "#[fg=colour8]│ #[fg=colour4]󰈔 #[fg=colour15]#H #[fg=colour8]│ #[fg=colour2]󰍛 #[fg=colour15]#(free -h | awk '/Mem:/ {print $3}') #[fg=colour8]│ #[fg=colour3]󰥔 #[fg=colour15]%H:%M #[fg=colour8] "
       '';
 			};
 		};

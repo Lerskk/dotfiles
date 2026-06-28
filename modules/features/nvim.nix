@@ -65,6 +65,7 @@
           lazy-nvim
           luasnip
           oil-nvim
+          mini-base16
           nvim-surround
           nvim-autopairs
           nvim-lspconfig

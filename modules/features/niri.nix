@@ -66,6 +66,12 @@
 				layout = {
           always-center-single-column = {};
           gaps = 16;
+
+          focus-ring = {
+            active-color = "#A9CFD5";
+            urgent-color = "#B68D80";
+          };
+
           preset-column-widths = [
             { proportion = 0.33333; }
             { proportion = 0.5; }
@@ -139,6 +145,10 @@
 				};
 
         window-rules = [
+          {
+            geometry-corner-radius = 16;
+            clip-to-geometry = true;
+          }
           {
             matches = [ 
               { app-id = "vesktop"; }

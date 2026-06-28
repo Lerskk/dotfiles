@@ -58,6 +58,7 @@
       thunar
       tuxedo
       vesktop
+      hyprpicker
 
       # university
       logisim

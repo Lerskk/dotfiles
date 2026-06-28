@@ -8,7 +8,7 @@
 		};
 	};
 
-	perSystem = { pkgs, ... }: {
+	perSystem = { pkgs, lib, ... }: {
 		packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
 			inherit pkgs;
 
@@ -54,6 +54,11 @@
 
         zoxide init fish | source
         starship init fish | source
+
+        if status is-interactive
+          ${lib.getExe pkgs.fastfetch}
+          set -U fish_greeting ""
+        end
       '';
 
       plugins = with pkgs.fishPlugins; [
