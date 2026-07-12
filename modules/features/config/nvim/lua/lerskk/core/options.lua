@@ -64,7 +64,11 @@ vim.filetype.add({
 		["comp"] = "glsl",
 		["vs"] = "glsl",
 		["fs"] = "glsl",
-	}
+		["prisma"] = "prisma",
+	},
+	filename = {
+		["schema.prisma"] = "prisma",
+	},
 })
 
 

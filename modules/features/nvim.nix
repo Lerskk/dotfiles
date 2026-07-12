@@ -16,6 +16,12 @@
 					name = "undotree-vim";
 					src = inputs.undotree;
 				};
+
+        formoun = pkgs.vimUtils.buildVimPlugin {
+        name = "formoun";
+        src = inputs.formoun;
+        };
+
 			in inputs.wrapper-modules.wrappers.neovim.wrap {
       inherit pkgs;
 
@@ -24,10 +30,16 @@
 
         lua-language-server
         nixd
+        typescript-language-server
+        prisma-language-server
 
         tree-sitter
         clang
         curl
+        ltex-ls-plus
+
+        # formatters
+        prettierd
 
         # latex setup
         biber
@@ -55,10 +67,12 @@
       specs = {
         general = [
           undotree-vim
+          formoun
         ] ++ (with pkgs.vimPlugins; [
           blink-cmp
           blink-indent
           catppuccin-nvim
+          conform-nvim
           friendly-snippets
           gitsigns-nvim
           harpoon2
@@ -73,6 +87,9 @@
           nvim-treesitter
           plenary-nvim
           telescope-nvim
+          vim-matchup
+          nvim-ts-autotag
+          trouble-nvim
           vimtex
         ]);
       };

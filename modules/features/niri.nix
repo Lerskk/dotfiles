@@ -18,6 +18,7 @@
 			inherit pkgs;
 
       runtimePkgs = with pkgs; [
+        wl-clipboard
       ];
 
 			settings = {
@@ -59,6 +60,7 @@
         cursor = {
           xcursor-theme = "breeze_cursors";
           xcursor-size = 16;
+          hide-when-typing = {};
         };
 
 				xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;

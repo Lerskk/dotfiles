@@ -1,0 +1,175 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\title{A Brief Note on \LaTeX{} Themes}
+\author{Jane Doe}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	This document tests a \LaTeX{} color theme by exercising various syntax
+	elements common in mathematical and technical writing.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+The \textbf{Cauchy-Schwarz inequality} states that for all vectors
+$u, v$ in an inner product space:
+\[
+	|\langle u, v \rangle|^2 \leq \langle u, u \rangle \cdot \langle v, v \rangle.
+\]
+
+Here is an \emph{italic} and \texttt{monospace} text. We can also use
+\textsuperscript{superscripts} and \textsubscript{subscripts}.
+
+\section{Mathematical Environments}
+
+\subsection{Inline and Display Math}
+
+Euler's identity is $e^{i\pi} + 1 = 0$, often called the most beautiful
+equation in mathematics. The quadratic formula is:
+\[
+	x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]
+
+\subsection{Align Environment}
+
+\begin{align}
+	\nabla \cdot \mathbf{E}  & = \frac{\rho}{\varepsilon_0} \label{eq:gauss}                                                     \\
+	\nabla \cdot \mathbf{B}  & = 0 \label{eq:no-monopole}                                                                        \\
+	\nabla \times \mathbf{E} & = -\frac{\partial \mathbf{B}}{\partial t} \label{eq:faraday}                                      \\
+	\nabla \times \mathbf{B} & = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t} \label{eq:ampere}
+\end{align}
+
+These are Maxwell's equations. See Equation~\eqref{eq:gauss} for Gauss's law.
+
+\subsection{Matrices and Cases}
+
+A general $2 \times 2$ matrix:
+\[
+	A = \begin{pmatrix}
+		a & b \\
+		c & d
+	\end{pmatrix}
+\]
+
+The determinant is $\det(A) = ad - bc$.
+
+Piecewise function:
+\[
+	f(x) = \begin{cases}
+		x^2 & \text{if } x \geq 0, \\
+		-x  & \text{if } x < 0.
+	\end{cases}
+\]
+
+\subsection{Sums, Products, Integrals}
+
+\begin{gather}
+	\sum_{k=1}^{n} k = \frac{n(n+1)}{2} \\
+	\prod_{i=1}^{n} i = n! \\
+	\int_0^\infty e^{-x^2} \, dx = \frac{\sqrt{\pi}}{2} \\
+	\oint_{\partial \Omega} \mathbf{F} \cdot d\mathbf{r} = \iint_\Omega (\nabla \times \mathbf{F}) \cdot d\mathbf{S}
+\end{gather}
+
+\section{Theorems and Definitions}
+
+\begin{definition}[Norm]
+	A \emph{norm} on a vector space $V$ is a function $\|\cdot\|: V \to \mathbb{R}$
+	satisfying:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\|v\| \geq 0$ for all $v \in V$, with equality iff $v = 0$.
+		\item $\|\alpha v\| = |\alpha| \|v\|$ for all $\alpha \in \mathbb{R}$, $v \in V$.
+		\item $\|u + v\| \leq \|u\| + \|v\|$ (triangle inequality).
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Cauchy-Schwarz]
+	For all $u, v$ in an inner product space:
+	\[ |\langle u, v \rangle| \leq \|u\| \cdot \|v\| \]
+\end{theorem}
+
+\begin{proof}
+	If $v = 0$, both sides are zero. Otherwise, let $w = u - \frac{\langle u, v \rangle}{\langle v, v \rangle} v$.
+	Then $0 \leq \|w\|^2 = \|u\|^2 - \frac{|\langle u, v \rangle|^2}{\|v\|^2}$,
+	which gives the result.
+\end{proof}
+
+\section{Tables}
+
+\begin{table}[h]
+	\centering
+	\caption{Comparison of methods}
+	\label{tab:methods}
+	\begin{tabular}{@{} l c r @{}}
+		\toprule
+		Method     & Accuracy & Time (ms) \\
+		\midrule
+		Baseline   & 85.2\%   & 120       \\
+		Improved   & 91.7\%   & 95        \\
+		Our method & 96.3\%   & 88        \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+As shown in Table~\ref{tab:methods}, our method outperforms the alternatives.
+
+\section{Figures and Links}
+
+See Figure~\ref{fig:placeholder} for an illustration.
+
+\begin{figure}[h]
+	\centering
+	\fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}Placeholder\vspace{3cm}}}
+	\caption{A placeholder figure.}
+	\label{fig:placeholder}
+\end{figure}
+
+For more details, visit \url{https://www.latex-project.org/}.
+
+\section{Lists}
+
+\begin{itemize}
+	\item First item
+	\item Second item
+	      \begin{itemize}
+		      \item Nested item
+		      \item Another nested item
+	      \end{itemize}
+	\item Third item
+\end{itemize}
+
+\begin{enumerate}
+	\item Step one
+	\item Step two
+	\item Step three
+\end{enumerate}
+
+\begin{description}
+	\item[Algorithm] A finite set of unambiguous instructions.
+	\item[Heuristic] A technique that finds a good enough solution.
+\end{description}
+
+\section{Conclusion}
+
+This concludes our brief tour of \LaTeX{} features.
+
+\end{document}

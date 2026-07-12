@@ -19,15 +19,50 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+vim.lsp.config("ltex_plus", {
+  settings = {
+    ltex = {
+      language = "en-US",
+    },
+  },
+})
+
+vim.lsp.config("ts_ls", {
+  settings = {
+    typescript = {
+      inlayHints = {
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+      },
+    },
+    javascript = {
+      inlayHints = {
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+      },
+    },
+  },
+})
+
+vim.lsp.config("prisma", {
+  settings = {
+    prisma = {
+      enableDiagnostics = true,
+    },
+  },
+})
+
 vim.lsp.enable("texlab")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("nixd")
+vim.lsp.enable("ltex_plus")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("prisma")
 
 local map = vim.keymap.set
 
 map("n", "gd", vim.lsp.buf.definition)
 map("n", "gD", vim.lsp.buf.declaration)
-map("n", "gr", vim.lsp.buf.references)
 map("n", "gi", vim.lsp.buf.implementation)
 
 map("n", "K", vim.lsp.buf.hover)

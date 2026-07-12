@@ -11,6 +11,7 @@
       self.nixosModules.onePassword
       self.nixosModules.nvim
       self.nixosModules.fish
+      self.nixosModules.thunar
     ];
 
     boot.loader.systemd-boot.enable = true;
@@ -55,10 +56,16 @@
       spotify
       telegram-desktop
       obs-studio
-      thunar
       tuxedo
       vesktop
       hyprpicker
+      wl-clipboard
+
+      # node + package managers
+      nodejs_22
+      nodejs_24
+      nodejs_latest
+      pnpm
 
       # university
       logisim

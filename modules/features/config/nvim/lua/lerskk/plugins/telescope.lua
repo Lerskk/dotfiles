@@ -1,4 +1,5 @@
 local actions = require("telescope.actions")
+local open_with_trouble = require("trouble.sources.telescope").open
 
 local builtin = require("telescope.builtin")
 
@@ -20,6 +21,10 @@ require("telescope").setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<esc>"] = actions.close,
+        ["<c-t>"] = open_with_trouble,
+      },
+      n = {
+        ["<c-t>"] = open_with_trouble,
       },
     },
   },
@@ -45,6 +50,7 @@ end, {})
 map("n", "<leader>fd", "<Cmd>Telescope lsp_document_symbols<CR>", {})
 map("n", "<leader>fw", "<Cmd>Telescope lsp_workspace_symbols<CR>", {})
 
+map("n", "gr", builtin.lsp_references, {})
 map("n", "<leader>fr", "<Cmd>Telescope resume<CR>", {})
 map("n", "<leader>/", builtin.current_buffer_fuzzy_find, {})
 map("n", "<leader>fg", builtin.live_grep, {})

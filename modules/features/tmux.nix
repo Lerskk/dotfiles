@@ -37,6 +37,8 @@
             --preview 'sesh preview {}'
         )\""
 
+        bind-key ^H run-shell "sesh last"
+
         set -g status on
         set -g status-position bottom
         set -g status-interval 1

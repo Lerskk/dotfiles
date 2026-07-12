@@ -5,6 +5,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local i = ls.insert_node
 local f = ls.function_node
 local d = ls.dynamic_node
+local t = ls.text_node
 
 local function math()
   return vim.fn["vimtex#syntax#in_mathzone"]() == 1
@@ -49,6 +50,17 @@ return {
     fmta("\\overline{<>}", {
       i(1)
     }),
+    { condition = math }
+  ),
+
+  s({
+      trig = "and",
+      snippetType = "autosnippet",
+      desc = "and"
+    },
+    {
+      t("\\ \\text{and} \\ "),
+    },
     { condition = math }
   ),
 }
