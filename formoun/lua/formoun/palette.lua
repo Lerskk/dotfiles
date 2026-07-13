@@ -2,7 +2,7 @@ return {
   crust     = "#ffffff",
   mantle    = "#ffffff",
   base      = "#111418",
-  surface0  = "#212429",
+  surface0  = "#161815",
   surface1  = "#303338",
   surface2  = "#4f5358",
   overlay0  = "#15191d",
@@ -14,21 +14,24 @@ return {
   subtext1  = "#ffffff",
   muted     = "#5b5f63",
 
-  blue      = "#73adb4",
-  red       = "#e77b91",
-  orange    = "#c68660",
-  yellow    = "#d3be93",
-  green     = "#87a175",
-  purple    = "#ae98bf",
+  blue      = "#7daea3",
+  red       = "#ea6962",
+  orange    = "#e78a4e",
+  yellow    = "#d8a657",
+  green     = "#a9b665",
+  purple    = "#d3869b",
+  aqua      = "#89b482",
+
   rosewater = "#b68d80",
   flamingo  = "#edc4b3",
   pink      = "#d3be93",
   mauve     = "#b7a5c6",
   maroon    = "#8b6d61",
   sky       = "#457f86",
-  teal      = "#a9cfd5",
   sapphire  = "#7d95ad",
 
   white     = "#edf2f6",
   black     = "#0a0c0e",
 }
+
+-- #AF8F5F

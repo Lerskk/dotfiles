@@ -73,6 +73,7 @@
           blink-indent
           catppuccin-nvim
           conform-nvim
+          gruvbox-material-nvim
           friendly-snippets
           gitsigns-nvim
           harpoon2

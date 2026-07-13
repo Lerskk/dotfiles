@@ -34,7 +34,7 @@ return {
   VertSplit = { fg = p.text, bg = p.overlay0 },
 
   -- search/msg/inline
-  Search = { fg = p.surface0, bg = p.teal },
+  Search = { fg = p.surface0, bg = p.aqua },
   IncSearch = { fg = p.surface0, bg = p.blue },
   CurSearch = { fg = p.surface0, bg = p.red },
   Substitute = { fg = p.text, bg = p.overlay0 },
@@ -65,11 +65,11 @@ return {
   Float = { fg = p.orange },
   Identifier = { fg = p.text },
   Function = { fg = p.blue },
-  Statement = { fg = p.purple },
+  Statement = { fg = p.red },
   Repeat = { fg = p.text },
   Label = { fg = p.text },
   Operator = { fg = p.sky },
-  Keyword = { fg = p.purple },
+  Keyword = { fg = p.red },
   Exception = { fg = p.text },
   PreProc = { fg = p.text },
   Include = { fg = p.text },
