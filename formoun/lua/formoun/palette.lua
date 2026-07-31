@@ -5,12 +5,12 @@ return {
   surface0  = "#161815",
   surface1  = "#303338",
   surface2  = "#4f5358",
-  overlay0  = "#15191d",
-  overlay1  = "#ffffff",
+  overlay0  = "#1d2226",
+  overlay1  = "#33383c",
   overlay2  = "#ffffff",
 
   text      = "#cbced4",
-  subtext0  = "#ffffff",
+  subtext0  = "#97999f",
   subtext1  = "#ffffff",
   muted     = "#5b5f63",
 

@@ -12,6 +12,7 @@
       self.nixosModules.nvim
       self.nixosModules.fish
       self.nixosModules.thunar
+      self.nixosModules.plover
     ];
 
     boot.loader.systemd-boot.enable = true;
@@ -30,6 +31,8 @@
       extraGroups = [
         "wheel"
         "networkmanager"
+        "kvm"
+        "adbusers"
       ];
       shell = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
     };
@@ -60,6 +63,8 @@
       vesktop
       hyprpicker
       wl-clipboard
+      google-chrome
+      android-tools
 
       # node + package managers
       nodejs_22

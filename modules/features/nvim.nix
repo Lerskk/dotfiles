@@ -32,6 +32,7 @@
         nixd
         typescript-language-server
         prisma-language-server
+        tailwindcss-language-server
 
         tree-sitter
         clang
@@ -90,6 +91,9 @@
           telescope-nvim
           vim-matchup
           nvim-ts-autotag
+          neo-tree-nvim
+          nui-nvim
+          nvim-web-devicons
           trouble-nvim
           vimtex
         ]);

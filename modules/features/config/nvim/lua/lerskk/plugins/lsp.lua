@@ -52,12 +52,54 @@ vim.lsp.config("prisma", {
   },
 })
 
+vim.lsp.config("tailwindcss", {
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          { "class(?:Name)?\\s*[:=]\\s*[\"'`]([^\"'`]*).*[\"'`]", "([^\\s]*)\"'" },
+          { "class(?:Name)?\\s*[:=]\\s*\\{([^}]*)\\}", "([^\\s]*)\"'" },
+        },
+      },
+      includeLanguages = {
+        typescript = "typescriptreact",
+        typescriptreact = "typescriptreact",
+        javascript = "javascriptreact",
+        javascriptreact = "javascriptreact",
+        vue = "html",
+        svelte = "html",
+        astro = "html",
+      },
+    },
+  },
+  filetypes = {
+    "html",
+    "css",
+    "scss",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte",
+    "astro",
+    "twig",
+    "liquid",
+    "php",
+    "erb",
+    "haml",
+    "slim",
+    "pug",
+  },
+})
+
 vim.lsp.enable("texlab")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("nixd")
 vim.lsp.enable("ltex_plus")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("prisma")
+vim.lsp.enable("tailwindcss")
 
 local map = vim.keymap.set
 
@@ -75,6 +117,8 @@ map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "]d", vim.diagnostic.goto_next)
 
 require("blink.cmp").setup({
+  signature = { enabled = true },
+
   keymap = {
     preset = "default",
 
@@ -119,5 +163,3 @@ require("blink.cmp").setup({
     implementation = "prefer_rust_with_warning",
   },
 })
-
-
